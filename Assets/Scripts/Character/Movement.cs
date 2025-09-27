@@ -59,5 +59,19 @@ namespace RPG.Character
         {
             _agent.ResetPath();
         }
+
+        public bool HasReachedDestination()
+        {
+            if (_agent.pathPending) return false;
+            
+            if (_agent.remainingDistance > _agent.stoppingDistance) return false;
+            
+            return !_agent.hasPath && _agent.velocity.sqrMagnitude == 0f;
+        }
+
+        public void MoveAgentByOffset(Vector3 offset)
+        {
+            _agent.Move(offset);
+        }
     }
 }

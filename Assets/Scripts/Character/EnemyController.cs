@@ -11,6 +11,7 @@ namespace RPG.Character
         public readonly AIReturnState ReturnState = new();
         public readonly AIChaseState ChaseState = new();
         public readonly AIAttackState AttackState = new();
+        public readonly AIPatrolState PatrolState = new();
 
         public float chaseRange = 2.5f;
         public float attackRange = 0.75f;
@@ -19,6 +20,7 @@ namespace RPG.Character
         [NonSerialized] public Movement MovementCmp; // Cmp = Component
         [NonSerialized] public float DistanceFromPlayer;
         [NonSerialized] public Vector3 OriginalPosition;
+        [NonSerialized] public Patrol PatrolCmp;
         
         private void Awake()
         {
@@ -26,6 +28,7 @@ namespace RPG.Character
             
             Player = GameObject.FindWithTag(Constants.PlayerTag);
             MovementCmp = GetComponent<Movement>();
+            PatrolCmp = GetComponent<Patrol>();
             
             OriginalPosition = transform.position;
         }
