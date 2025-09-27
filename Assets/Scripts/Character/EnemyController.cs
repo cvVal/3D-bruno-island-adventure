@@ -7,12 +7,15 @@ namespace RPG.Character
     public class EnemyController : MonoBehaviour
     {
         private AIBaseState _currentState;
+        private Health _healthCmp;
+        private Combat _combatCmp;
 
         public readonly AIReturnState ReturnState = new();
         public readonly AIChaseState ChaseState = new();
         public readonly AIAttackState AttackState = new();
         public readonly AIPatrolState PatrolState = new();
 
+        public CharacterStatsSo stats;
         public float chaseRange = 2.5f;
         public float attackRange = 0.75f;
 
@@ -24,11 +27,15 @@ namespace RPG.Character
         
         private void Awake()
         {
+            if (stats is null) Debug.LogWarning("${name} does not have stats assigned.", this);
+            
             _currentState = ReturnState;
             
             Player = GameObject.FindWithTag(Constants.PlayerTag);
             MovementCmp = GetComponent<Movement>();
             PatrolCmp = GetComponent<Patrol>();
+            _healthCmp = GetComponent<Health>();
+            _combatCmp = GetComponent<Combat>();
             
             OriginalPosition = transform.position;
         }
@@ -36,6 +43,9 @@ namespace RPG.Character
         private void Start()
         {
             _currentState.EnterState(this);
+            
+            _healthCmp.HealthPoints = stats.health;
+            _combatCmp.Damage = stats.damage;
         }
 
         private void Update()

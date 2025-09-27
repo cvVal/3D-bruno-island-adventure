@@ -11,6 +11,9 @@ GameObject:
   - component: {fileID: 7050880433323368087}
   - component: {fileID: 8414250783052816693}
   - component: {fileID: 1478582811620121403}
+  - component: {fileID: 3336546117919768079}
+  - component: {fileID: 4471167414470048460}
+  - component: {fileID: 7443881503611176783}
   m_Layer: 0
   m_Name: 'Player '
   m_TagString: Player
@@ -69,6 +72,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67026720ef5264b208966c066221ec86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RPG.Character.Movement
+--- !u!114 &3336546117919768079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 376659746383460878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b750c1a31846467fb1eaece39a49650, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RPG.Character.PlayerController
+  stats: {fileID: 11400000, guid: 7cd66cd09cd7d405ea9ceb8942799770, type: 2}
+--- !u!114 &4471167414470048460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 376659746383460878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90db8ca5deb24444e96f59d098bb132f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RPG.Character.Health
+--- !u!114 &7443881503611176783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 376659746383460878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a98fdd8df1e6484da6f3a1454e96350, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RPG.Character.Combat
 --- !u!1 &5279297734325819901
 GameObject:
   m_ObjectHideFlags: 0

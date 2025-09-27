@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 4099093838708540940}
   - component: {fileID: 6360645328569941160}
   - component: {fileID: 5461102073354829119}
+  - component: {fileID: 4505663100349549909}
+  - component: {fileID: 8534512614206245030}
   m_Layer: 0
   m_Name: Enemy Base
   m_TagString: Untagged
@@ -80,3 +82,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fedf716e0c2546c0b96c4b35d001397, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RPG.Character.EnemyController
+  stats: {fileID: 0}
+  chaseRange: 2.5
+  attackRange: 0.75
+--- !u!114 &4505663100349549909
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9069829342290339360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90db8ca5deb24444e96f59d098bb132f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RPG.Character.Health
+--- !u!114 &8534512614206245030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9069829342290339360}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a98fdd8df1e6484da6f3a1454e96350, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RPG.Character.Combat

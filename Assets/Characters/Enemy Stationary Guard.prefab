@@ -131,6 +131,10 @@ PrefabInstance:
       propertyPath: m_BaseOffset
       value: 0.25
       objectReference: {fileID: 0}
+    - target: {fileID: 5461102073354829119, guid: 3d21998b7ae284001a53b18c31b79c67, type: 3}
+      propertyPath: stats
+      value: 
+      objectReference: {fileID: 11400000, guid: 1f45cb5da57aa46868ba5cecd9eb091c, type: 2}
     - target: {fileID: 7173262486001823057, guid: 3d21998b7ae284001a53b18c31b79c67, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
