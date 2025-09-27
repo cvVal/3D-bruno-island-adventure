@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
@@ -18,22 +17,36 @@ namespace RPG.Character
         private void Update()
         {
             MovePlayer();
+            Rotate();
         }
 
         private void MovePlayer()
         {
-            if (_agent.isOnNavMesh)
-            {
-                _agent.Move(_movementVector);
-            }
+            if (!_agent.isOnNavMesh) return;
+
+            var offset = _movementVector * (Time.deltaTime * _agent.speed);
+            _agent.Move(offset);
+        }
+
+        private void Rotate()
+        {
+            if (_movementVector == Vector3.zero) return;
+
+            var startRotation = transform.rotation;
+            var endRotation = Quaternion.LookRotation(_movementVector);
+
+            // Lerp = Linear interpolation
+            transform.rotation = Quaternion.Lerp(
+                startRotation,
+                endRotation,
+                Time.deltaTime * _agent.angularSpeed
+            );
         }
 
         public void HandleMove(InputAction.CallbackContext context)
         {
             var input = context.ReadValue<Vector2>();
             _movementVector = new Vector3(input.x, 0, input.y);
-            
-            print(_movementVector);
         }
     }
 }
