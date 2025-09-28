@@ -10,13 +10,17 @@ namespace RPG.Character
     public class Movement : MonoBehaviour
     {
         private NavMeshAgent _agentCmp;
+        private Animator _animatorCmp;
+        
         private Vector3 _movementVector;
 
         [NonSerialized] public Vector3 OriginalForwardVector;
+        [NonSerialized] public bool IsMoving;
 
         private void Awake()
         {
             _agentCmp = GetComponent<NavMeshAgent>();
+            _animatorCmp = GetComponentInChildren<Animator>();
 
             OriginalForwardVector = transform.forward;
         }
@@ -29,6 +33,7 @@ namespace RPG.Character
         private void Update()
         {
             MovePlayer();
+            MovementAnimator();
 
             if (CompareTag(Constants.PlayerTag)) Rotate(_movementVector);
         }
@@ -58,6 +63,9 @@ namespace RPG.Character
 
         public void HandleMove(InputAction.CallbackContext context)
         {
+            if (context.performed) IsMoving = true;
+            if (context.canceled) IsMoving = false;
+            
             var input = context.ReadValue<Vector2>();
             _movementVector = new Vector3(input.x, 0, input.y);
         }
@@ -89,6 +97,25 @@ namespace RPG.Character
         public void UpdateAgentSpeed(float newSpeed)
         {
             _agentCmp.speed = newSpeed;
+        }
+
+        private void MovementAnimator()
+        {
+            var speed = _animatorCmp.GetFloat(Constants.SpeedAnimatorParam);
+            var smoothening = Time.deltaTime * _agentCmp.acceleration;
+
+            if (IsMoving)
+            {
+                speed += smoothening;
+            }
+            else
+            {
+                speed -= smoothening;
+            }
+
+            speed = Mathf.Clamp01(speed);
+
+            _animatorCmp.SetFloat(Constants.SpeedAnimatorParam, speed);
         }
     }
 }

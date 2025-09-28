@@ -1,3 +1,4 @@
+using RPG.Utility;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -5,8 +6,6 @@ namespace RPG.Quest
 {
     public class TreasureChest : MonoBehaviour
     {
-        private static readonly int IsShaking = Animator.StringToHash("isShaking");
-        
         private bool _isInteractable;
         private bool _hasBeenOpened;
         
@@ -26,7 +25,7 @@ namespace RPG.Quest
         {
             if (!_isInteractable || _hasBeenOpened) return;
 
-            animatorCmp.SetBool(IsShaking, false);
+            animatorCmp.SetBool(Constants.IsShakingAnimatorParam, false);
             _hasBeenOpened = true;
         }
     }
