@@ -22,6 +22,9 @@ namespace RPG.Character
             }
 
             enemy.MovementCmp.MoveAgentByDestination(enemy.Player.transform.position);
+            
+            var playerDirection = enemy.Player.transform.position - enemy.transform.position;
+            enemy.MovementCmp.Rotate(playerDirection);
         }
     }
 }

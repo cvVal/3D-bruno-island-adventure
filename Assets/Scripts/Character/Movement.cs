@@ -1,3 +1,5 @@
+using System;
+using RPG.Utility;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.InputSystem;
@@ -10,15 +12,25 @@ namespace RPG.Character
         private NavMeshAgent _agent;
         private Vector3 _movementVector;
 
+        [NonSerialized] public Vector3 OriginalForwardVector;
+
         private void Awake()
         {
             _agent = GetComponent<NavMeshAgent>();
+
+            OriginalForwardVector = transform.forward;
+        }
+
+        private void Start()
+        {
+            _agent.updateRotation = false;
         }
 
         private void Update()
         {
             MovePlayer();
-            Rotate();
+
+            if (CompareTag(Constants.PlayerTag)) Rotate(_movementVector);
         }
 
         private void MovePlayer()
@@ -29,12 +41,12 @@ namespace RPG.Character
             _agent.Move(offset);
         }
 
-        private void Rotate()
+        public void Rotate(Vector3 newForwardVector)
         {
-            if (_movementVector == Vector3.zero) return;
+            if (newForwardVector == Vector3.zero) return;
 
             var startRotation = transform.rotation;
-            var endRotation = Quaternion.LookRotation(_movementVector);
+            var endRotation = Quaternion.LookRotation(newForwardVector);
 
             // Lerp = Linear interpolation
             transform.rotation = Quaternion.Lerp(
@@ -54,7 +66,7 @@ namespace RPG.Character
         {
             _agent.SetDestination(destination);
         }
-        
+
         public void StopMovingAgent()
         {
             _agent.ResetPath();
@@ -63,9 +75,9 @@ namespace RPG.Character
         public bool HasReachedDestination()
         {
             if (_agent.pathPending) return false;
-            
+
             if (_agent.remainingDistance > _agent.stoppingDistance) return false;
-            
+
             return !_agent.hasPath && _agent.velocity.sqrMagnitude == 0f;
         }
 

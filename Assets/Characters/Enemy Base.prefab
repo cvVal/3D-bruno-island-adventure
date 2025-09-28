@@ -84,7 +84,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RPG.Character.EnemyController
   stats: {fileID: 0}
   chaseRange: 2.5
-  attackRange: 0.75
+  attackRange: 0.9
 --- !u!114 &4505663100349549909
 MonoBehaviour:
   m_ObjectHideFlags: 0

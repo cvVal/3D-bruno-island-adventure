@@ -35,6 +35,26 @@ namespace RPG.Character
                     enemy.SwitchState(enemy.PatrolState);
                     return;
                 }
+                
+                // For non patrolling enemies, just stop moving and face original direction
+                enemy.MovementCmp.Rotate(enemy.MovementCmp.OriginalForwardVector);
+            }
+            else
+            {
+                if (enemy.PatrolCmp is not null)
+                {
+                    var newForwardVector = _targetPosition - enemy.transform.position;
+                    newForwardVector.y = 0;
+                    
+                    enemy.MovementCmp.Rotate(newForwardVector);
+                }
+                else
+                {
+                    var newForwardVector = enemy.OriginalPosition - enemy.transform.position;
+                    newForwardVector.y = 0;
+                    
+                    enemy.MovementCmp.Rotate(newForwardVector);
+                }
             }
         }
     }

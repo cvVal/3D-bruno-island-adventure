@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RPG.Character.CharacterStatsSo
   health: 100
   damage: 10
-  walkSpeed: 1
-  runSpeed: 1.5
+  walkSpeed: 3
+  runSpeed: 3

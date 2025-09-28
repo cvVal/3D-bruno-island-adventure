@@ -67,5 +67,14 @@ namespace RPG.Character
             walkTime = 0f;
             isWalking = true;
         }
+
+        public Vector3 GetFartherOutPosition()
+        {
+            var tempSplinePosition = _splinePosition + 0.02f;
+            
+            if (tempSplinePosition >= 1f) tempSplinePosition -= 1f;
+
+            return _splineCmp.EvaluatePosition(tempSplinePosition);
+        }
     }
 }

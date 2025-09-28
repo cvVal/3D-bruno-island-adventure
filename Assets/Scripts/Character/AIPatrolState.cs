@@ -22,6 +22,12 @@ namespace RPG.Character
             var offset = newPosition - currentPosition;
             
             enemy.MovementCmp.MoveAgentByOffset(offset);
+            
+            var fartherOutPosition = enemy.PatrolCmp.GetFartherOutPosition();
+            var newForwardVector = fartherOutPosition - currentPosition;
+            newForwardVector.y = 0;
+            
+            enemy.MovementCmp.Rotate(newForwardVector);
         }
     }
 }
