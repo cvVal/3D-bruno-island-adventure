@@ -9,21 +9,21 @@ namespace RPG.Character
     [RequireComponent(typeof(NavMeshAgent))]
     public class Movement : MonoBehaviour
     {
-        private NavMeshAgent _agent;
+        private NavMeshAgent _agentCmp;
         private Vector3 _movementVector;
 
         [NonSerialized] public Vector3 OriginalForwardVector;
 
         private void Awake()
         {
-            _agent = GetComponent<NavMeshAgent>();
+            _agentCmp = GetComponent<NavMeshAgent>();
 
             OriginalForwardVector = transform.forward;
         }
 
         private void Start()
         {
-            _agent.updateRotation = false;
+            _agentCmp.updateRotation = false;
         }
 
         private void Update()
@@ -35,10 +35,10 @@ namespace RPG.Character
 
         private void MovePlayer()
         {
-            if (!_agent.isOnNavMesh) return;
+            if (!_agentCmp.isOnNavMesh) return;
 
-            var offset = _movementVector * (Time.deltaTime * _agent.speed);
-            _agent.Move(offset);
+            var offset = _movementVector * (Time.deltaTime * _agentCmp.speed);
+            MoveAgentByOffset(offset);
         }
 
         public void Rotate(Vector3 newForwardVector)
@@ -52,7 +52,7 @@ namespace RPG.Character
             transform.rotation = Quaternion.Lerp(
                 startRotation,
                 endRotation,
-                Time.deltaTime * _agent.angularSpeed
+                Time.deltaTime * _agentCmp.angularSpeed
             );
         }
 
@@ -64,31 +64,31 @@ namespace RPG.Character
 
         public void MoveAgentByDestination(Vector3 destination)
         {
-            _agent.SetDestination(destination);
+            _agentCmp.SetDestination(destination);
         }
 
         public void StopMovingAgent()
         {
-            _agent.ResetPath();
+            _agentCmp.ResetPath();
         }
 
         public bool HasReachedDestination()
         {
-            if (_agent.pathPending) return false;
+            if (_agentCmp.pathPending) return false;
 
-            if (_agent.remainingDistance > _agent.stoppingDistance) return false;
+            if (_agentCmp.remainingDistance > _agentCmp.stoppingDistance) return false;
 
-            return !_agent.hasPath && _agent.velocity.sqrMagnitude == 0f;
+            return !_agentCmp.hasPath && _agentCmp.velocity.sqrMagnitude == 0f;
         }
 
         public void MoveAgentByOffset(Vector3 offset)
         {
-            _agent.Move(offset);
+            _agentCmp.Move(offset);
         }
 
         public void UpdateAgentSpeed(float newSpeed)
         {
-            _agent.speed = newSpeed;
+            _agentCmp.speed = newSpeed;
         }
     }
 }

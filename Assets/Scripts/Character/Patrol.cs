@@ -16,9 +16,9 @@ namespace RPG.Character
         private float _splinePosition;
         private float _splineLength;
         private float _lengthWalked;
-        private float walkTime;
-        private float pauseTime;
-        private bool isWalking = true;
+        private float _walkTime;
+        private float _pauseTime;
+        private bool _isWalking = true;
 
         private void Awake()
         {
@@ -41,15 +41,15 @@ namespace RPG.Character
 
         public void CalculateNextPosition()
         {
-            walkTime += Time.deltaTime;
+            _walkTime += Time.deltaTime;
             
-            if (walkTime > walkDuration) isWalking = false;
+            if (_walkTime > walkDuration) _isWalking = false;
 
-            if (!isWalking)
+            if (!_isWalking)
             {
-                pauseTime += Time.deltaTime;
+                _pauseTime += Time.deltaTime;
                 
-                if (pauseTime < pauseDuration) return;
+                if (_pauseTime < pauseDuration) return;
                 
                 ResetTimers();
             }
@@ -63,9 +63,9 @@ namespace RPG.Character
 
         public void ResetTimers()
         {
-            pauseTime = 0f;
-            walkTime = 0f;
-            isWalking = true;
+            _pauseTime = 0f;
+            _walkTime = 0f;
+            _isWalking = true;
         }
 
         public Vector3 GetFartherOutPosition()

@@ -5,6 +5,7 @@ namespace RPG.Character
     public class AIReturnState : AIBaseState
     {
         private Vector3 _targetPosition;
+        
         public override void EnterState(EnemyController enemy)
         {
             enemy.MovementCmp.UpdateAgentSpeed(enemy.stats.walkSpeed);
