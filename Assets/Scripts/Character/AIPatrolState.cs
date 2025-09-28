@@ -15,6 +15,8 @@ namespace RPG.Character
                 return;
             }
             
+            var oldPosition = enemy.PatrolCmp.GetNextPosition();
+            
             enemy.PatrolCmp.CalculateNextPosition();
             
             var currentPosition = enemy.transform.position;
@@ -28,6 +30,11 @@ namespace RPG.Character
             newForwardVector.y = 0;
             
             enemy.MovementCmp.Rotate(newForwardVector);
+            
+            if (oldPosition == newPosition)
+            {
+                enemy.MovementCmp.IsMoving = false;
+            }
         }
     }
 }

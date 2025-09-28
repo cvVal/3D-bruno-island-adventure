@@ -13,6 +13,7 @@ namespace RPG.Character
         private Animator _animatorCmp;
         
         private Vector3 _movementVector;
+        private bool _clampAnimatorSpeedAgain = true;
 
         [NonSerialized] public Vector3 OriginalForwardVector;
         [NonSerialized] public bool IsMoving;
@@ -43,7 +44,7 @@ namespace RPG.Character
             if (!_agentCmp.isOnNavMesh) return;
 
             var offset = _movementVector * (Time.deltaTime * _agentCmp.speed);
-            MoveAgentByOffset(offset);
+            _agentCmp.Move(offset);
         }
 
         public void Rotate(Vector3 newForwardVector)
@@ -73,6 +74,7 @@ namespace RPG.Character
         public void MoveAgentByDestination(Vector3 destination)
         {
             _agentCmp.SetDestination(destination);
+            IsMoving = true;
         }
 
         public void StopMovingAgent()
@@ -92,11 +94,13 @@ namespace RPG.Character
         public void MoveAgentByOffset(Vector3 offset)
         {
             _agentCmp.Move(offset);
+            IsMoving = true;
         }
 
-        public void UpdateAgentSpeed(float newSpeed)
+        public void UpdateAgentSpeed(float newSpeed, bool shouldClampSpeed)
         {
             _agentCmp.speed = newSpeed;
+            _clampAnimatorSpeedAgain = shouldClampSpeed;
         }
 
         private void MovementAnimator()
@@ -114,6 +118,11 @@ namespace RPG.Character
             }
 
             speed = Mathf.Clamp01(speed);
+
+            if (CompareTag(Constants.EnemyTag) && _clampAnimatorSpeedAgain)
+            {
+                speed = Mathf.Clamp(speed, 0f, 0.5f);
+            }
 
             _animatorCmp.SetFloat(Constants.SpeedAnimatorParam, speed);
         }

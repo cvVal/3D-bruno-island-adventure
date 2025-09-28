@@ -8,7 +8,7 @@ namespace RPG.Character
         
         public override void EnterState(EnemyController enemy)
         {
-            enemy.MovementCmp.UpdateAgentSpeed(enemy.stats.walkSpeed);
+            enemy.MovementCmp.UpdateAgentSpeed(enemy.stats.walkSpeed, true);
             
             if (enemy.PatrolCmp is not null)
             {
@@ -39,6 +39,7 @@ namespace RPG.Character
                 
                 // For non patrolling enemies, just stop moving and face original direction
                 enemy.MovementCmp.Rotate(enemy.MovementCmp.OriginalForwardVector);
+                enemy.MovementCmp.IsMoving = false;
             }
             else
             {
