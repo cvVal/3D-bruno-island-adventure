@@ -80,6 +80,7 @@ namespace RPG.Character
         public void StopMovingAgent()
         {
             _agentCmp.ResetPath();
+            IsMoving = false;
         }
 
         public bool HasReachedDestination()
