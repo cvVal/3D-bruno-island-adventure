@@ -22,7 +22,7 @@ namespace RPG.Character
 
         private void Awake()
         {
-            if (splineGameObject is null)
+            if (!splineGameObject)
             {
                 Debug.LogWarning($"{name} does not have a Spline.", this);
                 return;

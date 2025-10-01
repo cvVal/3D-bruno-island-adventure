@@ -8,12 +8,12 @@ namespace RPG.Character
     {
         private AIBaseState _currentState;
         private Health _healthCmp;
-        private Combat _combatCmp;
 
         public readonly AIReturnState ReturnState = new();
         public readonly AIChaseState ChaseState = new();
         public readonly AIAttackState AttackState = new();
         public readonly AIPatrolState PatrolState = new();
+        public readonly AIDefeatedState DefeatedState = new();
 
         public CharacterStatsSo stats;
         public float chaseRange = 2.5f;
@@ -24,10 +24,11 @@ namespace RPG.Character
         [NonSerialized] public float DistanceFromPlayer;
         [NonSerialized] public Vector3 OriginalPosition;
         [NonSerialized] public Patrol PatrolCmp;
+        [NonSerialized] public Combat CombatCmp;
         
         private void Awake()
         {
-            if (stats is null) Debug.LogWarning("${name} does not have stats assigned.", this);
+            if (!stats) Debug.LogWarning("${name} does not have stats assigned.", this);
             
             _currentState = ReturnState;
             
@@ -35,17 +36,27 @@ namespace RPG.Character
             MovementCmp = GetComponent<Movement>();
             PatrolCmp = GetComponent<Patrol>();
             _healthCmp = GetComponent<Health>();
-            _combatCmp = GetComponent<Combat>();
+            CombatCmp = GetComponent<Combat>();
             
             OriginalPosition = transform.position;
         }
+
+        private void OnEnable()
+        {
+            _healthCmp.OnStartDefeated += HandleStartDefeated;
+        }
         
+        private void OnDisable()
+        {
+            _healthCmp.OnStartDefeated -= HandleStartDefeated;
+        }
+
         private void Start()
         {
             _currentState.EnterState(this);
             
             _healthCmp.HealthPoints = stats.health;
-            _combatCmp.Damage = stats.damage;
+            CombatCmp.Damage = stats.damage;
         }
 
         private void Update()
@@ -62,7 +73,7 @@ namespace RPG.Character
         
         private void CalculateDistanceFromPlayer()
         {
-            if (Player is null) return;
+            if (!Player) return;
             
             var enemyPosition = transform.position;
             var playerPosition = Player.transform.position;
@@ -73,6 +84,12 @@ namespace RPG.Character
         {
             Gizmos.color = Color.blue;
             Gizmos.DrawWireSphere(transform.position, chaseRange);
+        }
+        
+        private void HandleStartDefeated()
+        {
+            SwitchState(DefeatedState);
+            _currentState.EnterState(this);
         }
     }
 }

@@ -44,7 +44,7 @@ namespace RPG.Character
             StartAttack();
         }
 
-        private void StartAttack()
+        public void StartAttack()
         {
             if (IsAttacking) return;
 
@@ -79,7 +79,7 @@ namespace RPG.Character
                 if (CompareTag(target.transform.tag)) continue;
 
                 var healthCmp = target.transform.gameObject.GetComponent<Health>();
-                if (healthCmp is null) continue;
+                if (!healthCmp) continue;
 
                 // already damaged this swing
                 if (_hitTargets.Contains(healthCmp)) continue;
@@ -87,6 +87,11 @@ namespace RPG.Character
                 healthCmp.TakeDamage(Damage);
                 _hitTargets.Add(healthCmp);
             }
+        }
+
+        public void CancelAttack()
+        {
+            _animatorCmp.ResetTrigger(Constants.AttackAnimatorParam);
         }
     }
 }

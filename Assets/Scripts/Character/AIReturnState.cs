@@ -10,7 +10,7 @@ namespace RPG.Character
         {
             enemy.MovementCmp.UpdateAgentSpeed(enemy.stats.walkSpeed, true);
             
-            if (enemy.PatrolCmp is not null)
+            if (enemy.PatrolCmp)
             {
                 _targetPosition = enemy.PatrolCmp.GetNextPosition();
                 enemy.MovementCmp.MoveAgentByDestination(_targetPosition);
@@ -31,7 +31,7 @@ namespace RPG.Character
 
             if (enemy.MovementCmp.HasReachedDestination())
             {
-                if (enemy.PatrolCmp is not null)
+                if (enemy.PatrolCmp)
                 {
                     enemy.SwitchState(enemy.PatrolState);
                     return;
@@ -43,7 +43,7 @@ namespace RPG.Character
             }
             else
             {
-                if (enemy.PatrolCmp is not null)
+                if (enemy.PatrolCmp)
                 {
                     var newForwardVector = _targetPosition - enemy.transform.position;
                     newForwardVector.y = 0;

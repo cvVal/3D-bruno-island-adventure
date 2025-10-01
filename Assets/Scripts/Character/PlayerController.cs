@@ -11,7 +11,7 @@ namespace RPG.Character
 
         private void Awake()
         {
-            if (stats is null) Debug.LogWarning("${name} does not have stats assigned.", this);
+            if (!stats) Debug.LogWarning("${name} does not have stats assigned.", this);
 
             _healthCmp = GetComponent<Health>();
             _combatCmp = GetComponent<Combat>();

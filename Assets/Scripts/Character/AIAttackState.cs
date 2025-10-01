@@ -1,5 +1,3 @@
-using UnityEngine;
-
 namespace RPG.Character
 {
     public class AIAttackState : AIBaseState
@@ -11,13 +9,21 @@ namespace RPG.Character
 
         public override void UpdateState(EnemyController enemy)
         {
-            if (enemy.DistanceFromPlayer > enemy.attackRange)
+            if (!enemy.Player)
             {
-                enemy.SwitchState(enemy.ChaseState);
+                enemy.CombatCmp.CancelAttack();
                 return;
             }
             
-            Debug.Log("Attack!");
+            if (enemy.DistanceFromPlayer > enemy.attackRange)
+            {
+                enemy.CombatCmp.CancelAttack();
+                enemy.SwitchState(enemy.ChaseState);
+                return;
+            }
+
+            enemy.CombatCmp.StartAttack();
+            enemy.transform.LookAt(enemy.Player.transform);
         }
     }
 }
