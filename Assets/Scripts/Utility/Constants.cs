@@ -4,6 +4,7 @@ namespace RPG.Utility
     {
         public const string PlayerTag = "Player";
         public const string EnemyTag = "Enemy";
+        public const string CameraTag = "MainCamera";
         
         public const string SpeedAnimatorParam = "speed";
         public const string IsShakingAnimatorParam = "isShaking";

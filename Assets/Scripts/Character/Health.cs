@@ -4,6 +4,7 @@ using RPG.Utility;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 namespace RPG.Character
 {
@@ -19,11 +20,14 @@ namespace RPG.Character
         public event UnityAction OnStartDefeated = () => { };
         
         [NonSerialized] public float HealthPoints;
+        [NonSerialized] public Slider SliderCmp;
+        
 
         private void Awake()
         {
             _animatorCmp = GetComponentInChildren<Animator>();
             _bubbleEventCmp = GetComponentInChildren<BubbleEvent>();
+            SliderCmp = GetComponentInChildren<Slider>();
         }
 
         private void OnEnable()
@@ -51,6 +55,11 @@ namespace RPG.Character
             if (CompareTag(Constants.PlayerTag))
             {
                 EventManager.RaiseChangePlayerHealth(HealthPoints);
+            }
+
+            if (SliderCmp)
+            {
+                SliderCmp.value = HealthPoints;
             }
 
             if (HealthPoints != 0) return;

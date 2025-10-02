@@ -57,6 +57,10 @@ namespace RPG.Character
             
             _healthCmp.HealthPoints = stats.health;
             CombatCmp.Damage = stats.damage;
+
+            if (!_healthCmp.SliderCmp) return;
+            _healthCmp.SliderCmp.maxValue = stats.health;
+            _healthCmp.SliderCmp.value = stats.health;
         }
 
         private void Update()
