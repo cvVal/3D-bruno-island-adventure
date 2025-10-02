@@ -1,6 +1,6 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI/Global%20Stylesheet.uss?fileID=7433441132597879392&amp;guid=666cede5963e147d784ab9350645dde8&amp;type=3#Global Stylesheet" />
-    <ui:VisualElement name="main-menu-container" class="center">
+    <ui:VisualElement name="main-menu-container" class="center" style="display: none;">
         <ui:VisualElement name="box" class="primary-container" style="flex-grow: 0; align-self: center;">
             <ui:Label text="Bruno&apos;s Island Adventure" class="base-text" style="font-size: 80px; -unity-text-align: upper-center;" />
             <ui:VisualElement name="buttons" style="margin-top: 20px; align-items: center; position: absolute; left: 0; bottom: -50px; width: 100%; flex-direction: row; justify-content: center;">
@@ -9,7 +9,7 @@
             <ui:VisualElement name="image" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Game%20Assets/Sprites/Bombs.png?fileID=2800000&amp;guid=4420e8d6e00706f4f84dad51b2169cb1&amp;type=3#Bombs&quot;); width: 332px; height: 174px; position: absolute; top: -150px; left: 25%;" />
         </ui:VisualElement>
     </ui:VisualElement>
-    <ui:VisualElement name="player-info-container" style="flex-grow: 0; position: absolute; top: 50px; left: 50px; flex-direction: row;">
+    <ui:VisualElement name="player-info-container" style="flex-grow: 0; position: absolute; top: 50px; left: 50px; flex-direction: row; display: none;">
         <ui:VisualElement class="stat-container">
             <ui:Label text="Health" class="stat-name" />
             <ui:Label text="000" name="health-label" class="stat-value" />

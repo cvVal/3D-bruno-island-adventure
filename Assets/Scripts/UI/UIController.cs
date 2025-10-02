@@ -1,6 +1,9 @@
 using System.Collections.Generic;
+using System.Globalization;
+using RPG.Core;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 namespace RPG.UI
@@ -13,6 +16,9 @@ namespace RPG.UI
         public UIMainMenuState MainMenuState;
         public VisualElement RootElement;
         public List<Button> Buttons;
+        public VisualElement MainMenuContainer;
+        public VisualElement PlayerHUDContainer;
+        public Label HealthLabel;
 
         public int currentSelection;
 
@@ -24,12 +30,35 @@ namespace RPG.UI
             RootElement = _uiDocumentCmp.rootVisualElement;
 
             Buttons = new List<Button>();
+
+            MainMenuContainer = RootElement.Q<VisualElement>("main-menu-container");
+            PlayerHUDContainer = RootElement.Q<VisualElement>("player-info-container");
+            HealthLabel = PlayerHUDContainer.Q<Label>("health-label");
         }
 
         private void Start()
         {
-            CurrentState = MainMenuState;
-            CurrentState.EnterState();
+            var sceneIndex = SceneManager.GetActiveScene().buildIndex;
+
+            if (sceneIndex == 0)
+            {
+                CurrentState = MainMenuState;
+                CurrentState.EnterState();
+            }
+            else
+            {
+                PlayerHUDContainer.style.display = DisplayStyle.Flex;
+            }
+        }
+
+        private void OnEnable()
+        {
+            EventManager.OnChangePlayerHealth += HandleChangePlayerHealth;
+        }
+
+        private void OnDisable()
+        {
+            EventManager.OnChangePlayerHealth -= HandleChangePlayerHealth;
         }
 
         public void HandleInteract(InputAction.CallbackContext context)
@@ -49,6 +78,11 @@ namespace RPG.UI
             currentSelection += input.x > 0 ? 1 : -1;
             currentSelection = Mathf.Clamp(currentSelection, 0, Buttons.Count - 1);
             Buttons[currentSelection].AddToClassList("active");
+        }
+
+        private void HandleChangePlayerHealth(float newHealthPoints)
+        {
+            HealthLabel.text = newHealthPoints.ToString(CultureInfo.InvariantCulture);
         }
     }
 }

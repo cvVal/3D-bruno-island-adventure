@@ -11,7 +11,9 @@ namespace RPG.UI
 
         public override void EnterState()
         {
-            UIController.Buttons = UIController.RootElement.Query<Button>(null, "menu-button").ToList();
+            UIController.MainMenuContainer.style.display = DisplayStyle.Flex;
+            
+            UIController.Buttons = UIController.MainMenuContainer.Query<Button>(null, "menu-button").ToList();
 
             UIController.Buttons[0].AddToClassList("active");
         }

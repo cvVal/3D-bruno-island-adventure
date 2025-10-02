@@ -1,4 +1,5 @@
 using System;
+using RPG.Core;
 using RPG.Utility;
 using UnityEngine;
 using UnityEngine.Events;
@@ -34,6 +35,11 @@ namespace RPG.Character
         public void TakeDamage(float damageAmount)
         {
             HealthPoints = Mathf.Max(HealthPoints - damageAmount, 0);
+            
+            if (CompareTag(Constants.PlayerTag))
+            {
+                EventManager.RaiseChangePlayerHealth(HealthPoints);
+            }
 
             if (HealthPoints != 0) return;
 
