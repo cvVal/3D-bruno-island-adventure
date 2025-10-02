@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3882716327565235281}
   m_Layer: 0
   m_Name: Game Manager
-  m_TagString: Untagged
+  m_TagString: GameManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -56,7 +56,39 @@ MonoBehaviour:
   m_ControlsChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-  m_ActionEvents: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 12f24898-5460-44cc-8886-5ff5e987671f
+    m_ActionName: 'Gameplay/Move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 050e389f-d392-40eb-b179-12728888a60a
+    m_ActionName: 'Gameplay/Interact[/Keyboard/e]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0fe5303e-15a7-47b7-823f-15f453926543
+    m_ActionName: 'Gameplay/Attack[/Keyboard/space]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 76b21021-fdfb-420e-90b6-6fa86596b43f
+    m_ActionName: 'Gameplay/Heal[/Keyboard/q]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2b1063a5-86f1-4c21-a6fd-0353b732f1ed
+    m_ActionName: 'Gameplay/Pause[/Keyboard/escape]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 8090772c-3df1-4e06-a049-6f794888ca5c
+    m_ActionName: 'UI/Navigate[/Keyboard/a,/Keyboard/d]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 696431b1-4bb2-4a43-950f-e115193fbedc
+    m_ActionName: 'UI/Interact[/Keyboard/e]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c98cd4df-0b28-4843-9bde-74101b16ef0a
+    m_ActionName: 'UI/Unpause[/Keyboard/escape]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Gameplay

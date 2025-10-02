@@ -11,21 +11,22 @@ namespace RPG.UI
     public class UIController : MonoBehaviour
     {
         private UIDocument _uiDocumentCmp;
+        private UIBaseState _currentState;
+        private UIMainMenuState _mainMenuState;
+        private UIDialogueState _dialogueState;
+        private VisualElement _playerHUDContainer;
+        private Label _healthLabel;
+        private Label _potionsLabel;
 
-        public UIBaseState CurrentState;
-        public UIMainMenuState MainMenuState;
         public VisualElement RootElement;
         public List<Button> Buttons;
         public VisualElement MainMenuContainer;
-        public VisualElement PlayerHUDContainer;
-        public Label HealthLabel;
-        public Label PotionsLabel;
-
         public int currentSelection;
 
         private void Awake()
         {
-            MainMenuState = new UIMainMenuState(this);
+            _mainMenuState = new UIMainMenuState(this);
+            _dialogueState = new UIDialogueState(this);
 
             _uiDocumentCmp = GetComponent<UIDocument>();
             RootElement = _uiDocumentCmp.rootVisualElement;
@@ -33,9 +34,9 @@ namespace RPG.UI
             Buttons = new List<Button>();
 
             MainMenuContainer = RootElement.Q<VisualElement>("main-menu-container");
-            PlayerHUDContainer = RootElement.Q<VisualElement>("player-info-container");
-            HealthLabel = PlayerHUDContainer.Q<Label>("health-label");
-            PotionsLabel = PlayerHUDContainer.Q<Label>("potion-label");
+            _playerHUDContainer = RootElement.Q<VisualElement>("player-info-container");
+            _healthLabel = _playerHUDContainer.Q<Label>("health-label");
+            _potionsLabel = _playerHUDContainer.Q<Label>("potion-label");
         }
 
         private void Start()
@@ -44,12 +45,12 @@ namespace RPG.UI
 
             if (sceneIndex == 0)
             {
-                CurrentState = MainMenuState;
-                CurrentState.EnterState();
+                _currentState = _mainMenuState;
+                _currentState.EnterState();
             }
             else
             {
-                PlayerHUDContainer.style.display = DisplayStyle.Flex;
+                _playerHUDContainer.style.display = DisplayStyle.Flex;
             }
         }
 
@@ -57,19 +58,21 @@ namespace RPG.UI
         {
             EventManager.OnChangePlayerHealth += HandleChangePlayerHealth;
             EventManager.OnChangePlayerPotions += HandleChangePlayerPotions;
+            EventManager.OnInitiateDialogue += HandleInitiateDialogue;
         }
 
         private void OnDisable()
         {
             EventManager.OnChangePlayerHealth -= HandleChangePlayerHealth;
             EventManager.OnChangePlayerPotions -= HandleChangePlayerPotions;
+            EventManager.OnInitiateDialogue -= HandleInitiateDialogue;
         }
 
         public void HandleInteract(InputAction.CallbackContext context)
         {
             if (!context.performed) return;
 
-            CurrentState.SelectButton();
+            _currentState.SelectButton();
         }
 
         public void HandleNavigate(InputAction.CallbackContext context)
@@ -86,12 +89,20 @@ namespace RPG.UI
 
         private void HandleChangePlayerHealth(float newHealthPoints)
         {
-            HealthLabel.text = newHealthPoints.ToString(CultureInfo.InvariantCulture);
+            _healthLabel.text = newHealthPoints.ToString(CultureInfo.InvariantCulture);
         }
 
         private void HandleChangePlayerPotions(int newPotionCount)
         {
-            PotionsLabel.text = newPotionCount.ToString(CultureInfo.InvariantCulture);
+            _potionsLabel.text = newPotionCount.ToString(CultureInfo.InvariantCulture);
+        }
+
+        private void HandleInitiateDialogue(TextAsset inkJson)
+        {
+            _currentState = _dialogueState;
+            _currentState.EnterState();
+
+            (_currentState as UIDialogueState)?.SetStory(inkJson);
         }
     }
 }

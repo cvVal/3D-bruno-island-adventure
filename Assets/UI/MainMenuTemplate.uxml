@@ -19,4 +19,14 @@
             <ui:Label text="000" name="potion-label" class="stat-value" />
         </ui:VisualElement>
     </ui:VisualElement>
+    <ui:VisualElement name="dialogue-container" style="flex-grow: 1; position: absolute; left: 0; bottom: 0; width: 100%; padding-top: 60px; padding-right: 60px; padding-bottom: 60px; padding-left: 60px; display: none;">
+        <ui:VisualElement class="primary-container" style="flex-grow: 1;">
+            <ui:Label text="Label" name="dialogue-text" class="base-text" style="-unity-font-style: italic; font-size: 32px; color: rgb(118, 62, 62); -unity-text-outline-width: 0;" />
+            <ui:Button text="Next" name="dialogue-next-button" class="menu-button" style="display: none; position: absolute; right: 50px; bottom: -40px;" />
+            <ui:VisualElement name="choices-group" style="flex-grow: 1; position: absolute; right: 50px; bottom: -40px; flex-direction: row; display: none;">
+                <ui:Button text="No" name="no-button" class="menu-button" />
+                <ui:Button text="Yes" name="yes-button" class="menu-button" />
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
 </ui:UXML>

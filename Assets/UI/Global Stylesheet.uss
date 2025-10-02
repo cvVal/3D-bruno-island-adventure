@@ -49,6 +49,10 @@
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
     border-bottom-left-radius: 20px;
+    position: relative;
+    right: auto;
+    bottom: auto;
+    display: flex;
 }
 
 .active {
