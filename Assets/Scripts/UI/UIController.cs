@@ -19,6 +19,7 @@ namespace RPG.UI
         public VisualElement MainMenuContainer;
         public VisualElement PlayerHUDContainer;
         public Label HealthLabel;
+        public Label PotionsLabel;
 
         public int currentSelection;
 
@@ -34,6 +35,7 @@ namespace RPG.UI
             MainMenuContainer = RootElement.Q<VisualElement>("main-menu-container");
             PlayerHUDContainer = RootElement.Q<VisualElement>("player-info-container");
             HealthLabel = PlayerHUDContainer.Q<Label>("health-label");
+            PotionsLabel = PlayerHUDContainer.Q<Label>("potion-label");
         }
 
         private void Start()
@@ -54,11 +56,13 @@ namespace RPG.UI
         private void OnEnable()
         {
             EventManager.OnChangePlayerHealth += HandleChangePlayerHealth;
+            EventManager.OnChangePlayerPotions += HandleChangePlayerPotions;
         }
 
         private void OnDisable()
         {
             EventManager.OnChangePlayerHealth -= HandleChangePlayerHealth;
+            EventManager.OnChangePlayerPotions -= HandleChangePlayerPotions;
         }
 
         public void HandleInteract(InputAction.CallbackContext context)
@@ -83,6 +87,11 @@ namespace RPG.UI
         private void HandleChangePlayerHealth(float newHealthPoints)
         {
             HealthLabel.text = newHealthPoints.ToString(CultureInfo.InvariantCulture);
+        }
+
+        private void HandleChangePlayerPotions(int newPotionCount)
+        {
+            PotionsLabel.text = newPotionCount.ToString(CultureInfo.InvariantCulture);
         }
     }
 }
