@@ -1,3 +1,6 @@
+EXTERNAL VerifyQuest()
+VAR questCompleted = false
+
 -> start
 
 === start ===
@@ -5,7 +8,12 @@ A long time ago, a couple of orcs stole my candy.
 It would be nice if I could get it back. 
 By chance, have you come across my candy?
     * [Yes]
-        -> success
+        ~ VerifyQuest()
+        { questCompleted: 
+            -> success
+        - else:
+            -> failure
+        }
     * [No]
         -> noCandy
 -> END

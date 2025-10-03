@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3336546117919768079}
   - component: {fileID: 4471167414470048460}
   - component: {fileID: 7443881503611176783}
+  - component: {fileID: 3278286468856211030}
   - component: {fileID: 9216874426025262089}
   - component: {fileID: 3788138886292342638}
   m_Layer: 0
@@ -98,6 +99,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90db8ca5deb24444e96f59d098bb132f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RPG.Character.Health
+  potionCount: 1
+  healAmount: 15
 --- !u!114 &7443881503611176783
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -110,6 +113,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a98fdd8df1e6484da6f3a1454e96350, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RPG.Character.Combat
+--- !u!114 &3278286468856211030
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 376659746383460878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3937cf21202d749cd9474e93acb5f6c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RPG.Quest.Inventory
+  items: []
 --- !u!65 &9216874426025262089
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Ink.Runtime;
+using RPG.Character;
 using RPG.Utility;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -16,6 +17,7 @@ namespace RPG.UI
         private Story _currentStory;
         private PlayerInput _playerInputCmp;
         private bool _hasChoices;
+        private NpcController _npcControllerCmp;
 
         public UIDialogueState(UIController ui) : base(ui)
         {
@@ -39,9 +41,18 @@ namespace RPG.UI
             UpdateDialogue();
         }
 
-        public void SetStory(TextAsset inkJson)
+        public void SetStory(TextAsset inkJson, GameObject npc)
         {
             _currentStory = new Story(inkJson.text);
+            _currentStory.BindExternalFunction("VerifyQuest", VerifyQuest);
+            
+            _npcControllerCmp = npc.GetComponent<NpcController>();
+
+            if (_npcControllerCmp.hasQuestItem)
+            {
+                _currentStory.ChoosePathString("postCompletion");
+            }
+            
             UpdateDialogue();
         }
 
@@ -104,6 +115,11 @@ namespace RPG.UI
         {
             _dialogueContainer.style.display = DisplayStyle.None;
             _playerInputCmp.SwitchCurrentActionMap(Constants.GameplayActionMap);
+        }
+
+        private void VerifyQuest()
+        {
+            _currentStory.variablesState["questCompleted"] = _npcControllerCmp.CheckPlayerForQuestItem();
         }
     }
 }

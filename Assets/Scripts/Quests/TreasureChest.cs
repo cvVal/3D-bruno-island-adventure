@@ -1,3 +1,4 @@
+using RPG.Core;
 using RPG.Utility;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -8,6 +9,8 @@ namespace RPG.Quest
     {
         private bool _isInteractable;
         private bool _hasBeenOpened;
+        
+        [SerializeField] private QuestItemSo questItemSo;
         
         public Animator animatorCmp;
 
@@ -23,8 +26,10 @@ namespace RPG.Quest
 
         public void HandleInteract(InputAction.CallbackContext context)
         {
-            if (!_isInteractable || _hasBeenOpened) return;
+            if (!_isInteractable || _hasBeenOpened || !context.performed) return;
 
+            EventManager.RaiseTreasureChestUnlocked(questItemSo);
+            
             animatorCmp.SetBool(Constants.IsShakingAnimatorParam, false);
             _hasBeenOpened = true;
         }

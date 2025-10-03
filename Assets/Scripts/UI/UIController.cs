@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using RPG.Core;
+using RPG.Quest;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -14,9 +15,12 @@ namespace RPG.UI
         private UIBaseState _currentState;
         private UIMainMenuState _mainMenuState;
         private UIDialogueState _dialogueState;
+        private UIQuestItemState _questItemState;
+        
         private VisualElement _playerHUDContainer;
         private Label _healthLabel;
         private Label _potionsLabel;
+        private VisualElement _questItemIcon;
 
         public VisualElement RootElement;
         public List<Button> Buttons;
@@ -27,6 +31,7 @@ namespace RPG.UI
         {
             _mainMenuState = new UIMainMenuState(this);
             _dialogueState = new UIDialogueState(this);
+            _questItemState = new UIQuestItemState(this);
 
             _uiDocumentCmp = GetComponent<UIDocument>();
             RootElement = _uiDocumentCmp.rootVisualElement;
@@ -37,6 +42,7 @@ namespace RPG.UI
             _playerHUDContainer = RootElement.Q<VisualElement>("player-info-container");
             _healthLabel = _playerHUDContainer.Q<Label>("health-label");
             _potionsLabel = _playerHUDContainer.Q<Label>("potion-label");
+            _questItemIcon = _playerHUDContainer.Q<VisualElement>("quest-item-icon");
         }
 
         private void Start()
@@ -59,6 +65,7 @@ namespace RPG.UI
             EventManager.OnChangePlayerHealth += HandleChangePlayerHealth;
             EventManager.OnChangePlayerPotions += HandleChangePlayerPotions;
             EventManager.OnInitiateDialogue += HandleInitiateDialogue;
+            EventManager.OnTreasureChestUnlocked += HandleTreasureChestUnlocked;
         }
 
         private void OnDisable()
@@ -66,6 +73,7 @@ namespace RPG.UI
             EventManager.OnChangePlayerHealth -= HandleChangePlayerHealth;
             EventManager.OnChangePlayerPotions -= HandleChangePlayerPotions;
             EventManager.OnInitiateDialogue -= HandleInitiateDialogue;
+            EventManager.OnTreasureChestUnlocked -= HandleTreasureChestUnlocked;
         }
 
         public void HandleInteract(InputAction.CallbackContext context)
@@ -97,12 +105,22 @@ namespace RPG.UI
             _potionsLabel.text = newPotionCount.ToString(CultureInfo.InvariantCulture);
         }
 
-        private void HandleInitiateDialogue(TextAsset inkJson)
+        private void HandleInitiateDialogue(TextAsset inkJson, GameObject npc)
         {
             _currentState = _dialogueState;
             _currentState.EnterState();
 
-            (_currentState as UIDialogueState)?.SetStory(inkJson);
+            (_currentState as UIDialogueState)?.SetStory(inkJson, npc);
+        }
+
+        private void HandleTreasureChestUnlocked(QuestItemSo itemSo)
+        {
+            _currentState = _questItemState;
+            _currentState.EnterState();
+            
+            (_currentState as UIQuestItemState)?.SetQuestItemLabel(itemSo.itemName);
+            
+            _questItemIcon.style.display = DisplayStyle.Flex;
         }
     }
 }

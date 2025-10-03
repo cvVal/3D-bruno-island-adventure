@@ -21,6 +21,8 @@ namespace RPG.Character
                 enemy.SwitchState(enemy.ChaseState);
                 return;
             }
+            
+            if (enemy.HasOpenedUI) return;
 
             enemy.CombatCmp.StartAttack();
             enemy.transform.LookAt(enemy.Player.transform);

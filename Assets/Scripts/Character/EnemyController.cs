@@ -1,4 +1,5 @@
 using System;
+using RPG.Core;
 using RPG.Utility;
 using UnityEngine;
 
@@ -25,6 +26,7 @@ namespace RPG.Character
         [NonSerialized] public Vector3 OriginalPosition;
         [NonSerialized] public Patrol PatrolCmp;
         [NonSerialized] public Combat CombatCmp;
+        [NonSerialized] public bool HasOpenedUI;
         
         private void Awake()
         {
@@ -44,11 +46,13 @@ namespace RPG.Character
         private void OnEnable()
         {
             _healthCmp.OnStartDefeated += HandleStartDefeated;
+            EventManager.OnToggleUI += HandleToggleUI;
         }
         
         private void OnDisable()
         {
             _healthCmp.OnStartDefeated -= HandleStartDefeated;
+            EventManager.OnToggleUI -= HandleToggleUI;
         }
 
         private void Start()
@@ -94,6 +98,11 @@ namespace RPG.Character
         {
             SwitchState(DefeatedState);
             _currentState.EnterState(this);
+        }
+        
+        private void HandleToggleUI(bool isOpened)
+        {
+            HasOpenedUI = isOpened;
         }
     }
 }
