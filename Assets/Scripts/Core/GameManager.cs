@@ -1,4 +1,5 @@
 using RPG.Character;
+using RPG.Utility;
 using UnityEngine;
 
 namespace RPG.Core
@@ -19,11 +20,11 @@ namespace RPG.Core
         {
             var playerControllerCmp = player.GetComponent<PlayerController>();
             
-            PlayerPrefs.SetFloat("Health", playerControllerCmp.HealthCmp.HealthPoints);
-            PlayerPrefs.SetInt("Potions", playerControllerCmp.HealthCmp.potionCount);
-            PlayerPrefs.SetFloat("Damage", playerControllerCmp.CombatCmp.Damage);
-            PlayerPrefs.SetInt("Weapon", (int)playerControllerCmp.weapon);
-            PlayerPrefs.SetInt("SceneIndex", nextSceneIndex);
+            PlayerPrefs.SetFloat(Constants.PlayerPrefsHealth, playerControllerCmp.HealthCmp.HealthPoints);
+            PlayerPrefs.SetInt(Constants.PlayerPrefsPotions, playerControllerCmp.HealthCmp.potionCount);
+            PlayerPrefs.SetFloat(Constants.PlayerPrefsDamage, playerControllerCmp.CombatCmp.Damage);
+            PlayerPrefs.SetInt(Constants.PlayerPrefsWeapon, (int)playerControllerCmp.weapon);
+            PlayerPrefs.SetInt(Constants.PlayerPrefsSceneIndex, nextSceneIndex);
         }
     }
 }

@@ -12,6 +12,16 @@ namespace RPG.Utility
         public const string GameplayActionMap = "Gameplay";
         public const string UIActionMap = "UI";
         
+        public const string UIClassActive = "active";
+        public const string UIClassMenuButton = "menu-button";
+        public const string UIClassStartButton = "start-button";
+        
+        public const string PlayerPrefsHealth = "Health";
+        public const string PlayerPrefsPotions = "Potions";
+        public const string PlayerPrefsDamage = "Damage";
+        public const string PlayerPrefsWeapon = "Weapon";
+        public const string PlayerPrefsSceneIndex = "SceneIndex";
+        
         public const string SpeedAnimatorParam = "speed";
         public const string IsShakingAnimatorParam = "isShaking";
         public const string AttackAnimatorParam = "attack";

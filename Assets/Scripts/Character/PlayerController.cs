@@ -39,12 +39,12 @@ namespace RPG.Character
 
         private void Start()
         {
-            if (PlayerPrefs.HasKey("Health"))
+            if (PlayerPrefs.HasKey(Constants.PlayerPrefsHealth))
             {
-                HealthCmp.HealthPoints = PlayerPrefs.GetFloat("Health");
-                HealthCmp.potionCount = PlayerPrefs.GetInt("Potions");
-                CombatCmp.Damage = PlayerPrefs.GetFloat("Damage");
-                weapon = (Weapons)PlayerPrefs.GetInt("Weapon");
+                HealthCmp.HealthPoints = PlayerPrefs.GetFloat(Constants.PlayerPrefsHealth);
+                HealthCmp.potionCount = PlayerPrefs.GetInt(Constants.PlayerPrefsPotions);
+                CombatCmp.Damage = PlayerPrefs.GetFloat(Constants.PlayerPrefsDamage);
+                weapon = (Weapons)PlayerPrefs.GetInt(Constants.PlayerPrefsWeapon);
             }
             else
             {
