@@ -9,6 +9,8 @@ namespace RPG.Core
 
         [SerializeField] private int nextSceneIndex;
 
+        public Transform spawnPoint;
+
         private void Awake()
         {
             _colliderCmp = GetComponent<Collider>();

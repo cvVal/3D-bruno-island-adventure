@@ -99,3 +99,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Portal
   nextSceneIndex: 0
+  spawnPoint: {fileID: 2711438268199041006}

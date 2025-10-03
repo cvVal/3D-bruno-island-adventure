@@ -3,6 +3,7 @@ using RPG.Core;
 using RPG.Quest;
 using RPG.Utility;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace RPG.Character
 {
@@ -45,6 +46,12 @@ namespace RPG.Character
                 HealthCmp.potionCount = PlayerPrefs.GetInt(Constants.PlayerPrefsPotions);
                 CombatCmp.Damage = PlayerPrefs.GetFloat(Constants.PlayerPrefsDamage);
                 weapon = (Weapons)PlayerPrefs.GetInt(Constants.PlayerPrefsWeapon);
+
+                var agentCmp = GetComponent<NavMeshAgent>();
+                var portalCmp = FindFirstObjectByType<Portal>();
+
+                agentCmp.Warp(portalCmp.spawnPoint.position);
+                transform.rotation = portalCmp.spawnPoint.rotation;
             }
             else
             {
