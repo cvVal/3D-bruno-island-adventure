@@ -27,19 +27,25 @@ namespace RPG.Character
         [NonSerialized] public Patrol PatrolCmp;
         [NonSerialized] public Combat CombatCmp;
         [NonSerialized] public bool HasOpenedUI;
-        
+        [NonSerialized] public string EnemyID;
+
         private void Awake()
         {
             if (!stats) Debug.LogWarning("${name} does not have stats assigned.", this);
-            
+
+            // Generate a persistent ID based on scene and position
+            var sceneName = gameObject.scene.name;
+            var pos = transform.position;
+            EnemyID = $"{sceneName}_{pos.x:F2}_{pos.y:F2}_{pos.z:F2}";
+
             _currentState = ReturnState;
-            
+
             Player = GameObject.FindWithTag(Constants.PlayerTag);
             MovementCmp = GetComponent<Movement>();
             PatrolCmp = GetComponent<Patrol>();
             _healthCmp = GetComponent<Health>();
             CombatCmp = GetComponent<Combat>();
-            
+
             OriginalPosition = transform.position;
         }
 
@@ -48,7 +54,7 @@ namespace RPG.Character
             _healthCmp.OnStartDefeated += HandleStartDefeated;
             EventManager.OnToggleUI += HandleToggleUI;
         }
-        
+
         private void OnDisable()
         {
             _healthCmp.OnStartDefeated -= HandleStartDefeated;
@@ -58,13 +64,26 @@ namespace RPG.Character
         private void Start()
         {
             _currentState.EnterState(this);
-            
+
             _healthCmp.HealthPoints = stats.health;
             CombatCmp.Damage = stats.damage;
 
-            if (!_healthCmp.SliderCmp) return;
-            _healthCmp.SliderCmp.maxValue = stats.health;
-            _healthCmp.SliderCmp.value = stats.health;
+            if (_healthCmp.SliderCmp)
+            {
+                _healthCmp.SliderCmp.maxValue = stats.health;
+                _healthCmp.SliderCmp.value = stats.health;
+            }
+
+            var defeatedEnemies = PlayerPrefsUtility.GetString(Constants.PlayerPrefsDefeatedEnemies);
+
+            defeatedEnemies.ForEach(id =>
+                {
+                    if (id == EnemyID)
+                    {
+                        Destroy(gameObject);
+                    }
+                }
+            );
         }
 
         private void Update()
@@ -72,34 +91,34 @@ namespace RPG.Character
             CalculateDistanceFromPlayer();
             _currentState.UpdateState(this);
         }
-        
+
         public void SwitchState(AIBaseState newState)
         {
             _currentState = newState;
             _currentState.EnterState(this);
         }
-        
+
         private void CalculateDistanceFromPlayer()
         {
             if (!Player) return;
-            
+
             var enemyPosition = transform.position;
             var playerPosition = Player.transform.position;
             DistanceFromPlayer = Vector3.Distance(enemyPosition, playerPosition);
         }
-        
+
         private void OnDrawGizmosSelected()
         {
             Gizmos.color = Color.blue;
             Gizmos.DrawWireSphere(transform.position, chaseRange);
         }
-        
+
         private void HandleStartDefeated()
         {
             SwitchState(DefeatedState);
             _currentState.EnterState(this);
         }
-        
+
         private void HandleToggleUI(bool isOpened)
         {
             HasOpenedUI = isOpened;
