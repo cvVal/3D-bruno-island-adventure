@@ -1,3 +1,4 @@
+using System;
 using RPG.Core;
 using RPG.Quest;
 using RPG.Utility;
@@ -7,29 +8,30 @@ namespace RPG.Character
 {
     public class PlayerController : MonoBehaviour
     {
-        private Health _healthCmp;
-        private Combat _combatCmp;
         private GameObject _axeWeapon;
         private GameObject _swordWeapon;
 
         public CharacterStatsSo stats;
         public Weapons weapon = Weapons.Axe;
 
+        [NonSerialized] public Health HealthCmp;
+        [NonSerialized] public Combat CombatCmp;
+
         private void Awake()
         {
             if (!stats) Debug.LogWarning("${name} does not have stats assigned.", this);
 
-            _healthCmp = GetComponent<Health>();
-            _combatCmp = GetComponent<Combat>();
+            HealthCmp = GetComponent<Health>();
+            CombatCmp = GetComponent<Combat>();
             _axeWeapon = GameObject.FindGameObjectWithTag(Constants.AxeTag);
             _swordWeapon = GameObject.FindGameObjectWithTag(Constants.SwordTag);
         }
-        
+
         private void OnEnable()
         {
             EventManager.OnReward += HandleReward;
         }
-        
+
         private void OnDisable()
         {
             EventManager.OnReward -= HandleReward;
@@ -37,24 +39,34 @@ namespace RPG.Character
 
         private void Start()
         {
-            _healthCmp.HealthPoints = stats.health;
-            _combatCmp.Damage = stats.damage;
-            
-            EventManager.RaiseChangePlayerHealth(_healthCmp.HealthPoints);
+            if (PlayerPrefs.HasKey("Health"))
+            {
+                HealthCmp.HealthPoints = PlayerPrefs.GetFloat("Health");
+                HealthCmp.potionCount = PlayerPrefs.GetInt("Potions");
+                CombatCmp.Damage = PlayerPrefs.GetFloat("Damage");
+                weapon = (Weapons)PlayerPrefs.GetInt("Weapon");
+            }
+            else
+            {
+                HealthCmp.HealthPoints = stats.health;
+                CombatCmp.Damage = stats.damage;
+            }
+
+            EventManager.RaiseChangePlayerHealth(HealthCmp.HealthPoints);
             SetWeapon();
         }
 
         private void HandleReward(RewardSo rewardSo)
         {
-            _healthCmp.HealthPoints += rewardSo.bonusHealth;
-            _healthCmp.potionCount += rewardSo.bonusPotion;
-            _combatCmp.Damage += rewardSo.bonusDamage;
-            
-            EventManager.RaiseChangePlayerHealth(_healthCmp.HealthPoints);
-            EventManager.RaiseChangePlayerPotions(_healthCmp.potionCount);
+            HealthCmp.HealthPoints += rewardSo.bonusHealth;
+            HealthCmp.potionCount += rewardSo.bonusPotion;
+            CombatCmp.Damage += rewardSo.bonusDamage;
+
+            EventManager.RaiseChangePlayerHealth(HealthCmp.HealthPoints);
+            EventManager.RaiseChangePlayerPotions(HealthCmp.potionCount);
 
             if (!rewardSo.forceWeaponSwap) return;
-            
+
             weapon = rewardSo.weapon;
             SetWeapon();
         }

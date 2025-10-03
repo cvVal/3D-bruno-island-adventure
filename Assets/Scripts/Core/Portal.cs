@@ -1,4 +1,3 @@
-using System;
 using RPG.Utility;
 using UnityEngine;
 
@@ -7,7 +6,7 @@ namespace RPG.Core
     public class Portal : MonoBehaviour
     {
         private Collider _colliderCmp;
-        
+
         [SerializeField] private int nextSceneIndex;
 
         private void Awake()
@@ -20,7 +19,9 @@ namespace RPG.Core
             if (!other.CompareTag(Constants.PlayerTag)) return;
 
             _colliderCmp.enabled = false;
-            
+
+            EventManager.RaisePortalEnter(other, nextSceneIndex);
+
             SceneTransition.Initiate(nextSceneIndex);
         }
     }
