@@ -25,10 +25,10 @@ namespace RPG.UI
 
         public override void EnterState()
         {
-            _dialogueContainer = UIController.RootElement.Q<VisualElement>("dialogue-container");
-            _dialogueText = UIController.RootElement.Q<Label>("dialogue-text");
-            _nextButton = UIController.RootElement.Q<VisualElement>("dialogue-next-button");
-            _choicesGroup = UIController.RootElement.Q<VisualElement>("choices-group");
+            _dialogueContainer = UIController.RootElement.Q<VisualElement>(Constants.UIClassContainer);
+            _dialogueText = UIController.RootElement.Q<Label>(Constants.UIClassDialogueText);
+            _nextButton = UIController.RootElement.Q<VisualElement>(Constants.UIClassDialogueNextButton);
+            _choicesGroup = UIController.RootElement.Q<VisualElement>(Constants.UIClassChoicesGroup);
 
             _dialogueContainer.style.display = DisplayStyle.Flex;
 
@@ -44,15 +44,15 @@ namespace RPG.UI
         public void SetStory(TextAsset inkJson, GameObject npc)
         {
             _currentStory = new Story(inkJson.text);
-            _currentStory.BindExternalFunction("VerifyQuest", VerifyQuest);
-            
+            _currentStory.BindExternalFunction(Constants.InkStoryVerifyQuest, VerifyQuest);
+
             _npcControllerCmp = npc.GetComponent<NpcController>();
 
             if (_npcControllerCmp.hasQuestItem)
             {
-                _currentStory.ChoosePathString("postCompletion");
+                _currentStory.ChoosePathString(Constants.InkStoryPostcompletion);
             }
-            
+
             UpdateDialogue();
         }
 
@@ -95,7 +95,7 @@ namespace RPG.UI
             choices.ForEach(CreateNewChoiceButton);
 
             UIController.Buttons = _choicesGroup.Query<Button>().ToList();
-            UIController.Buttons[0].AddToClassList("active");
+            UIController.Buttons[0].AddToClassList(Constants.UIClassActive);
 
             UIController.currentSelection = 0;
         }
@@ -104,7 +104,7 @@ namespace RPG.UI
         {
             var choiceButton = new Button();
 
-            choiceButton.AddToClassList("menu-button");
+            choiceButton.AddToClassList(Constants.UIClassMenuButton);
             choiceButton.text = choice.text;
             choiceButton.style.marginRight = 20;
 
@@ -119,7 +119,8 @@ namespace RPG.UI
 
         private void VerifyQuest()
         {
-            _currentStory.variablesState["questCompleted"] = _npcControllerCmp.CheckPlayerForQuestItem();
+            _currentStory.variablesState[Constants.InkStoryQuestCompleted] =
+                _npcControllerCmp.CheckPlayerForQuestItem();
         }
     }
 }

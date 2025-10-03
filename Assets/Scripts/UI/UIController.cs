@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using RPG.Core;
 using RPG.Quest;
+using RPG.Utility;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -16,7 +17,7 @@ namespace RPG.UI
         private UIMainMenuState _mainMenuState;
         private UIDialogueState _dialogueState;
         private UIQuestItemState _questItemState;
-        
+
         private VisualElement _playerHUDContainer;
         private Label _healthLabel;
         private Label _potionsLabel;
@@ -38,11 +39,11 @@ namespace RPG.UI
 
             Buttons = new List<Button>();
 
-            MainMenuContainer = RootElement.Q<VisualElement>("main-menu-container");
-            _playerHUDContainer = RootElement.Q<VisualElement>("player-info-container");
-            _healthLabel = _playerHUDContainer.Q<Label>("health-label");
-            _potionsLabel = _playerHUDContainer.Q<Label>("potion-label");
-            _questItemIcon = _playerHUDContainer.Q<VisualElement>("quest-item-icon");
+            MainMenuContainer = RootElement.Q<VisualElement>(Constants.UIClassMainMenuContainer);
+            _playerHUDContainer = RootElement.Q<VisualElement>(Constants.UIClassPlayerInfoContainer);
+            _healthLabel = _playerHUDContainer.Q<Label>(Constants.UIClassHealthLabel);
+            _potionsLabel = _playerHUDContainer.Q<Label>(Constants.UIClassPotionLabel);
+            _questItemIcon = _playerHUDContainer.Q<VisualElement>(Constants.UIClassQuestItemIcon);
         }
 
         private void Start()
@@ -87,12 +88,12 @@ namespace RPG.UI
         {
             if (!context.performed || Buttons == null || Buttons.Count == 0) return;
 
-            Buttons[currentSelection].RemoveFromClassList("active");
+            Buttons[currentSelection].RemoveFromClassList(Constants.UIClassActive);
 
             var input = context.ReadValue<Vector2>();
             currentSelection += input.x > 0 ? 1 : -1;
             currentSelection = Mathf.Clamp(currentSelection, 0, Buttons.Count - 1);
-            Buttons[currentSelection].AddToClassList("active");
+            Buttons[currentSelection].AddToClassList(Constants.UIClassActive);
         }
 
         private void HandleChangePlayerHealth(float newHealthPoints)
@@ -117,9 +118,9 @@ namespace RPG.UI
         {
             _currentState = _questItemState;
             _currentState.EnterState();
-            
+
             (_currentState as UIQuestItemState)?.SetQuestItemLabel(itemSo.itemName);
-            
+
             _questItemIcon.style.display = DisplayStyle.Flex;
         }
     }

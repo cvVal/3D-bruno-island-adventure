@@ -24,11 +24,11 @@ namespace RPG.UI
 
             _playerInputCmp.SwitchCurrentActionMap(Constants.UIActionMap);
 
-            _questItemContainer = UIController.RootElement.Q<VisualElement>("quest-item-container");
-            _questItemText = _questItemContainer.Q<Label>("quest-item-label");
+            _questItemContainer = UIController.RootElement.Q<VisualElement>(Constants.UIClassItemContainer);
+            _questItemText = _questItemContainer.Q<Label>(Constants.UIClassQuestItemLabel);
 
             _questItemContainer.style.display = DisplayStyle.Flex;
-            
+
             EventManager.RaiseToggleUI(true);
         }
 
@@ -36,7 +36,7 @@ namespace RPG.UI
         {
             _questItemContainer.style.display = DisplayStyle.None;
             _playerInputCmp.SwitchCurrentActionMap(Constants.GameplayActionMap);
-            
+
             EventManager.RaiseToggleUI(false);
         }
 
