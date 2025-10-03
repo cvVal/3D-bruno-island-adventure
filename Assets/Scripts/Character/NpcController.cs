@@ -10,6 +10,7 @@ namespace RPG.Character
     {
         private Canvas _canvasCmp;
         private Inventory _playerInventoryCmp;
+        private Reward _rewardCmp;
 
         public TextAsset inkJson;
         public QuestItemSo desiredQuestItem;
@@ -18,6 +19,7 @@ namespace RPG.Character
         private void Awake()
         {
             _canvasCmp = GetComponentInChildren<Canvas>();
+            _rewardCmp = GetComponent<Reward>();
 
             var playerGameObject = GameObject.FindGameObjectWithTag(Constants.PlayerTag);
             _playerInventoryCmp = playerGameObject.GetComponent<Inventory>();
@@ -52,6 +54,11 @@ namespace RPG.Character
 
             hasQuestItem = _playerInventoryCmp.HasItem(desiredQuestItem);
 
+            if (_rewardCmp && hasQuestItem)
+            {
+                _rewardCmp.SendReward();
+            }
+            
             return _playerInventoryCmp && hasQuestItem;
         }
     }

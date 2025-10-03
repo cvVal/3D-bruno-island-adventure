@@ -6,6 +6,9 @@ namespace RPG.Utility
         public const string EnemyTag = "Enemy";
         public const string CameraTag = "MainCamera";
         public const string GameManagerTag = "GameManager";
+        public const string AxeTag = "Axe";
+        public const string SwordTag = "Sword";
+        
         public const string GameplayActionMap = "Gameplay";
         public const string UIActionMap = "UI";
         

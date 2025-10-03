@@ -401,6 +401,7 @@ GameObject:
   - component: {fileID: 6988822446435431677}
   - component: {fileID: 8028170494563333526}
   - component: {fileID: 3963365481523068298}
+  - component: {fileID: 7479948670835105288}
   m_Layer: 0
   m_Name: NPC Pumpkin Jack
   m_TagString: Untagged
@@ -482,6 +483,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86303b250caa74950a27dc53ba5a3585, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NPCController
+  inkJson: {fileID: 0}
+  desiredQuestItem: {fileID: 0}
+  hasQuestItem: 0
+--- !u!114 &7479948670835105288
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3266339587619966062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 701d84ecda029475791b014d2cf34185, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Reward
 --- !u!1 &3753086930510253171
 GameObject:
   m_ObjectHideFlags: 0

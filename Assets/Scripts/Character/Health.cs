@@ -14,9 +14,9 @@ namespace RPG.Character
         private bool _isDefeated;
         private BubbleEvent _bubbleEventCmp;
 
-        [SerializeField] private int potionCount = 1;
         [SerializeField] private float healAmount = 15f;
         
+        public int potionCount = 1;
         public event UnityAction OnStartDefeated = () => { };
         
         [NonSerialized] public float HealthPoints;
