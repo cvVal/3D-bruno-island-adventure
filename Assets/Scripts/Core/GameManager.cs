@@ -69,11 +69,8 @@ namespace RPG.Core
 
             if (isAlive) return;
 
-            Debug.Log("Saving defeated enemy ID: " + enemyId);
-            var defeatedEnemies = PlayerPrefsUtility.GetString(Constants.PlayerPrefsDefeatedEnemies);
-            defeatedEnemies.Add(enemyId);
-
-            PlayerPrefsUtility.SetString(Constants.PlayerPrefsDefeatedEnemies, defeatedEnemies);
+            // Save defeated enemy with timestamp for respawn timer
+            EnemyRespawnUtility.SaveDefeatedEnemy(enemyId);
         }
     }
 }

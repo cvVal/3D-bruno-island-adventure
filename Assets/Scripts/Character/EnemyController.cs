@@ -63,27 +63,21 @@ namespace RPG.Character
 
         private void Start()
         {
+            // Check if this enemy was already defeated and hasn't respawned yet
+            if (EnemyRespawnUtility.ShouldEnemyBeDefeated(EnemyID))
+            {
+                Destroy(gameObject);
+                return;
+            }
+
             _currentState.EnterState(this);
 
             _healthCmp.HealthPoints = stats.health;
             CombatCmp.Damage = stats.damage;
 
-            if (_healthCmp.SliderCmp)
-            {
-                _healthCmp.SliderCmp.maxValue = stats.health;
-                _healthCmp.SliderCmp.value = stats.health;
-            }
-
-            var defeatedEnemies = PlayerPrefsUtility.GetString(Constants.PlayerPrefsDefeatedEnemies);
-
-            defeatedEnemies.ForEach(id =>
-                {
-                    if (id == EnemyID)
-                    {
-                        Destroy(gameObject);
-                    }
-                }
-            );
+            if (!_healthCmp.SliderCmp) return;
+            _healthCmp.SliderCmp.maxValue = stats.health;
+            _healthCmp.SliderCmp.value = stats.health;
         }
 
         private void Update()

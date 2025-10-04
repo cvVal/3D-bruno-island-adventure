@@ -37,7 +37,6 @@ namespace RPG.Utility
         public const string PlayerPrefsDamage = "Damage";
         public const string PlayerPrefsWeapon = "Weapon";
         public const string PlayerPrefsSceneIndex = "SceneIndex";
-        public const string PlayerPrefsDefeatedEnemies = "DefeatedEnemies";
 
         public const string SpeedAnimatorParam = "speed";
         public const string IsShakingAnimatorParam = "isShaking";
