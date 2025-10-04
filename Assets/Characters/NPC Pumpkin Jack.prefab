@@ -404,7 +404,7 @@ GameObject:
   - component: {fileID: 7479948670835105288}
   m_Layer: 0
   m_Name: NPC Pumpkin Jack
-  m_TagString: Untagged
+  m_TagString: NPCWithQuest
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -498,6 +498,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 701d84ecda029475791b014d2cf34185, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Reward
+  rewardSo: {fileID: 0}
 --- !u!1 &3753086930510253171
 GameObject:
   m_ObjectHideFlags: 0

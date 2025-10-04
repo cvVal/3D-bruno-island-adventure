@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using System.Linq;
 using RPG.Character;
+using RPG.Quest;
 using RPG.Utility;
 using UnityEngine;
 
@@ -53,6 +55,14 @@ namespace RPG.Core
             );
 
             _sceneEnemyIDs.ForEach(SaveDefeatedEnemies);
+
+            var inventoryCmp = player.GetComponent<Inventory>();
+            SaveQuestItems(inventoryCmp.items);
+
+            var npcs = new List<GameObject>(
+                GameObject.FindGameObjectsWithTag(Constants.NpcQuestTag)
+            );
+            npcs.ForEach(SaveNpcItem);
         }
 
         private void SaveDefeatedEnemies(string enemyId)
@@ -71,6 +81,39 @@ namespace RPG.Core
 
             // Save defeated enemy with timestamp for respawn timer
             EnemyRespawnUtility.SaveDefeatedEnemy(enemyId);
+        }
+
+        private void SaveQuestItems(List<QuestItemSo> currentItems)
+        {
+            var savedItems = PlayerPrefsUtility.GetString(Constants.PlayerPrefsQuestItems);
+            var hasNewItems = false;
+
+            foreach (var item in currentItems.Where(item => !savedItems.Contains(item.name)))
+            {
+                savedItems.Add(item.name);
+                hasNewItems = true;
+            }
+
+            // Only save if we added new items
+            if (hasNewItems)
+            {
+                PlayerPrefsUtility.SetString(Constants.PlayerPrefsQuestItems, savedItems);
+            }
+        }
+
+        private void SaveNpcItem(GameObject npc)
+        {
+            var npcControllerCmp = npc.GetComponent<NpcController>();
+
+            if (!npcControllerCmp.hasQuestItem) return;
+
+            var npcItems = PlayerPrefsUtility.GetString(Constants.PlayerPrefsNpcItems);
+
+            // Only add if not already in the saved list
+            if (npcItems.Contains(npcControllerCmp.desiredQuestItem.itemName)) return;
+
+            npcItems.Add(npcControllerCmp.desiredQuestItem.itemName);
+            PlayerPrefsUtility.SetString(Constants.PlayerPrefsNpcItems, npcItems);
         }
     }
 }

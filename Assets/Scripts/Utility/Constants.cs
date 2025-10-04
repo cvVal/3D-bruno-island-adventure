@@ -8,6 +8,7 @@ namespace RPG.Utility
         public const string GameManagerTag = "GameManager";
         public const string AxeTag = "Axe";
         public const string SwordTag = "Sword";
+        public const string NpcQuestTag = "NPCWithQuest";
 
         public const string GameplayActionMap = "Gameplay";
         public const string UIActionMap = "UI";
@@ -37,6 +38,8 @@ namespace RPG.Utility
         public const string PlayerPrefsDamage = "Damage";
         public const string PlayerPrefsWeapon = "Weapon";
         public const string PlayerPrefsSceneIndex = "SceneIndex";
+        public const string PlayerPrefsQuestItems = "QuestItems";
+        public const string PlayerPrefsNpcItems = "NpcItems";
 
         public const string SpeedAnimatorParam = "speed";
         public const string IsShakingAnimatorParam = "isShaking";

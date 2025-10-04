@@ -9,10 +9,18 @@ namespace RPG.Quest
     {
         private bool _isInteractable;
         private bool _hasBeenOpened;
-        
+
         [SerializeField] private QuestItemSo questItemSo;
-        
+
         public Animator animatorCmp;
+
+        private void Start()
+        {
+            if (!PlayerPrefs.HasKey(Constants.PlayerPrefsQuestItems)) return;
+
+            var playerQuestItems = PlayerPrefsUtility.GetString(Constants.PlayerPrefsQuestItems);
+            playerQuestItems.ForEach(CheckItem);
+        }
 
         private void OnTriggerEnter(Collider other)
         {
@@ -28,10 +36,20 @@ namespace RPG.Quest
         {
             if (!_isInteractable || _hasBeenOpened || !context.performed) return;
 
-            EventManager.RaiseTreasureChestUnlocked(questItemSo);
-            
+            EventManager.RaiseTreasureChestUnlocked(questItemSo, true);
+
             animatorCmp.SetBool(Constants.IsShakingAnimatorParam, false);
             _hasBeenOpened = true;
+        }
+
+        private void CheckItem(string itemName)
+        {
+            if (itemName != questItemSo.name) return;
+
+            _hasBeenOpened = true;
+            animatorCmp.SetBool(Constants.IsShakingAnimatorParam, false);
+
+            EventManager.RaiseTreasureChestUnlocked(questItemSo, false);
         }
     }
 }

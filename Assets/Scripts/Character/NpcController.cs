@@ -25,6 +25,14 @@ namespace RPG.Character
             _playerInventoryCmp = playerGameObject.GetComponent<Inventory>();
         }
 
+        private void Start()
+        {
+            if (!PlayerPrefs.HasKey(Constants.PlayerPrefsNpcItems)) return;
+
+            var npcItems = PlayerPrefsUtility.GetString(Constants.PlayerPrefsNpcItems);
+            npcItems.ForEach(CheckNpcQuestItem);
+        }
+
         private void OnTriggerEnter(Collider other)
         {
             _canvasCmp.enabled = true;
@@ -58,8 +66,16 @@ namespace RPG.Character
             {
                 _rewardCmp.SendReward();
             }
-            
+
             return _playerInventoryCmp && hasQuestItem;
+        }
+
+        private void CheckNpcQuestItem(string itemName)
+        {
+            if (itemName == desiredQuestItem.itemName)
+            {
+                hasQuestItem = true;
+            }
         }
     }
 }
