@@ -1,4 +1,5 @@
 using RPG.Utility;
+using RPG.Character;
 using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.Playables;
@@ -10,16 +11,32 @@ namespace RPG.Core
         private PlayableDirector _playableDirectorCmp;
         private Collider _colliderCmp;
         private CinemachineCamera[] _cutsceneCameras;
+        private string _enemyID;
 
         [Tooltip("Add all Cinemachine cameras used in this cutscene. They will be disabled when not playing.")]
-        [SerializeField] private CinemachineCamera[] cinematicCameras;
+        [SerializeField]
+        private CinemachineCamera[] cinematicCameras;
+
+        [Tooltip("Optional: Reference to enemy that must be alive for cutscene to play")] 
+        [SerializeField]
+        private EnemyController associatedEnemy;
+
         [SerializeField] private bool disableCamerasWhenNotPlaying = true;
+        [SerializeField] private bool customPlayOnAwake;
 
         private void Awake()
         {
             _playableDirectorCmp = GetComponent<PlayableDirector>();
             _colliderCmp = GetComponent<Collider>();
             _cutsceneCameras = cinematicCameras;
+
+            if (!associatedEnemy) return;
+
+            // Generate enemy ID using centralized utility function
+            _enemyID = EnemyRespawnUtility.GenerateEnemyID(
+                gameObject.scene.name, 
+                associatedEnemy.transform.position
+            );
         }
 
         private void Start()
@@ -30,6 +47,14 @@ namespace RPG.Core
             {
                 ToggleCutsceneCameras(false);
             }
+
+            if (!customPlayOnAwake) return;
+
+            // Check if enemy is alive before playing
+            if (!ShouldPlayCutscene()) return;
+
+            _colliderCmp.enabled = false;
+            _playableDirectorCmp.Play();
         }
 
         private void OnEnable()
@@ -47,6 +72,9 @@ namespace RPG.Core
         private void OnTriggerEnter(Collider other)
         {
             if (!other.CompareTag(Constants.PlayerTag)) return;
+
+            // Check if enemy is alive before playing
+            if (!ShouldPlayCutscene()) return;
 
             _playableDirectorCmp.Play();
 
@@ -71,6 +99,18 @@ namespace RPG.Core
             }
 
             EventManager.RaiseCutSceneUpdated(true);
+        }
+
+        private bool ShouldPlayCutscene()
+        {
+            // If no enemy is associated, always play
+            if (!associatedEnemy) return true;
+
+            // Check if the enemy is defeated and hasn't respawned yet
+            if (!EnemyRespawnUtility.ShouldEnemyBeDefeated(_enemyID)) return true;
+
+            Debug.Log($"Cutscene skipped - enemy {_enemyID} is defeated and hasn't respawned yet.");
+            return false;
         }
 
         private void ToggleCutsceneCameras(bool isEnabled)

@@ -34,9 +34,7 @@ namespace RPG.Character
             if (!stats) Debug.LogWarning("${name} does not have stats assigned.", this);
 
             // Generate a persistent ID based on scene and position
-            var sceneName = gameObject.scene.name;
-            var pos = transform.position;
-            EnemyID = $"{sceneName}_{pos.x:F2}_{pos.y:F2}_{pos.z:F2}";
+            EnemyID = EnemyRespawnUtility.GenerateEnemyID(gameObject.scene.name, transform.position);
 
             _currentState = ReturnState;
 
