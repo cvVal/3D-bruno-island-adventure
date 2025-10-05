@@ -16,9 +16,13 @@ namespace RPG.Character
         public readonly AIPatrolState PatrolState = new();
         public readonly AIDefeatedState DefeatedState = new();
 
+        [Header("Enemy Settings")]
         public CharacterStatsSo stats;
         public float chaseRange = 2.5f;
         public float attackRange = 0.75f;
+        
+        [Header("Audio Settings")]
+        public AudioClip deathClip;
 
         [NonSerialized] public GameObject Player;
         [NonSerialized] public Movement MovementCmp; // Cmp = Component
@@ -28,6 +32,7 @@ namespace RPG.Character
         [NonSerialized] public Combat CombatCmp;
         [NonSerialized] public bool HasOpenedUI;
         [NonSerialized] public string EnemyID;
+        [NonSerialized] public AudioSource AudioSourceCmp;
 
         private void Awake()
         {
@@ -43,6 +48,7 @@ namespace RPG.Character
             PatrolCmp = GetComponent<Patrol>();
             _healthCmp = GetComponent<Health>();
             CombatCmp = GetComponent<Combat>();
+            AudioSourceCmp = GetComponent<AudioSource>();
 
             OriginalPosition = transform.position;
         }

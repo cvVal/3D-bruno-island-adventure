@@ -9,10 +9,18 @@ namespace RPG.Quest
     {
         private bool _isInteractable;
         private bool _hasBeenOpened;
+        private AudioSource _audioSourceCmp;
 
         [SerializeField] private QuestItemSo questItemSo;
 
         public Animator animatorCmp;
+
+        [Header("Audio Settings")] public AudioClip chestOpenClip;
+
+        private void Awake()
+        {
+            _audioSourceCmp = GetComponent<AudioSource>();
+        }
 
         private void Start()
         {
@@ -37,6 +45,9 @@ namespace RPG.Quest
             if (!_isInteractable || _hasBeenOpened || !context.performed) return;
 
             EventManager.RaiseTreasureChestUnlocked(questItemSo, true);
+
+            if (chestOpenClip)
+                _audioSourceCmp.PlayOneShot(chestOpenClip);
 
             animatorCmp.SetBool(Constants.IsShakingAnimatorParam, false);
             _hasBeenOpened = true;

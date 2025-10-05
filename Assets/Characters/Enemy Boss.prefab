@@ -769,6 +769,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 6a794cfe7ef0a4b4aa36a5e74da629f4, type: 2}
     - target: {fileID: 5461102073354829119, guid: 3d21998b7ae284001a53b18c31b79c67, type: 3}
+      propertyPath: deathClip
+      value: 
+      objectReference: {fileID: 8300000, guid: efba4b8215561d64c9f852f00e15db85, type: 3}
+    - target: {fileID: 5461102073354829119, guid: 3d21998b7ae284001a53b18c31b79c67, type: 3}
+      propertyPath: attackClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 2611b9ef35342594c88a12c742e9bf1e, type: 3}
+    - target: {fileID: 5461102073354829119, guid: 3d21998b7ae284001a53b18c31b79c67, type: 3}
       propertyPath: chaseRange
       value: 6
       objectReference: {fileID: 0}
@@ -828,6 +836,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 2.1
       objectReference: {fileID: 0}
+    - target: {fileID: 8534512614206245030, guid: 3d21998b7ae284001a53b18c31b79c67, type: 3}
+      propertyPath: attackClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 2611b9ef35342594c88a12c742e9bf1e, type: 3}
     - target: {fileID: 9069829342290339360, guid: 3d21998b7ae284001a53b18c31b79c67, type: 3}
       propertyPath: m_Name
       value: Enemy Boss

@@ -13,6 +13,9 @@ namespace RPG.Character
 
         private Animator _animatorCmp;
         private BubbleEvent _bubbleEventCmp;
+        private AudioSource _audioSourceCmp;
+        
+        [Header("Audio Settings")] public AudioClip attackClip;
 
         [NonSerialized] public float Damage;
         [NonSerialized] public bool IsAttacking;
@@ -21,6 +24,7 @@ namespace RPG.Character
         {
             _animatorCmp = GetComponentInChildren<Animator>();
             _bubbleEventCmp = GetComponentInChildren<BubbleEvent>();
+            _audioSourceCmp = GetComponent<AudioSource>();
         }
 
         private void OnEnable()
@@ -50,6 +54,9 @@ namespace RPG.Character
 
             _animatorCmp.SetFloat(Constants.SpeedAnimatorParam, 0);
             _animatorCmp.SetTrigger(Constants.AttackAnimatorParam);
+            
+            if (attackClip && _audioSourceCmp)
+                _audioSourceCmp.PlayOneShot(attackClip);
         }
 
         private void HandleBubbleStartAttack()
