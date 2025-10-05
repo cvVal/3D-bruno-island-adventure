@@ -14,6 +14,8 @@ namespace RPG.Core
         public static event UnityAction<RewardSo> OnReward;
         public static event UnityAction<Collider, int> OnPortalEnter;
         public static event UnityAction<bool> OnCutSceneUpdated;
+        public static event UnityAction OnVictory;
+        public static event UnityAction OnGameOver;
 
         public static void RaiseChangePlayerHealth(float newHealthPoints) =>
             OnChangePlayerHealth?.Invoke(newHealthPoints);
@@ -44,5 +46,11 @@ namespace RPG.Core
 
         public static void RaiseCutSceneUpdated(bool isEnabled) =>
             OnCutSceneUpdated?.Invoke(isEnabled);
+
+        public static void RaiseVictory() =>
+            OnVictory?.Invoke();
+
+        public static void RaiseGameOver() =>
+            OnGameOver?.Invoke();
     }
 }

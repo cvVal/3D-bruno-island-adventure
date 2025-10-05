@@ -17,6 +17,8 @@ namespace RPG.UI
         private UIMainMenuState _mainMenuState;
         private UIDialogueState _dialogueState;
         private UIQuestItemState _questItemState;
+        private UIVictoryState _victoryState;
+        private UIGameOverState _gameOverState;
 
         private VisualElement _playerHUDContainer;
         private Label _healthLabel;
@@ -33,6 +35,8 @@ namespace RPG.UI
             _mainMenuState = new UIMainMenuState(this);
             _dialogueState = new UIDialogueState(this);
             _questItemState = new UIQuestItemState(this);
+            _victoryState = new UIVictoryState(this);
+            _gameOverState = new UIGameOverState(this);
 
             _uiDocumentCmp = GetComponent<UIDocument>();
             RootElement = _uiDocumentCmp.rootVisualElement;
@@ -67,6 +71,8 @@ namespace RPG.UI
             EventManager.OnChangePlayerPotions += HandleChangePlayerPotions;
             EventManager.OnInitiateDialogue += HandleInitiateDialogue;
             EventManager.OnTreasureChestUnlocked += HandleTreasureChestUnlocked;
+            EventManager.OnVictory += HandleVictory;
+            EventManager.OnGameOver += HandleGameOver;
         }
 
         private void OnDisable()
@@ -75,6 +81,8 @@ namespace RPG.UI
             EventManager.OnChangePlayerPotions -= HandleChangePlayerPotions;
             EventManager.OnInitiateDialogue -= HandleInitiateDialogue;
             EventManager.OnTreasureChestUnlocked -= HandleTreasureChestUnlocked;
+            EventManager.OnVictory -= HandleVictory;
+            EventManager.OnGameOver -= HandleGameOver;
         }
 
         public void HandleInteract(InputAction.CallbackContext context)
@@ -124,6 +132,18 @@ namespace RPG.UI
             _currentState.EnterState();
 
             (_currentState as UIQuestItemState)?.SetQuestItemLabel(itemSo.itemName);
+        }
+
+        private void HandleVictory()
+        {
+            _currentState = _victoryState;
+            _currentState.EnterState();
+        }
+
+        private void HandleGameOver()
+        {
+            _currentState = _gameOverState;
+            _currentState.EnterState();
         }
     }
 }

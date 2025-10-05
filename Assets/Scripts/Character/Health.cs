@@ -15,13 +15,12 @@ namespace RPG.Character
         private BubbleEvent _bubbleEventCmp;
 
         [SerializeField] private float healAmount = 15f;
-        
+
         public int potionCount = 1;
         public event UnityAction OnStartDefeated = () => { };
-        
+
         [NonSerialized] public float HealthPoints;
         [NonSerialized] public Slider SliderCmp;
-        
 
         private void Awake()
         {
@@ -51,7 +50,7 @@ namespace RPG.Character
         public void TakeDamage(float damageAmount)
         {
             HealthPoints = Mathf.Max(HealthPoints - damageAmount, 0);
-            
+
             if (CompareTag(Constants.PlayerTag))
             {
                 EventManager.RaiseChangePlayerHealth(HealthPoints);
@@ -71,7 +70,7 @@ namespace RPG.Character
         {
             if (_isDefeated) return;
 
-            if (CompareTag(Constants.EnemyTag))
+            if (CompareTag(Constants.EnemyTag) || CompareTag(Constants.FinalBossTag))
             {
                 OnStartDefeated.Invoke();
             }
@@ -82,16 +81,22 @@ namespace RPG.Character
 
         private void HandleBubbleCompleteDefeat()
         {
+            if (CompareTag(Constants.PlayerTag))
+                EventManager.RaiseGameOver();
+
+            if (CompareTag(Constants.FinalBossTag))
+                EventManager.RaiseVictory();
+
             Destroy(gameObject);
         }
 
         public void HandleHeal(InputAction.CallbackContext context)
         {
             if (!context.performed || potionCount <= 0) return;
-            
+
             potionCount--;
             HealthPoints += healAmount;
-            
+
             EventManager.RaiseChangePlayerHealth(HealthPoints);
             EventManager.RaiseChangePlayerPotions(potionCount);
         }

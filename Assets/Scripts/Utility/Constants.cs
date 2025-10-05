@@ -4,6 +4,7 @@ namespace RPG.Utility
     {
         public const string PlayerTag = "Player";
         public const string EnemyTag = "Enemy";
+        public const string FinalBossTag = "FinalBoss";
         public const string CameraTag = "MainCamera";
         public const string GameManagerTag = "GameManager";
         public const string AxeTag = "Axe";
@@ -28,6 +29,8 @@ namespace RPG.Utility
         public const string UIClassQuestItemLabel = "quest-item-label";
         public const string UIClassMenuButton = "menu-button";
         public const string UIClassStartButton = "start-button";
+        public const string UIGameOverContainer = "game-over-container";
+        public const string UIVictoryContainer = "victory-container";
 
         public const string InkStoryVerifyQuest = "VerifyQuest";
         public const string InkStoryPostcompletion = "postCompletion";
