@@ -18,14 +18,16 @@ namespace RPG.UI
                 .FindGameObjectWithTag(Constants.GameManagerTag)
                 .GetComponent<PlayerInput>();
 
-            var gameOverContainer = UIController.RootElement.Q<VisualElement>(Constants.UIGameOverContainer);
+            var gameOverContainer = UIController.RootElement.Q<VisualElement>(Constants.UIClassGameOverContainer);
 
             playerInputCmp.SwitchCurrentActionMap(Constants.UIActionMap);
 
             gameOverContainer.style.display = DisplayStyle.Flex;
-            
+
             if (UIController.gameOverClip)
                 UIController.AudioSourceCmp.PlayOneShot(UIController.gameOverClip);
+
+            UIController.canPause = false;
         }
 
         public override void SelectButton()

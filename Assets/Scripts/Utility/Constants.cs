@@ -29,8 +29,9 @@ namespace RPG.Utility
         public const string UIClassQuestItemLabel = "quest-item-label";
         public const string UIClassMenuButton = "menu-button";
         public const string UIClassStartButton = "start-button";
-        public const string UIGameOverContainer = "game-over-container";
-        public const string UIVictoryContainer = "victory-container";
+        public const string UIClassGameOverContainer = "game-over-container";
+        public const string UIClassVictoryContainer = "victory-container";
+        public const string UIClassPauseContainer = "pause-container";
 
         public const string InkStoryVerifyQuest = "VerifyQuest";
         public const string InkStoryPostcompletion = "postCompletion";

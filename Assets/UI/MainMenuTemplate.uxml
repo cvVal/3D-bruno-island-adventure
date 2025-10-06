@@ -57,4 +57,12 @@
             <ui:Button text="Go to Main Menu" class="menu-button" style="position: absolute; bottom: -50px;" />
         </ui:VisualElement>
     </ui:VisualElement>
+    <ui:VisualElement name="pause-container" style="position: absolute; top: 50%; left: 50%; translate: -50% -50%; width: auto; height: auto; align-items: center; justify-content: center; display: none;">
+        <ui:VisualElement class="primary-container" style="flex-grow: 1; width: 600px; height: 500px; align-items: center; flex-direction: column; justify-content: flex-start; align-content: flex-start;">
+            <ui:VisualElement style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Game%20Assets/Sprites/Paper%20BG.png?fileID=2800000&amp;guid=b1aa48f59209ca54f8ad1e5966d3e81d&amp;type=3#Paper BG&quot;); background-size: 350px 350px; align-items: center; width: 350px; height: 350px;">
+                <ui:VisualElement style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Game%20Assets/Sprites/Pause.png?fileID=2800000&amp;guid=b36e3c38a6e787648bb7772a0879a6ef&amp;type=3#Pause&quot;); background-size: 250px 250px; width: 250px; height: 250px;" />
+            </ui:VisualElement>
+            <ui:Label text="Game paused" class="base-text" style="font-size: 40px; -unity-text-align: upper-center; margin-top: 40px; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-bottom: 0; padding-left: 1px;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
 </ui:UXML>

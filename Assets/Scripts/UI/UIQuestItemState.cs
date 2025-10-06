@@ -30,6 +30,8 @@ namespace RPG.UI
             _questItemContainer.style.display = DisplayStyle.Flex;
 
             EventManager.RaiseToggleUI(true);
+            
+            UIController.canPause = false;
         }
 
         public override void SelectButton()
@@ -38,6 +40,8 @@ namespace RPG.UI
             _playerInputCmp.SwitchCurrentActionMap(Constants.GameplayActionMap);
 
             EventManager.RaiseToggleUI(false);
+            
+            UIController.canPause = true;
         }
 
         public void SetQuestItemLabel(string name)

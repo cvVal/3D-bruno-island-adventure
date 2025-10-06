@@ -37,6 +37,8 @@ namespace RPG.UI
                 .GetComponent<PlayerInput>();
             
             _playerInputCmp.SwitchCurrentActionMap(Constants.UIActionMap);
+            
+            UIController.canPause = false;
         }
 
         public override void SelectButton()
@@ -118,6 +120,8 @@ namespace RPG.UI
         {
             _dialogueContainer.style.display = DisplayStyle.None;
             _playerInputCmp.SwitchCurrentActionMap(Constants.GameplayActionMap);
+            
+            UIController.canPause = true;
         }
 
         private void VerifyQuest()

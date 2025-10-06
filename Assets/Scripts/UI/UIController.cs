@@ -20,6 +20,8 @@ namespace RPG.UI
         private UIQuestItemState _questItemState;
         private UIVictoryState _victoryState;
         private UIGameOverState _gameOverState;
+        private UIPauseState _pauseState;
+        private UIUnpausedState _unpausedState;
 
         private VisualElement _playerHUDContainer;
         private Label _healthLabel;
@@ -32,6 +34,7 @@ namespace RPG.UI
         public int currentSelection;
         public AudioClip victoryClip;
         public AudioClip gameOverClip;
+        public bool canPause = true;
         
         [NonSerialized] public AudioSource AudioSourceCmp;
 
@@ -42,6 +45,8 @@ namespace RPG.UI
             _questItemState = new UIQuestItemState(this);
             _victoryState = new UIVictoryState(this);
             _gameOverState = new UIGameOverState(this);
+            _pauseState = new UIPauseState(this);
+            _unpausedState = new UIUnpausedState(this);
 
             _uiDocumentCmp = GetComponent<UIDocument>();
             RootElement = _uiDocumentCmp.rootVisualElement;
@@ -150,6 +155,14 @@ namespace RPG.UI
         private void HandleGameOver()
         {
             _currentState = _gameOverState;
+            _currentState.EnterState();
+        }
+
+        public void HandlePause(InputAction.CallbackContext context)
+        {
+            if (!context.performed || !canPause) return;
+            
+            _currentState = _currentState == _pauseState ? _unpausedState : _pauseState;
             _currentState.EnterState();
         }
     }
