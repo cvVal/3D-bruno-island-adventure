@@ -14,7 +14,9 @@ namespace RPG.UI
 
         public override void EnterState()
         {
-            var playerInputCmp = GameObject.FindGameObjectWithTag(Constants.GameManagerTag).GetComponent<PlayerInput>();
+            var playerInputCmp = GameObject
+                .FindGameObjectWithTag(Constants.GameManagerTag)
+                .GetComponent<PlayerInput>();
 
             var gameOverContainer = UIController.RootElement.Q<VisualElement>(Constants.UIGameOverContainer);
 

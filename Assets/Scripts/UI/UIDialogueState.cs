@@ -32,7 +32,10 @@ namespace RPG.UI
 
             _dialogueContainer.style.display = DisplayStyle.Flex;
 
-            _playerInputCmp = GameObject.FindGameObjectWithTag(Constants.GameManagerTag).GetComponent<PlayerInput>();
+            _playerInputCmp = GameObject
+                .FindGameObjectWithTag(Constants.GameManagerTag)
+                .GetComponent<PlayerInput>();
+            
             _playerInputCmp.SwitchCurrentActionMap(Constants.UIActionMap);
         }
 
