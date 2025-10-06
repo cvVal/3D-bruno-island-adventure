@@ -23,8 +23,14 @@ namespace RPG.Core
             _colliderCmp.enabled = false;
 
             EventManager.RaisePortalEnter(other, nextSceneIndex);
-
-            SceneTransition.Initiate(nextSceneIndex);
+            
+            var audioSource = GameObject
+                .FindGameObjectWithTag(Constants.GameManagerTag)
+                .GetComponent<AudioSource>();
+            
+            StartCoroutine(
+                SceneTransition.Initiate(nextSceneIndex, audioSource)
+            );
         }
     }
 }

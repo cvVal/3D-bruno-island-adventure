@@ -20,12 +20,18 @@ namespace RPG.UI
             playerInputCmp.SwitchCurrentActionMap(Constants.UIActionMap);
 
             victoryContainer.style.display = DisplayStyle.Flex;
+            
+            if (UIController.victoryClip)
+                UIController.AudioSourceCmp.PlayOneShot(UIController.victoryClip);
         }
 
         public override void SelectButton()
         {
             PlayerPrefs.DeleteAll();
-            SceneTransition.Initiate(0);
+            
+            UIController.StartCoroutine(
+                SceneTransition.Initiate(0, UIController.AudioSourceCmp)
+            );
         }
     }
 }

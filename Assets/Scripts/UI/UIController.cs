@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using RPG.Core;
@@ -29,6 +30,10 @@ namespace RPG.UI
         public List<Button> Buttons;
         public VisualElement MainMenuContainer;
         public int currentSelection;
+        public AudioClip victoryClip;
+        public AudioClip gameOverClip;
+        
+        [NonSerialized] public AudioSource AudioSourceCmp;
 
         private void Awake()
         {
@@ -40,6 +45,8 @@ namespace RPG.UI
 
             _uiDocumentCmp = GetComponent<UIDocument>();
             RootElement = _uiDocumentCmp.rootVisualElement;
+            
+            AudioSourceCmp = GetComponent<AudioSource>();
 
             Buttons = new List<Button>();
 

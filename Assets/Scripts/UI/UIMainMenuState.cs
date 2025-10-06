@@ -37,11 +37,16 @@ namespace RPG.UI
             if (btn.name == Constants.UIClassStartButton)
             {
                 PlayerPrefs.DeleteAll();
-                SceneTransition.Initiate(1);
+                
+                UIController.StartCoroutine(
+                    SceneTransition.Initiate(1, UIController.AudioSourceCmp)
+                );
             }
             else
             {
-                SceneTransition.Initiate(_sceneIndex);
+                UIController.StartCoroutine(
+                    SceneTransition.Initiate(_sceneIndex, UIController.AudioSourceCmp)
+                );
             }
         }
 
