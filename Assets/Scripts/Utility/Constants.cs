@@ -18,6 +18,7 @@ namespace RPG.Utility
         public const string UIClassButtons = "buttons";
         public const string UIClassContainer = "dialogue-container";
         public const string UIClassDialogueText = "dialogue-text";
+        public const string UIClassDialogueNpcNameText = "dialogue-npc-name-label";
         public const string UIClassDialogueNextButton = "dialogue-next-button";
         public const string UIClassChoicesGroup = "choices-group";
         public const string UIClassMainMenuContainer = "main-menu-container";

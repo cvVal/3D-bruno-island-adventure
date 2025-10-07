@@ -21,6 +21,9 @@
         <ui:VisualElement name="quest-item-icon" style="flex-grow: 1; width: 60px; height: 60px; background-image: url(&quot;project://database/Assets/Game%20Assets/Sprites/Quest%20Item.png?fileID=2800000&amp;guid=82f427d1fad0fe5459bae6dfe603876a&amp;type=3#Quest Item&quot;); margin-left: 20px; display: none;" />
     </ui:VisualElement>
     <ui:VisualElement name="dialogue-container" style="flex-grow: 1; position: absolute; left: 0; bottom: 0; width: 100%; padding-top: 60px; padding-right: 60px; padding-bottom: 60px; padding-left: 60px; display: none;">
+        <ui:VisualElement style="flex-grow: 1;">
+            <ui:Label text="NPC name" name="dialogue-npc-name-label" class="base-text" style="position: relative; top: auto; left: auto; align-items: center; justify-content: center; -unity-font-style: bold; font-size: 30px; -unity-text-align: upper-left; color: rgb(118, 62, 62); -unity-text-outline-width: 1px; -unity-text-outline-color: rgb(0, 0, 0); padding-left: 50px; display: flex;" />
+        </ui:VisualElement>
         <ui:VisualElement class="primary-container" style="flex-grow: 1;">
             <ui:Label text="Label" name="dialogue-text" class="base-text" style="-unity-font-style: italic; font-size: 32px; color: rgb(118, 62, 62); -unity-text-outline-width: 0;" />
             <ui:Button text="Next" name="dialogue-next-button" class="menu-button" style="display: none; position: absolute; right: 50px; bottom: -40px;" />

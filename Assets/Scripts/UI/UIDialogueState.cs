@@ -12,6 +12,7 @@ namespace RPG.UI
     {
         private VisualElement _dialogueContainer;
         private Label _dialogueText;
+        private Label _npcNameText;
         private VisualElement _nextButton;
         private VisualElement _choicesGroup;
         private Story _currentStory;
@@ -28,6 +29,7 @@ namespace RPG.UI
         {
             _dialogueContainer = UIController.RootElement.Q<VisualElement>(Constants.UIClassContainer);
             _dialogueText = UIController.RootElement.Q<Label>(Constants.UIClassDialogueText);
+            _npcNameText = UIController.RootElement.Q<Label>(Constants.UIClassDialogueNpcNameText);
             _nextButton = UIController.RootElement.Q<VisualElement>(Constants.UIClassDialogueNextButton);
             _choicesGroup = UIController.RootElement.Q<VisualElement>(Constants.UIClassChoicesGroup);
 
@@ -53,6 +55,7 @@ namespace RPG.UI
             _currentStory.BindExternalFunction(Constants.InkStoryVerifyQuest, VerifyQuest);
 
             _npcControllerCmp = npc.GetComponent<NpcController>();
+            _npcNameText.text = _npcControllerCmp.name;
 
             // Store NPC's original rotation and rotate both to face each other
             _npcOriginalForward = npc.transform.forward;
