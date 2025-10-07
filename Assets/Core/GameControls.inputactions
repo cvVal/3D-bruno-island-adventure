@@ -66,8 +66,30 @@
                 },
                 {
                     "name": "",
+                    "id": "b03871f0-aee6-4cca-9bda-3d0e838b1613",
+                    "path": "<SwitchProControllerHID>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "130fa95d-38b1-46c5-ba29-2623b7dda2b3",
                     "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "747b325d-739e-4182-b422-6f80a5fb2980",
+                    "path": "<SwitchProControllerHID>/buttonWest",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -88,8 +110,30 @@
                 },
                 {
                     "name": "",
+                    "id": "1ad40b97-44be-45ba-ae7f-d2944302a17a",
+                    "path": "<SwitchProControllerHID>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Heal",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "311bc790-a9f4-44f4-8efc-ac4f422db283",
                     "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e9e3c0fc-aeef-4959-8122-b16269ddff4c",
+                    "path": "<SwitchProControllerHID>/start",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -151,6 +195,61 @@
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "Nintendo Switch Pro Controller",
+                    "id": "585b9ed7-4460-47a4-bf23-88cf9032bb10",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "ec535785-eacf-403d-b604-1e3f1e497b45",
+                    "path": "<SwitchProControllerHID>/leftStick/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "3a67a24a-7c24-4153-8327-facbb8690d39",
+                    "path": "<SwitchProControllerHID>/leftStick/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "19097ae5-9c38-4bd3-86b3-d6681831f629",
+                    "path": "<SwitchProControllerHID>/leftStick/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "73c7c39a-31c5-4f75-9415-97bd98956fd7",
+                    "path": "<Gamepad>/leftStick/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         },
@@ -200,8 +299,30 @@
                 },
                 {
                     "name": "",
+                    "id": "7dc8cb36-8dd9-47c5-a2ae-4f6bdc957aae",
+                    "path": "<SwitchProControllerHID>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "2adda185-db15-44e9-9f5f-583db6c50498",
                     "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Unpause",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "dd1c5e84-3430-40ae-ae67-e2b617b140d3",
+                    "path": "<SwitchProControllerHID>/start",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -235,6 +356,39 @@
                     "name": "right",
                     "id": "f381caec-f7ed-42d0-896d-9c9180e2eb10",
                     "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Navigate",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Nintendo Switch Pro Controller",
+                    "id": "11d2ad7b-508a-4fba-bd12-fcbe9fcfacaa",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Navigate",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "left",
+                    "id": "d2d7ed5c-649e-4b61-ba0a-255462f2c451",
+                    "path": "<SwitchProControllerHID>/leftStick/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Navigate",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "c3bb45a3-9281-4f6c-9b5c-02ed290978e5",
+                    "path": "<SwitchProControllerHID>/leftStick/right",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
