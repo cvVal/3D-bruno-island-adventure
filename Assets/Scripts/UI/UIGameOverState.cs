@@ -28,6 +28,8 @@ namespace RPG.UI
                 UIController.AudioSourceCmp.PlayOneShot(UIController.gameOverClip);
 
             UIController.canPause = false;
+            
+            AudioManager.DuckMusic();
         }
 
         public override void SelectButton()
