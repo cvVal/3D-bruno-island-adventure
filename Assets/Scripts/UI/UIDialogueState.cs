@@ -18,6 +18,7 @@ namespace RPG.UI
         private PlayerInput _playerInputCmp;
         private bool _hasChoices;
         private NpcController _npcControllerCmp;
+        private Vector3 _npcOriginalForward;
 
         public UIDialogueState(UIController ui) : base(ui)
         {
@@ -35,9 +36,9 @@ namespace RPG.UI
             _playerInputCmp = GameObject
                 .FindGameObjectWithTag(Constants.GameManagerTag)
                 .GetComponent<PlayerInput>();
-            
+
             _playerInputCmp.SwitchCurrentActionMap(Constants.UIActionMap);
-            
+
             UIController.canPause = false;
         }
 
@@ -52,6 +53,26 @@ namespace RPG.UI
             _currentStory.BindExternalFunction(Constants.InkStoryVerifyQuest, VerifyQuest);
 
             _npcControllerCmp = npc.GetComponent<NpcController>();
+
+            // Store NPC's original rotation and rotate both to face each other
+            _npcOriginalForward = npc.transform.forward;
+
+            var player = GameObject.FindGameObjectWithTag(Constants.PlayerTag);
+            if (player)
+            {
+                var directionToPlayer = (player.transform.position - npc.transform.position).normalized;
+                directionToPlayer.y = 0;
+
+                var directionToNpc = (npc.transform.position - player.transform.position).normalized;
+                directionToNpc.y = 0;
+
+                // Instantly rotate both NPC and player to face each other
+                if (directionToPlayer != Vector3.zero)
+                    npc.transform.rotation = Quaternion.LookRotation(directionToPlayer);
+                
+                if (directionToNpc != Vector3.zero)
+                    player.transform.rotation = Quaternion.LookRotation(directionToNpc);
+            }
 
             if (_npcControllerCmp.hasQuestItem)
             {
@@ -120,7 +141,14 @@ namespace RPG.UI
         {
             _dialogueContainer.style.display = DisplayStyle.None;
             _playerInputCmp.SwitchCurrentActionMap(Constants.GameplayActionMap);
-            
+
+            // Restore NPC's original rotation instantly
+            if (_npcOriginalForward != Vector3.zero)
+            {
+                var npc = _npcControllerCmp.gameObject;
+                npc.transform.rotation = Quaternion.LookRotation(_npcOriginalForward);
+            }
+
             UIController.canPause = true;
         }
 
