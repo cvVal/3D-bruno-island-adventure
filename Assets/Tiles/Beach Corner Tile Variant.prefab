@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[2]'
       value: 
       objectReference: {fileID: 2100000, guid: c1df5750fcdd048a1a971621f9147f52, type: 2}
+    - target: {fileID: 3454562774644987923, guid: 7467ba1ffc1674fb6afad6f61f9e3b58, type: 3}
+      propertyPath: 'm_Materials.Array.data[3]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 10a3c98cebf264d96bab5d8fda4b8a12, type: 2}
     - target: {fileID: 3815093118675401158, guid: 7467ba1ffc1674fb6afad6f61f9e3b58, type: 3}
       propertyPath: m_Name
       value: Beach Corner Tile Variant
