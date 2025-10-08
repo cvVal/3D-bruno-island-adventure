@@ -20,18 +20,14 @@
         </ui:VisualElement>
         <ui:VisualElement name="quest-item-icon" style="flex-grow: 1; width: 60px; height: 60px; background-image: url(&quot;project://database/Assets/Game%20Assets/Sprites/Quest%20Item.png?fileID=2800000&amp;guid=82f427d1fad0fe5459bae6dfe603876a&amp;type=3#Quest Item&quot;); margin-left: 20px; display: none;" />
     </ui:VisualElement>
-    <ui:VisualElement name="dialogue-container" style="flex-grow: 1; position: absolute; left: 0; bottom: 0; width: 100%; padding-top: 60px; padding-right: 60px; padding-bottom: 60px; padding-left: 60px; display: none;">
-        <ui:VisualElement style="flex-grow: 1;">
-            <ui:Label text="NPC name" name="dialogue-npc-name-label" class="base-text" style="position: relative; top: auto; left: auto; align-items: center; justify-content: center; -unity-font-style: bold; font-size: 30px; -unity-text-align: upper-left; color: rgb(118, 62, 62); -unity-text-outline-width: 1px; -unity-text-outline-color: rgb(0, 0, 0); padding-left: 50px; display: flex;" />
+    <ui:VisualElement name="dialogue-container" class="dialogue-container" style="display: none;">
+        <ui:VisualElement class="primary-container dialogue-box">
+            <ui:Label text="NPC name" name="dialogue-npc-name-label" class="base-text dialogue-npc-name" />
+            <ui:Label text="Label" name="dialogue-text" class="base-text dialogue-text" />
+            <ui:Button text="Next" name="dialogue-next-button" class="menu-button dialogue-button"
+                       style="align-self: flex-end; margin-top: 16px; width: auto; min-width: 140px; visibility: hidden;" />
         </ui:VisualElement>
-        <ui:VisualElement class="primary-container" style="flex-grow: 1;">
-            <ui:Label text="Label" name="dialogue-text" class="base-text" style="-unity-font-style: italic; font-size: 32px; color: rgb(118, 62, 62); -unity-text-outline-width: 0;" />
-            <ui:Button text="Next" name="dialogue-next-button" class="menu-button" style="display: none; position: absolute; right: 50px; bottom: -40px;" />
-            <ui:VisualElement name="choices-group" style="flex-grow: 1; position: absolute; right: 50px; bottom: -40px; flex-direction: row; display: none;">
-                <ui:Button text="No" name="no-button" class="menu-button" />
-                <ui:Button text="Yes" name="yes-button" class="menu-button" />
-            </ui:VisualElement>
-        </ui:VisualElement>
+        <ui:VisualElement name="choices-group" class="choices-panel" style="display: none;" />
     </ui:VisualElement>
     <ui:VisualElement name="quest-item-container" style="position: absolute; top: 50%; left: 50%; translate: -50% -50%; width: auto; height: auto; align-items: center; justify-content: center; display: none;">
         <ui:VisualElement class="primary-container" style="flex-grow: 1; width: 600px; height: 500px; align-items: center; flex-direction: column; justify-content: flex-start; align-content: flex-start;">

@@ -108,10 +108,46 @@ namespace RPG.UI
         {
             if (!context.performed || Buttons == null || Buttons.Count == 0) return;
 
-            Buttons[currentSelection].RemoveFromClassList(Constants.UIClassActive);
-
             var input = context.ReadValue<Vector2>();
-            currentSelection += input.x > 0 ? 1 : -1;
+            if (input == Vector2.zero) return;
+
+            // Vertical orientation if parent = choices-group
+            var isVertical = Buttons[0]?.parent is { name: Constants.UIClassChoicesGroup };
+
+            const float threshold = 0.15f;
+            int delta;
+
+            if (isVertical)
+            {
+                switch (input.y)
+                {
+                    case > threshold:
+                        delta = -1; // Up
+                        break;
+                    case < -threshold:
+                        delta = 1; // Down
+                        break;
+                    default:
+                        return; // Ignore horizontal or small noise
+                }
+            }
+            else
+            {
+                switch (input.x)
+                {
+                    case > threshold:
+                        delta = 1; // Right
+                        break;
+                    case < -threshold:
+                        delta = -1; // Left
+                        break;
+                    default:
+                        return; // Ignore vertical or small noise
+                }
+            }
+
+            Buttons[currentSelection].RemoveFromClassList(Constants.UIClassActive);
+            currentSelection += delta;
             currentSelection = Mathf.Clamp(currentSelection, 0, Buttons.Count - 1);
             Buttons[currentSelection].AddToClassList(Constants.UIClassActive);
         }

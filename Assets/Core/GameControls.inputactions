@@ -198,7 +198,7 @@
                 },
                 {
                     "name": "Nintendo Switch Pro Controller",
-                    "id": "585b9ed7-4460-47a4-bf23-88cf9032bb10",
+                    "id": "614b7807-4ae9-4650-8a10-0ce31486dca1",
                     "path": "2DVector",
                     "interactions": "",
                     "processors": "",
@@ -209,8 +209,8 @@
                 },
                 {
                     "name": "up",
-                    "id": "ec535785-eacf-403d-b604-1e3f1e497b45",
-                    "path": "<SwitchProControllerHID>/leftStick/up",
+                    "id": "fb1c98ac-00f4-42ee-8e95-a703e470e608",
+                    "path": "<Gamepad>/leftStick/up",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -220,8 +220,8 @@
                 },
                 {
                     "name": "down",
-                    "id": "3a67a24a-7c24-4153-8327-facbb8690d39",
-                    "path": "<SwitchProControllerHID>/leftStick/down",
+                    "id": "722104d5-6370-439a-99aa-969f58985e03",
+                    "path": "<Gamepad>/leftStick/down",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -231,8 +231,8 @@
                 },
                 {
                     "name": "left",
-                    "id": "19097ae5-9c38-4bd3-86b3-d6681831f629",
-                    "path": "<SwitchProControllerHID>/leftStick/left",
+                    "id": "85c67a8f-37bc-4671-b213-2ad1c843e4fd",
+                    "path": "<Gamepad>/leftStick/left",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -242,7 +242,7 @@
                 },
                 {
                     "name": "right",
-                    "id": "73c7c39a-31c5-4f75-9415-97bd98956fd7",
+                    "id": "db0a3cef-20be-480f-b79c-3920d57b3959",
                     "path": "<Gamepad>/leftStick/right",
                     "interactions": "",
                     "processors": "",
@@ -332,7 +332,7 @@
                 },
                 {
                     "name": "Keyboard",
-                    "id": "05fb1984-f036-4e1f-8455-385971d10369",
+                    "id": "3b06d87f-0550-4124-9620-fa7d1c445756",
                     "path": "2DVector",
                     "interactions": "",
                     "processors": "",
@@ -342,8 +342,30 @@
                     "isPartOfComposite": false
                 },
                 {
+                    "name": "up",
+                    "id": "ad2d4cb0-64fa-4b6b-bf54-2bceb82f2443",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Navigate",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "7c5aa85f-c74d-4fbe-b94b-4ded2570d04a",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Navigate",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
                     "name": "left",
-                    "id": "72d12def-8c54-458c-9848-546770167153",
+                    "id": "4bd566d3-8dd0-46fa-80e9-e1a444f10920",
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
@@ -354,7 +376,7 @@
                 },
                 {
                     "name": "right",
-                    "id": "f381caec-f7ed-42d0-896d-9c9180e2eb10",
+                    "id": "2181ef01-2fff-4a63-9bcd-773fe6b698f5",
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
@@ -365,7 +387,7 @@
                 },
                 {
                     "name": "Nintendo Switch Pro Controller",
-                    "id": "11d2ad7b-508a-4fba-bd12-fcbe9fcfacaa",
+                    "id": "a04acc6b-239b-4d26-8ceb-faa92abaa87f",
                     "path": "2DVector",
                     "interactions": "",
                     "processors": "",
@@ -375,9 +397,31 @@
                     "isPartOfComposite": false
                 },
                 {
+                    "name": "up",
+                    "id": "11e142b7-8ff9-4852-b4e4-c46f6fb8514a",
+                    "path": "<Gamepad>/leftStick/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Navigate",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "df3f1e50-50dd-43f0-a618-2a70c9bbb925",
+                    "path": "<Gamepad>/leftStick/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Navigate",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
                     "name": "left",
-                    "id": "d2d7ed5c-649e-4b61-ba0a-255462f2c451",
-                    "path": "<SwitchProControllerHID>/leftStick/left",
+                    "id": "4e558180-5571-437e-b1d7-5d593e07b975",
+                    "path": "<Gamepad>/leftStick/left",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -387,8 +431,8 @@
                 },
                 {
                     "name": "right",
-                    "id": "c3bb45a3-9281-4f6c-9b5c-02ed290978e5",
-                    "path": "<SwitchProControllerHID>/leftStick/right",
+                    "id": "8b4dc691-fb56-4da6-b28b-b493d6fe1471",
+                    "path": "<Gamepad>/leftStick/right",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

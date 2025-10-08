@@ -12,14 +12,8 @@
     border-right-width: 10px;
     border-bottom-width: 10px;
     border-left-width: 10px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-    border-bottom-left-radius: 10px;
-    padding-top: 40px;
-    padding-right: 40px;
-    padding-bottom: 40px;
-    padding-left: 40px;
+    border-radius: 10px;
+    padding: 40px;
 }
 
 .base-text {
@@ -45,10 +39,7 @@
     color: rgb(255, 255, 255);
     -unity-text-align: upper-center;
     background-color: rgb(41, 153, 201);
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
-    border-bottom-left-radius: 20px;
+    border-radius: 20px;
     position: relative;
     right: auto;
     bottom: auto;
@@ -75,14 +66,8 @@
     text-overflow: clip;
     flex-direction: column;
     flex-wrap: nowrap;
-    padding-top: 15px;
-    padding-right: 15px;
-    padding-bottom: 15px;
-    padding-left: 15px;
-    margin-top: 0;
-    margin-right: 0;
-    margin-bottom: 0;
-    margin-left: 0;
+    padding: 15px;
+    margin: 0;
 }
 
 .stat-value {
@@ -92,12 +77,75 @@
     font-size: 30px;
     color: rgb(255, 255, 255);
     -unity-text-align: upper-center;
-    padding-top: 15px;
-    padding-right: 15px;
-    padding-bottom: 15px;
-    padding-left: 15px;
-    margin-top: 0;
-    margin-right: 0;
-    margin-bottom: 0;
-    margin-left: 0;
+    padding: 15px;
+    margin: 0;
+}
+
+/* ---------------- Dialogue Specific ---------------- */
+.dialogue-container {
+    position: absolute;
+    left: 50%;
+    bottom: 40px;
+    translate: -50% 0;
+    width: auto;
+    flex-grow: 0;
+    padding: 0; /* Outer padding handled by box */
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.dialogue-box {
+    flex-grow: 0;
+    width: 800px;
+    min-width: 800px;
+    max-width: 800px;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+/* Override primary-container inside dialogue to not steal full width */
+.dialogue-box.primary-container {
+    flex-grow: 0;
+    padding: 24px 32px 28px;
+}
+
+.dialogue-npc-name {
+    font-size: 30px;
+    -unity-font-style: bold;
+    color: rgb(118, 62, 62);
+    -unity-text-outline-width: 1px;
+    -unity-text-outline-color: rgb(0,0,0);
+    padding: 0 10px 10px;
+    align-items: flex-start;
+}
+
+.dialogue-text {
+    font-size: 32px;
+    -unity-font-style: italic;
+    color: rgb(118, 62, 62);
+    -unity-text-outline-width: 0;
+    white-space: normal; /* allow wrapping */
+}
+
+/* Right-side choices panel (outside dialogue box) */
+.choices-panel {
+    position: absolute;
+    left: 100%;
+    bottom: 0;
+    margin-left: 24px;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: auto;
+}
+
+/* Override default wide menu button inside choices panel */
+.choices-panel .menu-button {
+    width: auto; /* auto so we can set width via code uniformly */
+    min-width: 180px;
+    max-width: 260px;
+    font-size: 28px;
+    padding-top: 14px;
+    padding-bottom: 14px;
+    margin-bottom: 12px; /* spacing between stacked buttons */
 }

@@ -44,10 +44,7 @@ namespace RPG.UI
             UIController.canPause = false;
         }
 
-        public override void SelectButton()
-        {
-            UpdateDialogue();
-        }
+        public override void SelectButton() => UpdateDialogue();
 
         public void SetStory(TextAsset inkJson, GameObject npc)
         {
@@ -108,14 +105,16 @@ namespace RPG.UI
             }
             else
             {
-                _nextButton.style.display = DisplayStyle.Flex;
+                // Show next button without altering layout height
+                _nextButton.style.visibility = Visibility.Visible;
                 _choicesGroup.style.display = DisplayStyle.None;
             }
         }
 
         private void HandleNewChoices(List<Choice> choices)
         {
-            _nextButton.style.display = DisplayStyle.None;
+            // Hide next button but keep its reserved space (visibility instead of display)
+            _nextButton.style.visibility = Visibility.Hidden;
             _choicesGroup.style.display = DisplayStyle.Flex;
 
             _choicesGroup.Clear();
@@ -124,20 +123,47 @@ namespace RPG.UI
             choices.ForEach(CreateNewChoiceButton);
 
             UIController.Buttons = _choicesGroup.Query<Button>().ToList();
-            UIController.Buttons[0].AddToClassList(Constants.UIClassActive);
+            if (UIController.Buttons.Count > 0)
+            {
+                UIController.Buttons[0].AddToClassList(Constants.UIClassActive);
+                UIController.currentSelection = 0;
+            }
 
-            UIController.currentSelection = 0;
+            NormalizeChoiceButtonWidths();
         }
 
         private void CreateNewChoiceButton(Choice choice)
         {
             var choiceButton = new Button();
-
             choiceButton.AddToClassList(Constants.UIClassMenuButton);
             choiceButton.text = choice.text;
-            choiceButton.style.marginRight = 20;
-
+            choiceButton.style.marginRight = 0;
             _choicesGroup.Add(choiceButton);
+        }
+
+        private void NormalizeChoiceButtonWidths()
+        {
+            var buttons = _choicesGroup.Query<Button>().ToList();
+
+            if (buttons == null || buttons.Count == 0) return;
+
+            var longest = 0;
+
+            foreach (var b in buttons)
+            {
+                if (!string.IsNullOrEmpty(b.text) && b.text.Length > longest)
+                    longest = b.text.Length;
+            }
+
+            if (longest == 0) longest = 4;
+
+            const float estCharPx = 18f;
+            const float paddingAllowance = 64f;
+            var rawWidth = longest * estCharPx + paddingAllowance;
+            var clamped = Mathf.Clamp(rawWidth, 180f, 260f);
+
+            foreach (var b in buttons)
+                b.style.width = clamped;
         }
 
         private void ExitDialogue()
