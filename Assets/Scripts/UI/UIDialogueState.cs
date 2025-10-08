@@ -19,7 +19,26 @@ namespace RPG.UI
         private PlayerInput _playerInputCmp;
         private bool _hasChoices;
         private NpcController _npcControllerCmp;
+
         private Vector3 _npcOriginalForward;
+
+        // Baseline text height stabilization
+        private bool _baselineTextHeightCaptured;
+        private float _baselineTextHeight;
+
+        // Typewriter effect
+        private bool _isTyping;
+        private string _currentLineFullText = string.Empty;
+        private float _typingStartTime;
+        private IVisualElementScheduledItem _typingSchedule;
+        private const float CharactersPerSecond = 40f; // tuning knob
+        private const float MinTypeIntervalMs = 16f; // ~60fps update cadence
+
+        // Fade-in effect
+        private IVisualElementScheduledItem _fadeSchedule;
+        private float _fadeStartTime;
+        private const float FadeDuration = 0.25f; // seconds
+        private bool _fadeCompleted;
 
         public UIDialogueState(UIController ui) : base(ui)
         {
@@ -27,6 +46,13 @@ namespace RPG.UI
 
         public override void EnterState()
         {
+            // Reset transient state in case of re-entry
+            _isTyping = false;
+            _fadeCompleted = false;
+            _currentLineFullText = string.Empty;
+            _typingSchedule?.Pause();
+            _fadeSchedule?.Pause();
+
             _dialogueContainer = UIController.RootElement.Q<VisualElement>(Constants.UIClassContainer);
             _dialogueText = UIController.RootElement.Q<Label>(Constants.UIClassDialogueText);
             _npcNameText = UIController.RootElement.Q<Label>(Constants.UIClassDialogueNpcNameText);
@@ -34,6 +60,10 @@ namespace RPG.UI
             _choicesGroup = UIController.RootElement.Q<VisualElement>(Constants.UIClassChoicesGroup);
 
             _dialogueContainer.style.display = DisplayStyle.Flex;
+            
+            // Start hidden (fade-in)
+            _dialogueContainer.style.opacity = 0f;
+            BeginFadeIn();
 
             _playerInputCmp = GameObject
                 .FindGameObjectWithTag(Constants.GameManagerTag)
@@ -44,7 +74,17 @@ namespace RPG.UI
             UIController.canPause = false;
         }
 
-        public override void SelectButton() => UpdateDialogue();
+        public override void SelectButton()
+        {
+            // If we are mid-typewriter, skip to full line instead of advancing story
+            if (_isTyping)
+            {
+                CompleteTyping();
+                return;
+            }
+
+            UpdateDialogue();
+        }
 
         public void SetStory(TextAsset inkJson, GameObject npc)
         {
@@ -69,7 +109,7 @@ namespace RPG.UI
                 // Instantly rotate both NPC and player to face each other
                 if (directionToPlayer != Vector3.zero)
                     npc.transform.rotation = Quaternion.LookRotation(directionToPlayer);
-                
+
                 if (directionToNpc != Vector3.zero)
                     player.transform.rotation = Quaternion.LookRotation(directionToNpc);
             }
@@ -95,10 +135,90 @@ namespace RPG.UI
                 return;
             }
 
-            _dialogueText.text = _currentStory.Continue();
+            // Hide buttons while new line types
+            _nextButton.style.visibility = Visibility.Hidden;
+            _choicesGroup.style.display = DisplayStyle.None;
 
+            _currentLineFullText = _currentStory.Continue();
+
+            // Enforce baseline min height to prevent visual shrinking when clearing text
+            if (_baselineTextHeightCaptured)
+            {
+                _dialogueText.style.minHeight = _baselineTextHeight;
+            }
+
+            _dialogueText.text = string.Empty;
+
+            // Evaluate choices AFTER typing finishes; store flag for later
             _hasChoices = _currentStory.currentChoices.Count > 0;
 
+            StartTyping();
+        }
+
+        private void StartTyping()
+        {
+            _isTyping = true;
+            _typingStartTime = Time.realtimeSinceStartup;
+
+            // Cancel prior schedule if any
+            _typingSchedule?.Pause();
+
+            _typingSchedule = _dialogueContainer.schedule
+                .Execute(TypingTick)
+                .Every((long)MinTypeIntervalMs);
+
+            // Immediate first tick to avoid perceived delay for very short lines
+            TypingTick();
+        }
+
+        private void TypingTick()
+        {
+            if (!_isTyping)
+                return;
+
+            if (string.IsNullOrEmpty(_currentLineFullText))
+            {
+                CompleteTyping();
+                return;
+            }
+
+            var elapsed = Time.realtimeSinceStartup - _typingStartTime;
+            var targetVisible = Mathf.Clamp(Mathf.FloorToInt(elapsed * CharactersPerSecond), 0,
+                _currentLineFullText.Length);
+            if (targetVisible <= _dialogueText.text.Length)
+                return; // wait for next interval
+
+            _dialogueText.text = _currentLineFullText[..targetVisible];
+
+            if (targetVisible >= _currentLineFullText.Length)
+            {
+                CompleteTyping();
+            }
+        }
+
+        private void CompleteTyping()
+        {
+            if (!_isTyping) return;
+            _isTyping = false;
+            _dialogueText.text = _currentLineFullText; // ensure full text is shown
+            _typingSchedule?.Pause();
+
+            // Capture / update baseline text height after layout resolves
+            UIController.RootElement.schedule.Execute(() =>
+            {
+                if (_dialogueText == null) return;
+                var h = _dialogueText.resolvedStyle.height;
+
+                if (!(h > 0)) return;
+
+                if (_baselineTextHeightCaptured && !(h > _baselineTextHeight)) return;
+
+                _baselineTextHeight = h;
+                _baselineTextHeightCaptured = true;
+                _dialogueText.style.minHeight = _baselineTextHeight;
+            });
+
+            // Now reveal appropriate navigation UI
             if (_hasChoices)
             {
                 HandleNewChoices(_currentStory.currentChoices);
@@ -107,7 +227,6 @@ namespace RPG.UI
             {
                 // Show next button without altering layout height
                 _nextButton.style.visibility = Visibility.Visible;
-                _choicesGroup.style.display = DisplayStyle.None;
             }
         }
 
@@ -168,6 +287,13 @@ namespace RPG.UI
 
         private void ExitDialogue()
         {
+            _typingSchedule?.Pause();
+            _fadeSchedule?.Pause();
+            _isTyping = false;
+            _currentLineFullText = string.Empty;
+            _baselineTextHeightCaptured = false; // reset for a fresh conversation
+            _baselineTextHeight = 0f;
+
             _dialogueContainer.style.display = DisplayStyle.None;
             _playerInputCmp.SwitchCurrentActionMap(Constants.GameplayActionMap);
 
@@ -185,6 +311,33 @@ namespace RPG.UI
         {
             _currentStory.variablesState[Constants.InkStoryQuestCompleted] =
                 _npcControllerCmp.CheckPlayerForQuestItem();
+        }
+
+        private void BeginFadeIn()
+        {
+            _fadeStartTime = Time.realtimeSinceStartup;
+            _fadeCompleted = false;
+            _fadeSchedule?.Pause();
+            _fadeSchedule = _dialogueContainer.schedule.Execute(FadeTick).Every(16); // ~60fps
+            FadeTick();
+        }
+
+        private void FadeTick()
+        {
+            if (_fadeCompleted || _dialogueContainer == null) return;
+
+            var t = (Time.realtimeSinceStartup - _fadeStartTime) / FadeDuration;
+
+            if (t >= 1f)
+            {
+                _dialogueContainer.style.opacity = 1f;
+                _fadeCompleted = true;
+                _fadeSchedule?.Pause();
+            }
+            else
+            {
+                _dialogueContainer.style.opacity = Mathf.SmoothStep(0f, 1f, t);
+            }
         }
     }
 }
