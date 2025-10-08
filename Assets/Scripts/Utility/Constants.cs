@@ -34,9 +34,14 @@ namespace RPG.Utility
         public const string UIClassVictoryContainer = "victory-container";
         public const string UIClassPauseContainer = "pause-container";
 
-        public const string InkStoryVerifyQuest = "VerifyQuest";
-        public const string InkStoryPostcompletion = "postCompletion";
-        public const string InkStoryQuestCompleted = "questCompleted";
+        // Ink Story - External Functions
+        public const string InkStoryVerifyQuestFunc = "VerifyQuest";
+        
+        // Ink Story - Knots/Paths
+        public const string InkStoryPostCompletionKnot = "post_completion";
+        
+        // Ink Story - Variables
+        public const string InkStoryQuestCompletedVar = "questCompleted";
 
         public const string PlayerPrefsHealth = "Health";
         public const string PlayerPrefsPotions = "Potions";

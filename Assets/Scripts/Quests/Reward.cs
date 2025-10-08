@@ -23,6 +23,14 @@ namespace RPG.Quest
 
             _rewardTaken = true;
 
+            if (!rewardSo)
+            {
+                Debug.LogWarning(
+                    $"[{gameObject.name}] Reward component has no RewardSo assigned! Please assign a reward in the Inspector."
+                );
+                return;
+            }
+
             EventManager.RaiseReward(rewardSo);
 
             if (rewardClip)

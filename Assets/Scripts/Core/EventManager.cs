@@ -16,6 +16,7 @@ namespace RPG.Core
         public static event UnityAction<bool> OnCutSceneUpdated;
         public static event UnityAction OnVictory;
         public static event UnityAction OnGameOver;
+        public static event UnityAction<int> OnInventoryChanged;
 
         public static void RaiseChangePlayerHealth(float newHealthPoints) =>
             OnChangePlayerHealth?.Invoke(newHealthPoints);
@@ -52,5 +53,8 @@ namespace RPG.Core
 
         public static void RaiseGameOver() =>
             OnGameOver?.Invoke();
+
+        public static void RaiseInventoryChanged(int itemCount) =>
+            OnInventoryChanged?.Invoke(itemCount);
     }
 }

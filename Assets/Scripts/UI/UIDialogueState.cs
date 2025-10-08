@@ -86,12 +86,11 @@ namespace RPG.UI
             UpdateDialogue();
         }
 
-        public void SetStory(TextAsset inkJson, GameObject npc)
+        public void SetStory(GameObject npc)
         {
-            _currentStory = new Story(inkJson.text);
-            _currentStory.BindExternalFunction(Constants.InkStoryVerifyQuest, VerifyQuest);
-
             _npcControllerCmp = npc.GetComponent<NpcController>();
+            _currentStory = _npcControllerCmp.GetOrCreateStory();
+            
             _npcNameText.text = _npcControllerCmp.name;
 
             // Store NPC's original rotation and rotate both to face each other
@@ -116,7 +115,7 @@ namespace RPG.UI
 
             if (_npcControllerCmp.hasQuestItem)
             {
-                _currentStory.ChoosePathString(Constants.InkStoryPostcompletion);
+                _currentStory.ChoosePathString(Constants.InkStoryPostCompletionKnot);
             }
 
             UpdateDialogue();
@@ -279,10 +278,16 @@ namespace RPG.UI
             const float estCharPx = 18f;
             const float paddingAllowance = 64f;
             var rawWidth = longest * estCharPx + paddingAllowance;
-            var clamped = Mathf.Clamp(rawWidth, 180f, 260f);
+            var clamped = Mathf.Clamp(rawWidth, 200f, 400f);
 
             foreach (var b in buttons)
+            {
                 b.style.width = clamped;
+                // Enable text wrapping for very long choices
+                b.style.whiteSpace = WhiteSpace.Normal;
+                // Ensure minimum height for wrapped text
+                b.style.minHeight = 40f;
+            }
         }
 
         private void ExitDialogue()
@@ -305,12 +310,6 @@ namespace RPG.UI
             }
 
             UIController.canPause = true;
-        }
-
-        private void VerifyQuest()
-        {
-            _currentStory.variablesState[Constants.InkStoryQuestCompleted] =
-                _npcControllerCmp.CheckPlayerForQuestItem();
         }
 
         private void BeginFadeIn()

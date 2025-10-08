@@ -85,6 +85,7 @@ namespace RPG.UI
             EventManager.OnTreasureChestUnlocked += HandleTreasureChestUnlocked;
             EventManager.OnVictory += HandleVictory;
             EventManager.OnGameOver += HandleGameOver;
+            EventManager.OnInventoryChanged += HandleInventoryChanged;
         }
 
         private void OnDisable()
@@ -95,6 +96,7 @@ namespace RPG.UI
             EventManager.OnTreasureChestUnlocked -= HandleTreasureChestUnlocked;
             EventManager.OnVictory -= HandleVictory;
             EventManager.OnGameOver -= HandleGameOver;
+            EventManager.OnInventoryChanged -= HandleInventoryChanged;
         }
 
         public void HandleInteract(InputAction.CallbackContext context)
@@ -167,7 +169,7 @@ namespace RPG.UI
             _currentState = _dialogueState;
             _currentState.EnterState();
 
-            (_currentState as UIDialogueState)?.SetStory(inkJson, npc);
+            (_currentState as UIDialogueState)?.SetStory(npc);
         }
 
         private void HandleTreasureChestUnlocked(QuestItemSo itemSo, bool showUI)
@@ -192,6 +194,11 @@ namespace RPG.UI
         {
             _currentState = _gameOverState;
             _currentState.EnterState();
+        }
+
+        private void HandleInventoryChanged(int itemCount)
+        {
+            _questItemIcon.style.display = itemCount > 0 ? DisplayStyle.Flex : DisplayStyle.None;
         }
 
         public void HandlePause(InputAction.CallbackContext context)
