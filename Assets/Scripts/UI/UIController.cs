@@ -22,6 +22,9 @@ namespace RPG.UI
         private UIGameOverState _gameOverState;
         private UIPauseState _pauseState;
         private UIUnpausedState _unpausedState;
+        private UIRewardState _rewardState;
+
+        private UIBaseState _previousStateBeforeReward;
 
         private VisualElement _playerHUDContainer;
         private Label _healthLabel;
@@ -35,7 +38,7 @@ namespace RPG.UI
         public AudioClip victoryClip;
         public AudioClip gameOverClip;
         public bool canPause = true;
-        
+
         [NonSerialized] public AudioSource AudioSourceCmp;
 
         private void Awake()
@@ -47,10 +50,11 @@ namespace RPG.UI
             _gameOverState = new UIGameOverState(this);
             _pauseState = new UIPauseState(this);
             _unpausedState = new UIUnpausedState(this);
+            _rewardState = new UIRewardState(this);
 
             _uiDocumentCmp = GetComponent<UIDocument>();
             RootElement = _uiDocumentCmp.rootVisualElement;
-            
+
             AudioSourceCmp = GetComponent<AudioSource>();
 
             Buttons = new List<Button>();
@@ -86,6 +90,7 @@ namespace RPG.UI
             EventManager.OnVictory += HandleVictory;
             EventManager.OnGameOver += HandleGameOver;
             EventManager.OnInventoryChanged += HandleInventoryChanged;
+            EventManager.OnRewardPreview += HandleRewardPreview;
         }
 
         private void OnDisable()
@@ -97,6 +102,7 @@ namespace RPG.UI
             EventManager.OnVictory -= HandleVictory;
             EventManager.OnGameOver -= HandleGameOver;
             EventManager.OnInventoryChanged -= HandleInventoryChanged;
+            EventManager.OnRewardPreview -= HandleRewardPreview;
         }
 
         public void HandleInteract(InputAction.CallbackContext context)
@@ -201,10 +207,48 @@ namespace RPG.UI
             _questItemIcon.style.display = itemCount > 0 ? DisplayStyle.Flex : DisplayStyle.None;
         }
 
+        private void HandleRewardPreview(RewardSo rewardSo, Action onConfirmed)
+        {
+            _previousStateBeforeReward = _currentState;
+
+            if (_previousStateBeforeReward == _dialogueState)
+            {
+                _dialogueState.PauseForReward();
+            }
+
+            _rewardState.Configure(rewardSo, onConfirmed);
+
+            _currentState = _rewardState;
+            _currentState.EnterState();
+        }
+
+        internal void RestoreStateAfterReward()
+        {
+            var stateToRestore = _previousStateBeforeReward;
+            _previousStateBeforeReward = null;
+
+            if (stateToRestore == null)
+            {
+                _currentState = _unpausedState;
+                _currentState.EnterState();
+                return;
+            }
+
+            if (stateToRestore == _dialogueState)
+            {
+                _currentState = _dialogueState;
+                _dialogueState.ResumeAfterReward();
+                return;
+            }
+
+            _currentState = stateToRestore;
+            _currentState.EnterState();
+        }
+
         public void HandlePause(InputAction.CallbackContext context)
         {
             if (!context.performed || !canPause) return;
-            
+
             _currentState = _currentState == _pauseState ? _unpausedState : _pauseState;
             _currentState.EnterState();
         }

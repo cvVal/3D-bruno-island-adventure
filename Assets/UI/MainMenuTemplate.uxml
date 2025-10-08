@@ -1,15 +1,22 @@
-<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/UI/Global%20Stylesheet.uss?fileID=7433441132597879392&amp;guid=666cede5963e147d784ab9350645dde8&amp;type=3#Global Stylesheet" />
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements"
+         xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd"
+         editor-extension-mode="False">
+    <Style
+        src="project://database/Assets/UI/Global%20Stylesheet.uss?fileID=7433441132597879392&amp;guid=666cede5963e147d784ab9350645dde8&amp;type=3#Global Stylesheet" />
     <ui:VisualElement name="main-menu-container" class="center" style="display: none;">
         <ui:VisualElement name="box" class="primary-container" style="flex-grow: 0; align-self: center;">
-            <ui:Label text="Bruno&apos;s Island Adventure" class="base-text" style="font-size: 80px; -unity-text-align: upper-center;" />
-            <ui:VisualElement name="buttons" style="margin-top: 20px; align-items: center; position: absolute; left: 0; bottom: -50px; width: 100%; flex-direction: row; justify-content: center;">
+            <ui:Label text="Bruno&apos;s Island Adventure" class="base-text"
+                      style="font-size: 80px; -unity-text-align: upper-center;" />
+            <ui:VisualElement name="buttons"
+                              style="margin-top: 20px; align-items: center; position: absolute; left: 0; bottom: -50px; width: 100%; flex-direction: row; justify-content: center;">
                 <ui:Button text="Start&#10;" name="start-button" emoji-fallback-support="false" class="menu-button" />
             </ui:VisualElement>
-            <ui:VisualElement name="image" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Game%20Assets/Sprites/Bombs.png?fileID=2800000&amp;guid=4420e8d6e00706f4f84dad51b2169cb1&amp;type=3#Bombs&quot;); width: 332px; height: 174px; position: absolute; top: -150px; left: 25%;" />
+            <ui:VisualElement name="image"
+                              style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Game%20Assets/Sprites/Bombs.png?fileID=2800000&amp;guid=4420e8d6e00706f4f84dad51b2169cb1&amp;type=3#Bombs&quot;); width: 332px; height: 174px; position: absolute; top: -150px; left: 25%;" />
         </ui:VisualElement>
     </ui:VisualElement>
-    <ui:VisualElement name="player-info-container" style="flex-grow: 0; position: absolute; top: 50px; left: 50px; flex-direction: row; display: none;">
+    <ui:VisualElement name="player-info-container"
+                      style="flex-grow: 0; position: absolute; top: 50px; left: 50px; flex-direction: row; display: none;">
         <ui:VisualElement class="stat-container">
             <ui:Label text="Health" class="stat-name" />
             <ui:Label text="000" name="health-label" class="stat-value" />
@@ -18,7 +25,8 @@
             <ui:Label text="Potions" class="stat-name" />
             <ui:Label text="000" name="potion-label" class="stat-value" />
         </ui:VisualElement>
-        <ui:VisualElement name="quest-item-icon" style="flex-grow: 1; width: 60px; height: 60px; background-image: url(&quot;project://database/Assets/Game%20Assets/Sprites/Quest%20Item.png?fileID=2800000&amp;guid=82f427d1fad0fe5459bae6dfe603876a&amp;type=3#Quest Item&quot;); margin-left: 20px; display: none;" />
+        <ui:VisualElement name="quest-item-icon"
+                          style="flex-grow: 1; width: 60px; height: 60px; background-image: url(&quot;project://database/Assets/Game%20Assets/Sprites/Quest%20Item.png?fileID=2800000&amp;guid=82f427d1fad0fe5459bae6dfe603876a&amp;type=3#Quest Item&quot;); margin-left: 20px; display: none;" />
     </ui:VisualElement>
     <ui:VisualElement name="dialogue-container" class="dialogue-container" style="display: none;">
         <ui:VisualElement class="primary-container dialogue-box">
@@ -29,39 +37,69 @@
         </ui:VisualElement>
         <ui:VisualElement name="choices-group" class="choices-panel" style="display: none;" />
     </ui:VisualElement>
-    <ui:VisualElement name="quest-item-container" style="position: absolute; top: 50%; left: 50%; translate: -50% -50%; width: auto; height: auto; align-items: center; justify-content: center; display: none;">
-        <ui:VisualElement class="primary-container" style="flex-grow: 1; width: 600px; height: 500px; align-items: center; flex-direction: column; justify-content: flex-start; align-content: flex-start;">
-            <ui:VisualElement style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Game%20Assets/Sprites/Paper%20BG.png?fileID=2800000&amp;guid=b1aa48f59209ca54f8ad1e5966d3e81d&amp;type=3#Paper BG&quot;); background-size: 350px 350px; align-items: center; width: 350px; height: 350px;">
-                <ui:VisualElement style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Game%20Assets/Sprites/Quest%20Item%20Large.png?fileID=2800000&amp;guid=44d1dd07413f62049b0e1c783060a46b&amp;type=3#Quest Item Large&quot;); background-size: 250px 250px; width: 250px; height: 250px;" />
+    <ui:VisualElement name="quest-item-container"
+                      style="position: absolute; top: 50%; left: 50%; translate: -50% -50%; width: auto; height: auto; align-items: center; justify-content: center; display: none;">
+        <ui:VisualElement class="primary-container"
+                          style="flex-grow: 1; width: 600px; height: 500px; align-items: center; flex-direction: column; justify-content: flex-start; align-content: flex-start;">
+            <ui:VisualElement
+                style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Game%20Assets/Sprites/Paper%20BG.png?fileID=2800000&amp;guid=b1aa48f59209ca54f8ad1e5966d3e81d&amp;type=3#Paper BG&quot;); background-size: 350px 350px; align-items: center; width: 350px; height: 350px;">
+                <ui:VisualElement
+                    style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Game%20Assets/Sprites/Quest%20Item%20Large.png?fileID=2800000&amp;guid=44d1dd07413f62049b0e1c783060a46b&amp;type=3#Quest Item Large&quot;); background-size: 250px 250px; width: 250px; height: 250px;" />
             </ui:VisualElement>
-            <ui:Label text="Label" name="quest-item-label" class="base-text" style="font-size: 40px; -unity-text-align: upper-center; margin-top: 40px; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-bottom: 0; padding-left: 1px;" />
+            <ui:Label text="Label" name="quest-item-label" class="base-text"
+                      style="font-size: 40px; -unity-text-align: upper-center; margin-top: 40px; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-bottom: 0; padding-left: 1px;" />
             <ui:Button text="Claim&#10;" class="menu-button" style="position: absolute; bottom: -50px;" />
         </ui:VisualElement>
     </ui:VisualElement>
-    <ui:VisualElement name="victory-container" style="position: absolute; top: 50%; left: 50%; translate: -50% -50%; width: auto; height: auto; align-items: center; justify-content: center; display: none;">
-        <ui:VisualElement class="primary-container" style="flex-grow: 1; width: 600px; height: 500px; align-items: center; flex-direction: column; justify-content: flex-start; align-content: flex-start;">
-            <ui:VisualElement style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Game%20Assets/Sprites/Paper%20BG.png?fileID=2800000&amp;guid=b1aa48f59209ca54f8ad1e5966d3e81d&amp;type=3#Paper BG&quot;); background-size: 350px 350px; align-items: center; width: 350px; height: 350px;">
-                <ui:VisualElement style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Game%20Assets/Sprites/Victory.png?fileID=2800000&amp;guid=10647c5842ded2c41b23befdaa14e943&amp;type=3#Victory&quot;); background-size: 250px 250px; width: 250px; height: 250px;" />
+    <ui:VisualElement name="reward-container"
+                      style="position: absolute; top: 50%; left: 50%; translate: -50% -50%; width: auto; height: auto; align-items: center; justify-content: center; display: none;">
+        <ui:VisualElement class="primary-container" style="flex-direction: column; align-items: center; gap: 20px;">
+            <ui:Label name="reward-title-label" text="Reward Earned!" class="base-text"
+                      style="font-size: 50px; margin-bottom: 10px; -unity-text-align: upper-center;" />
+            <ui:Label name="reward-details-label" text="Reward details go here" class="base-text"
+                      style="font-size: 40px; white-space: normal; text-align: center; -unity-text-align: upper-center; color: rgb(118, 62, 62); -unity-text-outline-width: 1px;" />
+            <ui:Button name="reward-continue-button" text="Continue" class="menu-button" style="margin-top: 20px;" />
+        </ui:VisualElement>
+    </ui:VisualElement>
+    <ui:VisualElement name="victory-container"
+                      style="position: absolute; top: 50%; left: 50%; translate: -50% -50%; width: auto; height: auto; align-items: center; justify-content: center; display: none;">
+        <ui:VisualElement class="primary-container"
+                          style="flex-grow: 1; width: 600px; height: 500px; align-items: center; flex-direction: column; justify-content: flex-start; align-content: flex-start;">
+            <ui:VisualElement
+                style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Game%20Assets/Sprites/Paper%20BG.png?fileID=2800000&amp;guid=b1aa48f59209ca54f8ad1e5966d3e81d&amp;type=3#Paper BG&quot;); background-size: 350px 350px; align-items: center; width: 350px; height: 350px;">
+                <ui:VisualElement
+                    style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Game%20Assets/Sprites/Victory.png?fileID=2800000&amp;guid=10647c5842ded2c41b23befdaa14e943&amp;type=3#Victory&quot;); background-size: 250px 250px; width: 250px; height: 250px;" />
             </ui:VisualElement>
-            <ui:Label text="Victory!" class="base-text" style="font-size: 40px; -unity-text-align: upper-center; margin-top: 40px; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-bottom: 0; padding-left: 1px;" />
+            <ui:Label text="Victory!" class="base-text"
+                      style="font-size: 40px; -unity-text-align: upper-center; margin-top: 40px; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-bottom: 0; padding-left: 1px;" />
             <ui:Button text="Go to Main Menu" class="menu-button" style="position: absolute; bottom: -50px;" />
         </ui:VisualElement>
     </ui:VisualElement>
-    <ui:VisualElement name="game-over-container" style="position: absolute; top: 50%; left: 50%; translate: -50% -50%; width: auto; height: auto; align-items: center; justify-content: center; display: none;">
-        <ui:VisualElement class="primary-container" style="flex-grow: 1; width: 600px; height: 500px; align-items: center; flex-direction: column; justify-content: flex-start; align-content: flex-start;">
-            <ui:VisualElement style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Game%20Assets/Sprites/Paper%20BG.png?fileID=2800000&amp;guid=b1aa48f59209ca54f8ad1e5966d3e81d&amp;type=3#Paper BG&quot;); background-size: 350px 350px; align-items: center; width: 350px; height: 350px;">
-                <ui:VisualElement style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Game%20Assets/Sprites/Game%20Over.png?fileID=2800000&amp;guid=127de711d0ac2e44487e5407a2913a64&amp;type=3#Game Over&quot;); background-size: 250px 250px; width: 250px; height: 250px;" />
+    <ui:VisualElement name="game-over-container"
+                      style="position: absolute; top: 50%; left: 50%; translate: -50% -50%; width: auto; height: auto; align-items: center; justify-content: center; display: none;">
+        <ui:VisualElement class="primary-container"
+                          style="flex-grow: 1; width: 600px; height: 500px; align-items: center; flex-direction: column; justify-content: flex-start; align-content: flex-start;">
+            <ui:VisualElement
+                style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Game%20Assets/Sprites/Paper%20BG.png?fileID=2800000&amp;guid=b1aa48f59209ca54f8ad1e5966d3e81d&amp;type=3#Paper BG&quot;); background-size: 350px 350px; align-items: center; width: 350px; height: 350px;">
+                <ui:VisualElement
+                    style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Game%20Assets/Sprites/Game%20Over.png?fileID=2800000&amp;guid=127de711d0ac2e44487e5407a2913a64&amp;type=3#Game Over&quot;); background-size: 250px 250px; width: 250px; height: 250px;" />
             </ui:VisualElement>
-            <ui:Label text="Game Over" class="base-text" style="font-size: 40px; -unity-text-align: upper-center; margin-top: 40px; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-bottom: 0; padding-left: 1px;" />
+            <ui:Label text="Game Over" class="base-text"
+                      style="font-size: 40px; -unity-text-align: upper-center; margin-top: 40px; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-bottom: 0; padding-left: 1px;" />
             <ui:Button text="Go to Main Menu" class="menu-button" style="position: absolute; bottom: -50px;" />
         </ui:VisualElement>
     </ui:VisualElement>
-    <ui:VisualElement name="pause-container" style="position: absolute; top: 50%; left: 50%; translate: -50% -50%; width: auto; height: auto; align-items: center; justify-content: center; display: none;">
-        <ui:VisualElement class="primary-container" style="flex-grow: 1; width: 600px; height: 500px; align-items: center; flex-direction: column; justify-content: flex-start; align-content: flex-start;">
-            <ui:VisualElement style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Game%20Assets/Sprites/Paper%20BG.png?fileID=2800000&amp;guid=b1aa48f59209ca54f8ad1e5966d3e81d&amp;type=3#Paper BG&quot;); background-size: 350px 350px; align-items: center; width: 350px; height: 350px;">
-                <ui:VisualElement style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Game%20Assets/Sprites/Pause.png?fileID=2800000&amp;guid=b36e3c38a6e787648bb7772a0879a6ef&amp;type=3#Pause&quot;); background-size: 250px 250px; width: 250px; height: 250px;" />
+    <ui:VisualElement name="pause-container"
+                      style="position: absolute; top: 50%; left: 50%; translate: -50% -50%; width: auto; height: auto; align-items: center; justify-content: center; display: none;">
+        <ui:VisualElement class="primary-container"
+                          style="flex-grow: 1; width: 600px; height: 500px; align-items: center; flex-direction: column; justify-content: flex-start; align-content: flex-start;">
+            <ui:VisualElement
+                style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Game%20Assets/Sprites/Paper%20BG.png?fileID=2800000&amp;guid=b1aa48f59209ca54f8ad1e5966d3e81d&amp;type=3#Paper BG&quot;); background-size: 350px 350px; align-items: center; width: 350px; height: 350px;">
+                <ui:VisualElement
+                    style="flex-grow: 1; background-image: url(&quot;project://database/Assets/Game%20Assets/Sprites/Pause.png?fileID=2800000&amp;guid=b36e3c38a6e787648bb7772a0879a6ef&amp;type=3#Pause&quot;); background-size: 250px 250px; width: 250px; height: 250px;" />
             </ui:VisualElement>
-            <ui:Label text="Game paused" class="base-text" style="font-size: 40px; -unity-text-align: upper-center; margin-top: 40px; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-bottom: 0; padding-left: 1px;" />
+            <ui:Label text="Game paused" class="base-text"
+                      style="font-size: 40px; -unity-text-align: upper-center; margin-top: 40px; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-bottom: 0; padding-left: 1px;" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

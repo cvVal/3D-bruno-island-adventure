@@ -33,13 +33,18 @@ namespace RPG.Utility
         public const string UIClassGameOverContainer = "game-over-container";
         public const string UIClassVictoryContainer = "victory-container";
         public const string UIClassPauseContainer = "pause-container";
+        public const string UIClassRewardContainer = "reward-container";
+        public const string UIClassRewardTitleLabel = "reward-title-label";
+        public const string UIClassRewardDetailsLabel = "reward-details-label";
+        public const string UIClassRewardButton = "reward-continue-button";
 
         // Ink Story - External Functions
         public const string InkStoryVerifyQuestFunc = "VerifyQuest";
-        
+        public const string InkStoryTriggerRewardFunc = "TriggerReward";
+
         // Ink Story - Knots/Paths
         public const string InkStoryPostCompletionKnot = "post_completion";
-        
+
         // Ink Story - Variables
         public const string InkStoryQuestCompletedVar = "questCompleted";
 

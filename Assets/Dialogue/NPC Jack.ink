@@ -1,4 +1,5 @@
 EXTERNAL VerifyQuest()
+EXTERNAL TriggerReward()
 
 VAR questCompleted = false
 VAR hasMetJack = false
@@ -170,8 +171,8 @@ Trust me.
 You... you actually found it!
 The ribbon... the rune... it's perfect! Still intact!
 I'd almost given up hope.
-Here, please—take this as thanks.
-Jack hands you a sword 🗡️ and 2 potions 🧪! You feel stronger already!
+Please, accept this token of gratitude.
+~ TriggerReward()
 It's not much, but it's all I can offer.
 You've given me more than just candy back.
 You've restored a piece of my heart, my memories.

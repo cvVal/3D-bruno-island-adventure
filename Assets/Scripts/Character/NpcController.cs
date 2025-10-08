@@ -13,6 +13,7 @@ namespace RPG.Character
         private Inventory _playerInventoryCmp;
         private Reward _rewardCmp;
         private Story _story;
+        private bool _rewardPending;
 
         [Header("Dialogue")] public TextAsset inkJson;
 
@@ -95,6 +96,7 @@ namespace RPG.Character
             if (desiredQuestItem)
             {
                 _story.BindExternalFunction(Constants.InkStoryVerifyQuestFunc, VerifyQuest);
+                _story.BindExternalFunction(Constants.InkStoryTriggerRewardFunc, TriggerReward);
             }
             else
             {
@@ -132,10 +134,33 @@ namespace RPG.Character
                 // Remove the quest item from inventory when completing the quest
                 _playerInventoryCmp.RemoveItem(desiredQuestItem);
 
-                _rewardCmp.SendReward();
+                _rewardPending = true;
             }
 
             return hasQuestItem;
+        }
+
+        private void TriggerReward()
+        {
+            if (!_rewardPending)
+            {
+                if (_rewardCmp && !_rewardCmp.HasRewardBeenClaimed)
+                {
+                    _rewardCmp.SendReward();
+                }
+
+                return;
+            }
+
+            if (!_rewardCmp)
+            {
+                Debug.LogWarning($"[{gameObject.name}] TriggerReward called but Reward component is missing.");
+                _rewardPending = false;
+                return;
+            }
+
+            _rewardPending = false;
+            _rewardCmp.SendReward();
         }
 
         private void CheckNpcQuestItem(string itemName)

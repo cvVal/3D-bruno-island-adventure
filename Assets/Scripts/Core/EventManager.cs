@@ -1,3 +1,4 @@
+using System;
 using RPG.Quest;
 using UnityEngine;
 using UnityEngine.Events;
@@ -12,6 +13,7 @@ namespace RPG.Core
         public static event UnityAction<QuestItemSo, bool> OnTreasureChestUnlocked;
         public static event UnityAction<bool> OnToggleUI;
         public static event UnityAction<RewardSo> OnReward;
+        public static event UnityAction<RewardSo, Action> OnRewardPreview;
         public static event UnityAction<Collider, int> OnPortalEnter;
         public static event UnityAction<bool> OnCutSceneUpdated;
         public static event UnityAction OnVictory;
@@ -39,6 +41,23 @@ namespace RPG.Core
 
         public static void RaiseReward(RewardSo rewardSo) =>
             OnReward?.Invoke(rewardSo);
+
+        /// <summary>
+        /// Raises the reward preview event to show UI before granting the reward.
+        /// Returns true if a listener handled the preview, false otherwise.
+        /// This allows for graceful fallback when no UI handler is present.
+        /// </summary>
+        public static bool RaiseRewardPreview(
+            RewardSo rewardSo,
+            Action onConfirmed
+        )
+        {
+            if (OnRewardPreview == null) return false;
+
+            OnRewardPreview.Invoke(rewardSo, onConfirmed);
+
+            return true;
+        }
 
         public static void RaisePortalEnter(
             Collider player,

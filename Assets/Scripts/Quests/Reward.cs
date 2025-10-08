@@ -5,12 +5,13 @@ namespace RPG.Quest
 {
     public class Reward : MonoBehaviour
     {
-        private bool _rewardTaken;
         private AudioSource _audioSourceCmp;
 
         [SerializeField] private RewardSo rewardSo;
 
         [Header("Audio Settings")] public AudioClip rewardClip;
+
+        public bool HasRewardBeenClaimed { get; private set; }
 
         private void Awake()
         {
@@ -19,9 +20,7 @@ namespace RPG.Quest
 
         public void SendReward()
         {
-            if (_rewardTaken) return;
-
-            _rewardTaken = true;
+            if (HasRewardBeenClaimed) return;
 
             if (!rewardSo)
             {
@@ -31,6 +30,21 @@ namespace RPG.Quest
                 return;
             }
 
+            HasRewardBeenClaimed = true;
+
+            var previewHandled = EventManager.RaiseRewardPreview(
+                rewardSo,
+                GrantReward
+            );
+
+            if (!previewHandled)
+            {
+                GrantReward();
+            }
+        }
+
+        private void GrantReward()
+        {
             EventManager.RaiseReward(rewardSo);
 
             if (rewardClip)

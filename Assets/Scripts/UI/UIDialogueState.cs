@@ -39,6 +39,7 @@ namespace RPG.UI
         private float _fadeStartTime;
         private const float FadeDuration = 0.25f; // seconds
         private bool _fadeCompleted;
+        private bool _isPausedForReward;
 
         public UIDialogueState(UIController ui) : base(ui)
         {
@@ -49,6 +50,7 @@ namespace RPG.UI
             // Reset transient state in case of re-entry
             _isTyping = false;
             _fadeCompleted = false;
+            _isPausedForReward = false;
             _currentLineFullText = string.Empty;
             _typingSchedule?.Pause();
             _fadeSchedule?.Pause();
@@ -60,7 +62,7 @@ namespace RPG.UI
             _choicesGroup = UIController.RootElement.Q<VisualElement>(Constants.UIClassChoicesGroup);
 
             _dialogueContainer.style.display = DisplayStyle.Flex;
-            
+
             // Start hidden (fade-in)
             _dialogueContainer.style.opacity = 0f;
             BeginFadeIn();
@@ -86,11 +88,45 @@ namespace RPG.UI
             UpdateDialogue();
         }
 
+        public void PauseForReward()
+        {
+            if (_dialogueContainer == null) return;
+
+            if (_isTyping)
+            {
+                CompleteTyping();
+            }
+
+            _typingSchedule?.Pause();
+            _dialogueContainer.style.display = DisplayStyle.None;
+            _isPausedForReward = true;
+        }
+
+        public void ResumeAfterReward()
+        {
+            if (!_isPausedForReward) return;
+
+            _dialogueContainer.style.display = DisplayStyle.Flex;
+            _dialogueContainer.style.opacity = 1f;
+
+            if (!_playerInputCmp)
+            {
+                _playerInputCmp = GameObject
+                    .FindGameObjectWithTag(Constants.GameManagerTag)
+                    .GetComponent<PlayerInput>();
+            }
+
+            _playerInputCmp.SwitchCurrentActionMap(Constants.UIActionMap);
+
+            UIController.canPause = false;
+            _isPausedForReward = false;
+        }
+
         public void SetStory(GameObject npc)
         {
             _npcControllerCmp = npc.GetComponent<NpcController>();
             _currentStory = _npcControllerCmp.GetOrCreateStory();
-            
+
             _npcNameText.text = _npcControllerCmp.name;
 
             // Store NPC's original rotation and rotate both to face each other
