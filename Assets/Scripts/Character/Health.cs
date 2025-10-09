@@ -49,6 +49,14 @@ namespace RPG.Character
 
         public void TakeDamage(float damageAmount)
         {
+            // Apply defense reduction if defending
+            var combatCmp = GetComponent<Combat>();
+            if (combatCmp != null)
+            {
+                var defenseReduction = combatCmp.GetDefenseReduction();
+                damageAmount *= (1f - defenseReduction);
+            }
+            
             HealthPoints = Mathf.Max(HealthPoints - damageAmount, 0);
 
             if (CompareTag(Constants.PlayerTag))

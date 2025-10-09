@@ -91,6 +91,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: c98cd4df-0b28-4843-9bde-74101b16ef0a
     m_ActionName: 'UI/Unpause[/Keyboard/escape]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a0324a34-0dd4-4bb7-ac0f-f84b845415f7
+    m_ActionName: 'Gameplay/Jump[/Keyboard/space]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 8a3e5f7c-9d2b-4e11-a8f9-3c4d5e6f7a8b
+    m_ActionName: 'Gameplay/Defense[/Keyboard/e]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 37c3929d-fead-4915-ad8a-80b71d6053ba
+    m_ActionName: 'Gameplay/Spin Attack[/Mouse/rightButton]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b9ae02c3-50e6-40c2-aa27-de474123c297
+    m_ActionName: 'Gameplay/Dash[/Keyboard/shift]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Gameplay

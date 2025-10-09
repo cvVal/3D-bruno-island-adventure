@@ -15,8 +15,12 @@ namespace RPG.Character
         private BubbleEvent _bubbleEventCmp;
         private AudioSource _audioSourceCmp;
         private bool _isAttacking;
-        
+        private bool _isDefending;
+
         [Header("Audio Settings")] public AudioClip attackClip;
+
+        [Header("Defense Settings")] [Range(0f, 1f)]
+        public float defenseReduction = 0.5f; // 50% damage reduction by default
 
         [NonSerialized] public float Damage;
         [NonSerialized] public float AttackSpeed = 1f;
@@ -45,8 +49,21 @@ namespace RPG.Character
         public void HandleAttack(InputAction.CallbackContext context)
         {
             if (!context.performed) return;
+            if (_isDefending) return; // Can't attack while defending
 
             StartAttack();
+        }
+
+        public void HandleDefense(InputAction.CallbackContext context)
+        {
+            if (context.performed)
+            {
+                StartDefense();
+            }
+            else if (context.canceled)
+            {
+                StopDefense();
+            }
         }
 
         public void StartAttack()
@@ -54,14 +71,29 @@ namespace RPG.Character
             if (_isAttacking) return;
 
             _animatorCmp.SetFloat(Constants.SpeedAnimatorParam, 0);
-            
+
             // Set the attack animation speed based on attackSpeed
             _animatorCmp.SetFloat(Constants.AttackSpeedAnimatorParam, AttackSpeed);
-            
+
             _animatorCmp.SetTrigger(Constants.AttackAnimatorParam);
-            
+
             if (attackClip && _audioSourceCmp)
                 _audioSourceCmp.PlayOneShot(attackClip);
+        }
+
+        private void StartDefense()
+        {
+            if (_isAttacking) return; // Can't defend while attacking
+
+            _isDefending = true;
+            _animatorCmp.SetFloat(Constants.SpeedAnimatorParam, 0);
+            _animatorCmp.SetBool(Constants.IsDefendingAnimatorParam, true);
+        }
+
+        private void StopDefense()
+        {
+            _isDefending = false;
+            _animatorCmp.SetBool(Constants.IsDefendingAnimatorParam, false);
         }
 
         private void HandleBubbleStartAttack()
@@ -104,6 +136,11 @@ namespace RPG.Character
         public void CancelAttack()
         {
             _animatorCmp.ResetTrigger(Constants.AttackAnimatorParam);
+        }
+
+        public float GetDefenseReduction()
+        {
+            return _isDefending ? defenseReduction : 0f;
         }
     }
 }
