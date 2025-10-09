@@ -63,5 +63,6 @@ namespace RPG.Utility
         public const string AttackSpeedAnimatorParam = "attackSpeed";
         public const string DefeatedAnimatorParam = "defeated";
         public const string IsDefendingAnimatorParam = "isDefending";
+        public const string IsDashingAnimatorParam = "isDashing";
     }
 }

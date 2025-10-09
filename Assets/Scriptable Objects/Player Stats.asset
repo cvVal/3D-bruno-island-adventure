@@ -17,3 +17,6 @@ MonoBehaviour:
   walkSpeed: 1
   runSpeed: 3
   attackSpeed: 1.5
+  dashDistance: 2.5
+  dashDuration: 0.2
+  dashCooldown: 0.5

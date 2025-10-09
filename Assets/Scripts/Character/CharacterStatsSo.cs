@@ -16,5 +16,8 @@ namespace RPG.Character
         public float walkSpeed = 1f;
         public float runSpeed = 1.5f;
         public float attackSpeed = 1f;
+        public float dashDistance = 2.5f;
+        public float dashDuration = 0.2f;
+        public float dashCooldown = 0.5f;
     }
 }

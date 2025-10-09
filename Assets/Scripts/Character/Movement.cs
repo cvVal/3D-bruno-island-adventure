@@ -14,9 +14,16 @@ namespace RPG.Character
         
         private Vector3 _movementVector;
         private bool _clampAnimatorSpeedAgain = true;
+        private bool _isDashing;
+        private float _dashTimer;
+        private float _dashCooldownTimer;
+        private Vector3 _dashDirection;
 
         [NonSerialized] public Vector3 OriginalForwardVector;
         [NonSerialized] public bool IsMoving;
+        [NonSerialized] public float DashDistance;
+        [NonSerialized] public float DashDuration;
+        [NonSerialized] public float DashCooldown;
 
         private void Awake()
         {
@@ -33,10 +40,24 @@ namespace RPG.Character
 
         private void Update()
         {
-            MovePlayer();
+            if (_isDashing)
+            {
+                PerformDash();
+            }
+            else
+            {
+                MovePlayer();
+            }
+
             MovementAnimator();
 
             if (CompareTag(Constants.PlayerTag)) Rotate(_movementVector);
+
+            // Update cooldown timer
+            if (_dashCooldownTimer > 0)
+            {
+                _dashCooldownTimer -= Time.deltaTime;
+            }
         }
 
         private void MovePlayer()
@@ -126,6 +147,66 @@ namespace RPG.Character
             }
 
             _animatorCmp.SetFloat(Constants.SpeedAnimatorParam, speed);
+        }
+
+        public void HandleDash(InputAction.CallbackContext context)
+        {
+            if (!context.performed) return;
+            if (_isDashing) return; // Already dashing
+            if (_dashCooldownTimer > 0) return; // On cooldown
+            
+            // Get dash direction from current movement or forward
+            var dashDir = _movementVector != Vector3.zero ? _movementVector.normalized : transform.forward;
+            
+            StartDash(dashDir);
+        }
+
+        public void StartDash(Vector3 direction)
+        {
+            _isDashing = true;
+            _dashTimer = DashDuration;
+            _dashDirection = direction.normalized;
+            _dashCooldownTimer = DashCooldown;
+            
+            _animatorCmp.SetBool(Constants.IsDashingAnimatorParam, true);
+            
+            var combatCmp = GetComponent<Combat>();
+            
+            if (!combatCmp) return;
+            
+            combatCmp.CancelAttack();
+            combatCmp.StopDefense();
+        }
+
+        private void PerformDash()
+        {
+            _dashTimer -= Time.deltaTime;
+
+            if (_dashTimer <= 0)
+            {
+                EndDash();
+                return;
+            }
+
+            // Calculate dash speed
+            var dashSpeed = DashDistance / DashDuration;
+            var dashOffset = _dashDirection * (dashSpeed * Time.deltaTime);
+            
+            if (_agentCmp.isOnNavMesh)
+            {
+                _agentCmp.Move(dashOffset);
+            }
+        }
+
+        private void EndDash()
+        {
+            _isDashing = false;
+            _animatorCmp.SetBool(Constants.IsDashingAnimatorParam, false);
+        }
+
+        public bool IsDashing()
+        {
+            return _isDashing;
         }
     }
 }

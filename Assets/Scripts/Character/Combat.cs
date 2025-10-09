@@ -50,6 +50,10 @@ namespace RPG.Character
         {
             if (!context.performed) return;
             if (_isDefending) return; // Can't attack while defending
+            
+            // Can't attack while dashing
+            var movementCmp = GetComponent<Movement>();
+            if (movementCmp && movementCmp.IsDashing()) return;
 
             StartAttack();
         }
@@ -58,6 +62,10 @@ namespace RPG.Character
         {
             if (context.performed)
             {
+                // Can't defend while dashing
+                var movementCmp = GetComponent<Movement>();
+                if (movementCmp && movementCmp.IsDashing()) return;
+                
                 StartDefense();
             }
             else if (context.canceled)
@@ -90,7 +98,7 @@ namespace RPG.Character
             _animatorCmp.SetBool(Constants.IsDefendingAnimatorParam, true);
         }
 
-        private void StopDefense()
+        public void StopDefense()
         {
             _isDefending = false;
             _animatorCmp.SetBool(Constants.IsDefendingAnimatorParam, false);

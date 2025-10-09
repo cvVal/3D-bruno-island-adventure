@@ -14,6 +14,7 @@ namespace RPG.Character
 
         public CharacterStatsSo stats;
         public Weapons weapon = Weapons.Axe;
+        private Movement _movementCmp;
 
         [NonSerialized] public Health HealthCmp;
         [NonSerialized] public Combat CombatCmp;
@@ -24,6 +25,7 @@ namespace RPG.Character
 
             HealthCmp = GetComponent<Health>();
             CombatCmp = GetComponent<Combat>();
+            _movementCmp = GetComponent<Movement>();
             _axeWeapon = GameObject.FindGameObjectWithTag(Constants.AxeTag);
             _swordWeapon = GameObject.FindGameObjectWithTag(Constants.SwordTag);
         }
@@ -60,6 +62,11 @@ namespace RPG.Character
                 CombatCmp.Damage = stats.damage;
                 CombatCmp.AttackSpeed = stats.attackSpeed;
             }
+
+            // Initialize dash stats from CharacterStatsSo
+            _movementCmp.DashDistance = stats.dashDistance;
+            _movementCmp.DashDuration = stats.dashDuration;
+            _movementCmp.DashCooldown = stats.dashCooldown;
 
             EventManager.RaiseChangePlayerHealth(HealthCmp.HealthPoints);
             SetWeapon();
