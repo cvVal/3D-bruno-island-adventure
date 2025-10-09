@@ -34,6 +34,15 @@
                     "initialStateCheck": false
                 },
                 {
+                    "name": "Jump",
+                    "type": "Button",
+                    "id": "a0324a34-0dd4-4bb7-ac0f-f84b845415f7",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
                     "name": "Heal",
                     "type": "Button",
                     "id": "76b21021-fdfb-420e-90b6-6fa86596b43f",
@@ -50,13 +59,40 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Defense",
+                    "type": "Button",
+                    "id": "8a3e5f7c-9d2b-4e11-a8f9-3c4d5e6f7a8b",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Spin Attack",
+                    "type": "Button",
+                    "id": "37c3929d-fead-4915-ad8a-80b71d6053ba",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Dash",
+                    "type": "Button",
+                    "id": "b9ae02c3-50e6-40c2-aa27-de474123c297",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
                 {
                     "name": "",
                     "id": "12d3ea32-002e-4fdd-ab65-04b73756d28b",
-                    "path": "<Keyboard>/e",
+                    "path": "<Keyboard>/f",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -67,7 +103,7 @@
                 {
                     "name": "",
                     "id": "b03871f0-aee6-4cca-9bda-3d0e838b1613",
-                    "path": "<SwitchProControllerHID>/buttonEast",
+                    "path": "<Gamepad>/buttonEast",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -77,8 +113,8 @@
                 },
                 {
                     "name": "",
-                    "id": "130fa95d-38b1-46c5-ba29-2623b7dda2b3",
-                    "path": "<Keyboard>/space",
+                    "id": "37fe2163-17c9-4fea-9c9e-92e088d9ce44",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -89,7 +125,7 @@
                 {
                     "name": "",
                     "id": "747b325d-739e-4182-b422-6f80a5fb2980",
-                    "path": "<SwitchProControllerHID>/buttonWest",
+                    "path": "<Gamepad>/buttonWest",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -111,7 +147,7 @@
                 {
                     "name": "",
                     "id": "1ad40b97-44be-45ba-ae7f-d2944302a17a",
-                    "path": "<SwitchProControllerHID>/buttonNorth",
+                    "path": "<Gamepad>/buttonNorth",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -133,7 +169,7 @@
                 {
                     "name": "",
                     "id": "e9e3c0fc-aeef-4959-8122-b16269ddff4c",
-                    "path": "<SwitchProControllerHID>/start",
+                    "path": "<Gamepad>/start",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -197,7 +233,7 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "Nintendo Switch Pro Controller",
+                    "name": "Gamepad",
                     "id": "614b7807-4ae9-4650-8a10-0ce31486dca1",
                     "path": "2DVector",
                     "interactions": "",
@@ -250,6 +286,94 @@
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "291e6262-2406-49bb-bd1b-8955a68925cf",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Defense",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c3d4e5f6-a7b8-9012-cdef-123456789012",
+                    "path": "<Gamepad>/rightTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Defense",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "516e53da-fd53-4511-8e88-7519e2ea9e9f",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Spin Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8f33c031-a3c2-4f77-93d2-1269f46d48a4",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Spin Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8c98e11a-a168-40fd-92e5-a3e320951949",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1d77c1f9-fa5f-4a80-8d22-74eb7a87253f",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fe1814dd-abf1-42b8-83e8-2da86d55f125",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Dash",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c4934678-b9be-474d-9b30-169adabd38da",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Dash",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -289,7 +413,7 @@
                 {
                     "name": "",
                     "id": "3ee4d896-cf31-47bb-9ed5-afd4a6e44406",
-                    "path": "<Keyboard>/e",
+                    "path": "<Keyboard>/f",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -300,7 +424,7 @@
                 {
                     "name": "",
                     "id": "7dc8cb36-8dd9-47c5-a2ae-4f6bdc957aae",
-                    "path": "<SwitchProControllerHID>/buttonEast",
+                    "path": "<Gamepad>/buttonEast",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -322,7 +446,7 @@
                 {
                     "name": "",
                     "id": "dd1c5e84-3430-40ae-ae67-e2b617b140d3",
-                    "path": "<SwitchProControllerHID>/start",
+                    "path": "<Gamepad>/start",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -386,7 +510,7 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "Nintendo Switch Pro Controller",
+                    "name": "Gamepad",
                     "id": "a04acc6b-239b-4d26-8ceb-faa92abaa87f",
                     "path": "2DVector",
                     "interactions": "",
