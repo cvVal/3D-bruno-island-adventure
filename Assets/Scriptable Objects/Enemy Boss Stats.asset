@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8636772610acc4be0b2ba286cbfd47af, type: 3}
   m_Name: Enemy Boss Stats
   m_EditorClassIdentifier: Assembly-CSharp::RPG.Character.CharacterStatsSo
-  health: 125
-  damage: 10
+  health: 200
+  damage: 12
   walkSpeed: 1
   runSpeed: 2
+  attackSpeed: 1.5

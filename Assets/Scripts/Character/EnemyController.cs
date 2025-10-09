@@ -78,6 +78,7 @@ namespace RPG.Character
 
             _healthCmp.HealthPoints = stats.health;
             CombatCmp.Damage = stats.damage;
+            CombatCmp.AttackSpeed = stats.attackSpeed;
 
             if (!_healthCmp.SliderCmp) return;
             _healthCmp.SliderCmp.maxValue = stats.health;

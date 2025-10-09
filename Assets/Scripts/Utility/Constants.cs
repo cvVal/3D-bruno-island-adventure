@@ -51,6 +51,7 @@ namespace RPG.Utility
         public const string PlayerPrefsHealth = "Health";
         public const string PlayerPrefsPotions = "Potions";
         public const string PlayerPrefsDamage = "Damage";
+        public const string PlayerPrefsAttackSpeed = "AttackSpeed";
         public const string PlayerPrefsWeapon = "Weapon";
         public const string PlayerPrefsSceneIndex = "SceneIndex";
         public const string PlayerPrefsQuestItems = "QuestItems";
@@ -59,6 +60,7 @@ namespace RPG.Utility
         public const string SpeedAnimatorParam = "speed";
         public const string IsShakingAnimatorParam = "isShaking";
         public const string AttackAnimatorParam = "attack";
+        public const string AttackSpeedAnimatorParam = "attackSpeed";
         public const string DefeatedAnimatorParam = "defeated";
     }
 }

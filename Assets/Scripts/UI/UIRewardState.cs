@@ -107,6 +107,9 @@ namespace RPG.UI
 
             if (_currentReward.bonusDamage > 0)
                 lines.Add($"+{FormatNumber(_currentReward.bonusDamage)} {Constants.PlayerPrefsDamage}");
+            
+            if (_currentReward.bonusAttackSpeed > 0)
+                lines.Add($"+{FormatNumber(_currentReward.bonusAttackSpeed)} {Constants.PlayerPrefsAttackSpeed}");
 
             if (_currentReward.bonusPotion > 0)
             {

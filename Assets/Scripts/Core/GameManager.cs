@@ -57,6 +57,7 @@ namespace RPG.Core
             PlayerPrefs.SetFloat(Constants.PlayerPrefsHealth, playerControllerCmp.HealthCmp.HealthPoints);
             PlayerPrefs.SetInt(Constants.PlayerPrefsPotions, playerControllerCmp.HealthCmp.potionCount);
             PlayerPrefs.SetFloat(Constants.PlayerPrefsDamage, playerControllerCmp.CombatCmp.Damage);
+            PlayerPrefs.SetFloat(Constants.PlayerPrefsAttackSpeed, playerControllerCmp.CombatCmp.AttackSpeed);
             PlayerPrefs.SetInt(Constants.PlayerPrefsWeapon, (int)playerControllerCmp.weapon);
             PlayerPrefs.SetInt(Constants.PlayerPrefsSceneIndex, nextSceneIndex);
 

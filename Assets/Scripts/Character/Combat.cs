@@ -14,11 +14,12 @@ namespace RPG.Character
         private Animator _animatorCmp;
         private BubbleEvent _bubbleEventCmp;
         private AudioSource _audioSourceCmp;
+        private bool _isAttacking;
         
         [Header("Audio Settings")] public AudioClip attackClip;
 
         [NonSerialized] public float Damage;
-        [NonSerialized] public bool IsAttacking;
+        [NonSerialized] public float AttackSpeed = 1f;
 
         private void Awake()
         {
@@ -50,9 +51,13 @@ namespace RPG.Character
 
         public void StartAttack()
         {
-            if (IsAttacking) return;
+            if (_isAttacking) return;
 
             _animatorCmp.SetFloat(Constants.SpeedAnimatorParam, 0);
+            
+            // Set the attack animation speed based on attackSpeed
+            _animatorCmp.SetFloat(Constants.AttackSpeedAnimatorParam, AttackSpeed);
+            
             _animatorCmp.SetTrigger(Constants.AttackAnimatorParam);
             
             if (attackClip && _audioSourceCmp)
@@ -61,12 +66,12 @@ namespace RPG.Character
 
         private void HandleBubbleStartAttack()
         {
-            IsAttacking = true;
+            _isAttacking = true;
         }
 
         private void HandleBubbleCompleteAttack()
         {
-            IsAttacking = false;
+            _isAttacking = false;
             _hitTargets.Clear();
         }
 

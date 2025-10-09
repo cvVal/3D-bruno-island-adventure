@@ -15,5 +15,6 @@ namespace RPG.Character
         public float damage = 10f;
         public float walkSpeed = 1f;
         public float runSpeed = 1.5f;
+        public float attackSpeed = 1f;
     }
 }

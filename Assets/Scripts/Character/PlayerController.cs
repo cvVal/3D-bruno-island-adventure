@@ -45,6 +45,7 @@ namespace RPG.Character
                 HealthCmp.HealthPoints = PlayerPrefs.GetFloat(Constants.PlayerPrefsHealth);
                 HealthCmp.potionCount = PlayerPrefs.GetInt(Constants.PlayerPrefsPotions);
                 CombatCmp.Damage = PlayerPrefs.GetFloat(Constants.PlayerPrefsDamage);
+                CombatCmp.AttackSpeed = PlayerPrefs.GetFloat(Constants.PlayerPrefsAttackSpeed);
                 weapon = (Weapons)PlayerPrefs.GetInt(Constants.PlayerPrefsWeapon);
 
                 var agentCmp = GetComponent<NavMeshAgent>();
@@ -57,6 +58,7 @@ namespace RPG.Character
             {
                 HealthCmp.HealthPoints = stats.health;
                 CombatCmp.Damage = stats.damage;
+                CombatCmp.AttackSpeed = stats.attackSpeed;
             }
 
             EventManager.RaiseChangePlayerHealth(HealthCmp.HealthPoints);
@@ -68,6 +70,7 @@ namespace RPG.Character
             HealthCmp.HealthPoints += rewardSo.bonusHealth;
             HealthCmp.potionCount += rewardSo.bonusPotion;
             CombatCmp.Damage += rewardSo.bonusDamage;
+            CombatCmp.AttackSpeed += rewardSo.bonusAttackSpeed;
 
             EventManager.RaiseChangePlayerHealth(HealthCmp.HealthPoints);
             EventManager.RaiseChangePlayerPotions(HealthCmp.potionCount);

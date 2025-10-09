@@ -15,6 +15,7 @@ namespace RPG.Quest
         public float bonusHealth;
         public float bonusDamage;
         public int bonusPotion;
+        public float bonusAttackSpeed;
         public bool forceWeaponSwap;
         public Weapons weapon = Weapons.Sword;
     }
