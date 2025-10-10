@@ -34,15 +34,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Jump",
-                    "type": "Button",
-                    "id": "a0324a34-0dd4-4bb7-ac0f-f84b845415f7",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Heal",
                     "type": "Button",
                     "id": "76b21021-fdfb-420e-90b6-6fa86596b43f",
@@ -333,28 +324,6 @@
                 },
                 {
                     "name": "",
-                    "id": "8c98e11a-a168-40fd-92e5-a3e320951949",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "1d77c1f9-fa5f-4a80-8d22-74eb7a87253f",
-                    "path": "<Gamepad>/buttonSouth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Jump",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "fe1814dd-abf1-42b8-83e8-2da86d55f125",
                     "path": "<Keyboard>/shift",
                     "interactions": "",
@@ -414,6 +383,17 @@
                     "name": "",
                     "id": "3ee4d896-cf31-47bb-9ed5-afd4a6e44406",
                     "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "be1e43a9-7a85-4653-8839-8c0ce4b245a2",
+                    "path": "<Keyboard>/enter",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

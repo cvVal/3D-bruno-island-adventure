@@ -16,3 +16,13 @@ MonoBehaviour:
   damage: 5
   walkSpeed: 1
   runSpeed: 2
+  attackSpeed: 1
+  dashDistance: 2.5
+  dashDuration: 0.2
+  dashCooldown: 0.5
+  recoilDistance: 1
+  recoilDuration: 0.3
+  attackRecoilDistance: 0.5
+  attackRecoilDuration: 0.15
+  hitFlashSpeed: 5
+  invincibilityDuration: 1

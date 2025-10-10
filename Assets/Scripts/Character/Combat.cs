@@ -136,8 +136,14 @@ namespace RPG.Character
                 // already damaged this swing
                 if (_hitTargets.Contains(healthCmp)) continue;
 
+                // Apply damage
                 healthCmp.TakeDamage(Damage);
                 _hitTargets.Add(healthCmp);
+                
+                // Apply recoil to the target
+                var targetMovement = target.transform.GetComponent<Movement>();
+                if (targetMovement)
+                    targetMovement.ApplyRecoil(transform.position);
             }
         }
 

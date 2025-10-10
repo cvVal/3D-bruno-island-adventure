@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using RPG.Core;
 using RPG.Utility;
 using UnityEngine;
@@ -13,20 +14,30 @@ namespace RPG.Character
         private Animator _animatorCmp;
         private bool _isDefeated;
         private BubbleEvent _bubbleEventCmp;
+        private Renderer[] _renderers;
+        private bool _isInvincible;
+        private Coroutine _invincibilityCoroutine;
 
         [SerializeField] private float healAmount = 15f;
+
+        [Header("Invincibility Settings")]
+        [Tooltip("How many times the character flickers during invincibility")]
+        [SerializeField]
+        private int flickerCount = 5;
 
         public int potionCount = 1;
         public event UnityAction OnStartDefeated = () => { };
 
         [NonSerialized] public float HealthPoints;
         [NonSerialized] public Slider SliderCmp;
+        [NonSerialized] public float InvincibilityDuration = 1f;
 
         private void Awake()
         {
             _animatorCmp = GetComponentInChildren<Animator>();
             _bubbleEventCmp = GetComponentInChildren<BubbleEvent>();
             SliderCmp = GetComponentInChildren<Slider>();
+            _renderers = GetComponentsInChildren<Renderer>();
         }
 
         private void OnEnable()
@@ -49,14 +60,17 @@ namespace RPG.Character
 
         public void TakeDamage(float damageAmount)
         {
+            // Skip damage if invincible
+            if (_isInvincible) return;
+
             // Apply defense reduction if defending
             var combatCmp = GetComponent<Combat>();
-            if (combatCmp != null)
+            if (combatCmp)
             {
                 var defenseReduction = combatCmp.GetDefenseReduction();
                 damageAmount *= (1f - defenseReduction);
             }
-            
+
             HealthPoints = Mathf.Max(HealthPoints - damageAmount, 0);
 
             if (CompareTag(Constants.PlayerTag))
@@ -69,7 +83,11 @@ namespace RPG.Character
                 SliderCmp.value = HealthPoints;
             }
 
-            if (HealthPoints != 0) return;
+            if (HealthPoints != 0)
+            {
+                StartInvincibility();
+                return;
+            }
 
             Defeated();
         }
@@ -107,6 +125,51 @@ namespace RPG.Character
 
             EventManager.RaiseChangePlayerHealth(HealthPoints);
             EventManager.RaiseChangePlayerPotions(potionCount);
+        }
+
+        private void StartInvincibility()
+        {
+            if (_invincibilityCoroutine != null)
+            {
+                StopCoroutine(_invincibilityCoroutine);
+            }
+
+            _invincibilityCoroutine = StartCoroutine(InvincibilityCoroutine());
+        }
+
+        private IEnumerator InvincibilityCoroutine()
+        {
+            _isInvincible = true;
+
+            // Flicker effect - blink on/off
+            var flickerInterval = InvincibilityDuration / (flickerCount * 2f);
+
+            for (var i = 0; i < flickerCount; i++)
+            {
+                // Turn off renderers
+                SetRenderersEnabled(false);
+                yield return new WaitForSeconds(flickerInterval);
+
+                // Turn on renderers
+                SetRenderersEnabled(true);
+                yield return new WaitForSeconds(flickerInterval);
+            }
+
+            _isInvincible = false;
+
+            // Ensure all renderers are visible
+            SetRenderersEnabled(true);
+        }
+
+        private void SetRenderersEnabled(bool isEnabled)
+        {
+            foreach (var rend in _renderers)
+            {
+                if (rend)
+                {
+                    rend.enabled = isEnabled;
+                }
+            }
         }
     }
 }

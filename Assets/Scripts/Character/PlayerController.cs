@@ -67,6 +67,13 @@ namespace RPG.Character
             _movementCmp.DashDistance = stats.dashDistance;
             _movementCmp.DashDuration = stats.dashDuration;
             _movementCmp.DashCooldown = stats.dashCooldown;
+            
+            // Initialize recoil stats from CharacterStatsSo
+            _movementCmp.RecoilDistance = stats.recoilDistance;
+            _movementCmp.RecoilDuration = stats.recoilDuration;
+            
+            // Initialize invincibility duration from CharacterStatsSo
+            HealthCmp.InvincibilityDuration = stats.invincibilityDuration;
 
             EventManager.RaiseChangePlayerHealth(HealthCmp.HealthPoints);
             SetWeapon();

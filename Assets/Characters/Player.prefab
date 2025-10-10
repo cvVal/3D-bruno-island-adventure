@@ -102,7 +102,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RPG.Character.Health
   healAmount: 15
-  potionCount: 1
+  flickerCount: 15
+  useFlickerEffect: 1
+  potionCount: 0
 --- !u!114 &7443881503611176783
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -116,6 +118,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RPG.Character.Combat
   attackClip: {fileID: 8300000, guid: ba2154a7dd95af94187b6c315bb538d2, type: 3}
+  defenseReduction: 0.5
 --- !u!114 &3278286468856211030
 MonoBehaviour:
   m_ObjectHideFlags: 0

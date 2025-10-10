@@ -11,19 +11,28 @@ namespace RPG.Character
     {
         private NavMeshAgent _agentCmp;
         private Animator _animatorCmp;
-        
+
         private Vector3 _movementVector;
         private bool _clampAnimatorSpeedAgain = true;
+
+        // Dash system
         private bool _isDashing;
         private float _dashTimer;
         private float _dashCooldownTimer;
         private Vector3 _dashDirection;
+
+        // Recoil system
+        private bool _isRecoiling;
+        private float _recoilTimer;
+        private Vector3 _recoilDirection;
 
         [NonSerialized] public Vector3 OriginalForwardVector;
         [NonSerialized] public bool IsMoving;
         [NonSerialized] public float DashDistance;
         [NonSerialized] public float DashDuration;
         [NonSerialized] public float DashCooldown;
+        [NonSerialized] public float RecoilDistance;
+        [NonSerialized] public float RecoilDuration;
 
         private void Awake()
         {
@@ -40,7 +49,11 @@ namespace RPG.Character
 
         private void Update()
         {
-            if (_isDashing)
+            if (_isRecoiling)
+            {
+                PerformRecoil();
+            }
+            else if (_isDashing)
             {
                 PerformDash();
             }
@@ -87,7 +100,7 @@ namespace RPG.Character
         {
             if (context.performed) IsMoving = true;
             if (context.canceled) IsMoving = false;
-            
+
             var input = context.ReadValue<Vector2>();
             _movementVector = new Vector3(input.x, 0, input.y);
         }
@@ -153,11 +166,12 @@ namespace RPG.Character
         {
             if (!context.performed) return;
             if (_isDashing) return; // Already dashing
+            if (_isRecoiling) return; // Can't dash while recoiling
             if (_dashCooldownTimer > 0) return; // On cooldown
-            
+
             // Get dash direction from current movement or forward
             var dashDir = _movementVector != Vector3.zero ? _movementVector.normalized : transform.forward;
-            
+
             StartDash(dashDir);
         }
 
@@ -167,13 +181,13 @@ namespace RPG.Character
             _dashTimer = DashDuration;
             _dashDirection = direction.normalized;
             _dashCooldownTimer = DashCooldown;
-            
+
             _animatorCmp.SetBool(Constants.IsDashingAnimatorParam, true);
-            
+
             var combatCmp = GetComponent<Combat>();
-            
+
             if (!combatCmp) return;
-            
+
             combatCmp.CancelAttack();
             combatCmp.StopDefense();
         }
@@ -191,7 +205,7 @@ namespace RPG.Character
             // Calculate dash speed
             var dashSpeed = DashDistance / DashDuration;
             var dashOffset = _dashDirection * (dashSpeed * Time.deltaTime);
-            
+
             if (_agentCmp.isOnNavMesh)
             {
                 _agentCmp.Move(dashOffset);
@@ -207,6 +221,75 @@ namespace RPG.Character
         public bool IsDashing()
         {
             return _isDashing;
+        }
+
+        /// <summary>
+        /// Apply knockback to the character away from a damage source
+        /// </summary>
+        /// <param name="sourcePosition">The position to recoil away from</param>
+        public void ApplyRecoil(Vector3 sourcePosition)
+        {
+            if (_isDashing) return; // Can't recoil during dash
+
+            // Calculate recoil direction away from source
+            Vector3 direction = (transform.position - sourcePosition).normalized;
+            direction.y = 0; // Keep on horizontal plane
+
+            if (direction == Vector3.zero)
+            {
+                // If positions are the same, recoil backwards
+                direction = -transform.forward;
+            }
+
+            StartRecoil(direction);
+        }
+
+        private void StartRecoil(Vector3 direction)
+        {
+            _isRecoiling = true;
+            _recoilDirection = direction;
+            _recoilTimer = RecoilDuration;
+
+            // Cancel any current dash
+            if (_isDashing)
+            {
+                EndDash();
+            }
+
+            // Stop agent movement
+            if (_agentCmp.isOnNavMesh)
+            {
+                _agentCmp.ResetPath();
+            }
+        }
+
+        private void PerformRecoil()
+        {
+            _recoilTimer -= Time.deltaTime;
+
+            if (_recoilTimer <= 0)
+            {
+                EndRecoil();
+                return;
+            }
+
+            // Calculate recoil speed with ease-out for smoother stop
+            var normalizedTime = 1f - (_recoilTimer / RecoilDuration);
+            var easeOut = 1f - (normalizedTime * normalizedTime); // Quadratic ease-out
+            var recoilSpeed = (RecoilDistance / RecoilDuration) * easeOut;
+
+            var recoilOffset = _recoilDirection * (recoilSpeed * Time.deltaTime);
+
+            if (_agentCmp.isOnNavMesh)
+            {
+                _agentCmp.Move(recoilOffset);
+            }
+        }
+
+        private void EndRecoil()
+        {
+            _isRecoiling = false;
+            _recoilTimer = 0;
         }
     }
 }
