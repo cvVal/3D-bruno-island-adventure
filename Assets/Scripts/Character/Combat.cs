@@ -100,6 +100,8 @@ namespace RPG.Character
 
         public void StopDefense()
         {
+            if (!_isDefending) return;
+            
             _isDefending = false;
             _animatorCmp.SetBool(Constants.IsDefendingAnimatorParam, false);
         }
