@@ -34,8 +34,6 @@ namespace RPG.Core
                     _sceneEnemyIDs.Add(enemyControllerCmp.EnemyID);
                 }
             );
-
-            Debug.Log("Scene Enemy IDs: " + string.Join(", ", _sceneEnemyIDs));
         }
 
         private void OnEnable()
