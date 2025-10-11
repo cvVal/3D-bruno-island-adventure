@@ -61,15 +61,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Spin Attack",
-                    "type": "Button",
-                    "id": "37c3929d-fead-4915-ad8a-80b71d6053ba",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "Dash",
                     "type": "Button",
                     "id": "b9ae02c3-50e6-40c2-aa27-de474123c297",
@@ -297,28 +288,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Defense",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "516e53da-fd53-4511-8e88-7519e2ea9e9f",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Spin Attack",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "8f33c031-a3c2-4f77-93d2-1269f46d48a4",
-                    "path": "<Gamepad>/leftShoulder",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Spin Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
