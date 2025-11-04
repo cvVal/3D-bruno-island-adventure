@@ -104434,6 +104434,18 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7460099510160632174, guid: 0921ef5bb22024fa1b78cbbd1e5d36f9, type: 3}
   m_PrefabInstance: {fileID: 2306942781763975605}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1433010261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1433010256}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 968e5edb2e69c462487f44f0fb0c9403, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIQuitGame
 --- !u!43 &1433359474
 Mesh:
   m_ObjectHideFlags: 0
@@ -158550,6 +158562,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2517574377876933073, guid: 0921ef5bb22024fa1b78cbbd1e5d36f9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1433010257}
+    - targetCorrespondingSourceObject: {fileID: 2517574377876933073, guid: 0921ef5bb22024fa1b78cbbd1e5d36f9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1433010261}
   m_SourcePrefab: {fileID: 100100000, guid: 0921ef5bb22024fa1b78cbbd1e5d36f9, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

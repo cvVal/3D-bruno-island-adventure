@@ -8,9 +8,11 @@ namespace RPG.UI
     public class UIMainMenuState : UIBaseState
     {
         private int _sceneIndex;
+        private readonly UIQuitGame _uiQuitGameCmp;
 
         public UIMainMenuState(UIController ui) : base(ui)
         {
+            _uiQuitGameCmp = ui.GetComponent<UIQuitGame>();
         }
 
         public override void EnterState()
@@ -37,10 +39,14 @@ namespace RPG.UI
             if (btn.name == Constants.UIClassStartButton)
             {
                 PlayerPrefs.DeleteAll();
-                
+
                 UIController.StartCoroutine(
                     SceneTransition.Initiate(1, UIController.AudioSourceCmp)
                 );
+            }
+            else if (btn.name == Constants.UIClassQuitButton)
+            {
+                _uiQuitGameCmp.QuitGame();
             }
             else
             {
