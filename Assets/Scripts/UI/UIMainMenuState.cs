@@ -58,12 +58,21 @@ namespace RPG.UI
 
         private void AddButton()
         {
+            var mainMenuButtons = UIController.MainMenuContainer.Q<VisualElement>(Constants.UIClassButtons);
+
             var continueButton = new Button();
             continueButton.AddToClassList(Constants.UIClassMenuButton);
             continueButton.text = "Continue";
 
-            var mainMenuButtons = UIController.MainMenuContainer.Q<VisualElement>(Constants.UIClassButtons);
             mainMenuButtons.Add(continueButton);
+
+            // Ensure the Quit button is always last. If a Quit button exists, remove it and re-add it so it becomes the last child.
+            var quitButton = mainMenuButtons.Q<Button>(Constants.UIClassQuitButton);
+
+            if (quitButton == null) return;
+
+            mainMenuButtons.Remove(quitButton);
+            mainMenuButtons.Add(quitButton);
         }
     }
 }
