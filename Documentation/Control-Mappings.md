@@ -17,13 +17,12 @@
 | **Jump** | Space Bar        | B / South         |
 | **Defense/Block** | E       | ZR / Right Trigger |
 | **Dash** | Shift            | R / Right Shoulder |
-| **Spin Attack** | Right Button Mouse | L / Left Shoulder |
 
 ## UI Controls
 
 | Action       | Keyboard   | Gamepad |
 |--------------|------------|---------|
 | **Navigate** | Arrow Keys | D-Pad / Left Stick |
-| **Select**   | F          | A / East |
+| **Select**   | F / Enter  | A / East |
 | **Back**     | ESC        | Start/Plus |
 
