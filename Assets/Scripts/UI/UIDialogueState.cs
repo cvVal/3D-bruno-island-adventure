@@ -74,6 +74,7 @@ namespace RPG.UI
             _playerInputCmp.SwitchCurrentActionMap(Constants.UIActionMap);
 
             UIController.canPause = false;
+            Time.timeScale = 0;
         }
 
         public override void SelectButton()
@@ -346,6 +347,7 @@ namespace RPG.UI
             }
 
             UIController.canPause = true;
+            Time.timeScale = 1;
         }
 
         private void BeginFadeIn()
