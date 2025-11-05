@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1128081535499318346}
   - component: {fileID: 6522968025679037756}
   - component: {fileID: 8433737410294041566}
+  - component: {fileID: 1490466623356981916}
   m_Layer: 5
   m_Name: UIDocument
   m_TagString: Untagged
@@ -72,6 +73,7 @@ MonoBehaviour:
   currentSelection: 0
   victoryClip: {fileID: 8300000, guid: 856e3d08deef4f640a47132c0182ba18, type: 3}
   gameOverClip: {fileID: 8300000, guid: 3417793892fcc544291c2c73d0c6c2d4, type: 3}
+  canPause: 1
 --- !u!82 &8433737410294041566
 AudioSource:
   m_ObjectHideFlags: 0
@@ -169,3 +171,15 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1490466623356981916
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2517574377876933073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 968e5edb2e69c462487f44f0fb0c9403, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIQuitGame
