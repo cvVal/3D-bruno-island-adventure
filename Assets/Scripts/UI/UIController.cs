@@ -245,11 +245,24 @@ namespace RPG.UI
             _currentState.EnterState();
         }
 
+        /// <summary>
+        /// Toggles between paused and unpaused states.
+        /// </summary>
+        /// <param name="context"></param>
         public void HandlePause(InputAction.CallbackContext context)
         {
             if (!context.performed || !canPause) return;
 
             _currentState = _currentState == _pauseState ? _unpausedState : _pauseState;
+            _currentState.EnterState();
+        }
+
+        /// <summary>
+        /// Transitions the UI to the unpaused state (used by Pause menu Resume button).
+        /// </summary>
+        public void UnpauseNow()
+        {
+            _currentState = _unpausedState;
             _currentState.EnterState();
         }
     }
